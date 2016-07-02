@@ -1,0 +1,75 @@
+body{max-width:640px; margin:auto; background:#282B32 url(../images/mobile/login_bg.jpg) no-repeat center top; overflow-x:hidden; position:relative; top:0; left:0; }
+
+
+/********* By Lcj Start **********/
+
+/* 提示 开始 */
+#show_alert{width:100%; height:100%; position:fixed; top:0; left:0; z-index:1000000; background:rgba(0,0,0,.5); overflow:hidden; display:none; }
+#show_alert div{width:80%; margin:auto; margin-top:35%; background:#fff; }
+#show_alert div h5{width:100%; height:36px; line-height:36px; background:#eee; }
+#show_alert div h5 b{margin-left:15px; font-size:1.1em; color:#888; }
+#show_alert div p{width:80%; min-height:40px; line-height:20px; margin:auto; margin-top:15px; margin-bottom:10px; }
+#show_alert div p span{color:#555; font-size:14px; }
+#show_alert div dd{width:100%; height:38px; line-height:30px; text-align:center; padding-bottom:5px; }
+#show_alert div dd button{width:80px; height:30px; font-size:1.2em; border:0; outline:none; background:#fff; color:#555; }
+#show_alert div dd button:hover{color:red; }
+
+#show_big_img{width:100%; height:100%; position:fixed; top:0; left:0; z-index:1000001; background:rgba(0,0,0,.5); overflow:hidden; display:none; }
+#show_big_img dd{width:100%; height:100%; overflow:hidden; background-size:85% auto !important; }
+/* 提示 结束 */
+
+/* 分页 开始 */
+#pager{margin-top:40px; margin-bottom:20px; }
+#pager ul{width:660px; margin:auto; clear:both; overflow:hidden; }
+#pager ul li{float:left; line-height:35px; margin-right:30px; font-size:13px; color:grey; }
+#pager ul li a{font-size:14px; }
+/* 分页 结束 */
+
+/********* By Lcj End **********/
+
+
+/* 头部 start */
+header{width:100%; background:#287D3C; }
+.header{width:100%; height:310px; background:url(../images/mobile/bg.jpg) no-repeat center top; }
+header .topC{height:50px; clear:both; text-align:center; background:#000; }
+header .topC .menua{float:left; width:28px; height:24px; margin-left:10px; margin-top:13px; background:url(../images/mobile/menu.png) no-repeat center center; background-size:100% 100%; }
+header .topC .share{float:right; width:32px; height:26px; margin-right:10px; margin-top:11px; background:url(../images/mobile/fenxiang.png) no-repeat center center; background-size:100% 100%; }
+header .topC .back{float:left; width:17px; height:28px; margin-left:13px; margin-top:10px; background:url(../images/mobile/back.png) no-repeat center center; background-size:100% 100%; }
+header .topC .home{float:right; width:28px; height:24px; margin-right:10px; margin-top:14px; background:url(../images/mobile/home.png) no-repeat center center; background-size:100% 100%; }
+header .topC span{font-size:1.2em; color:#fff; margin-top:12px; }
+/* 头部 end */
+
+/* 左侧菜单 start */
+.menuC{width:200px; min-height:710px; background:#162635; position:absolute; top:0; left:-200px; z-index:10; }
+.menuC .minfo a{margin-top:8px; margin-left:8px; }
+.menuC .minfo a img{width:80px; height:80px; border-radius:50%; border:2px solid #2FC949; box-sizing:border-box; }
+.menuC .minfo li{vertical-align:top; display:inline-block; width:100px; text-align:center; }
+.menuC .minfo li span{margin-top:30px; display:block; font-size:1.2em; color:#fff; }
+.menuC .minfo li b{margin-top:7px; display:block; font-size:0.9em; color:#2FC949; }
+.menuC ul{width:100%; margin-top:20px; }
+.menuC ul a{display:block; width:100%; height:50px; line-height:50px; background:url(../images/mobile/icon01.png) no-repeat 15% center; background-size:auto 50%; }
+.menuC ul a:hover{background-color:#32D94B; }
+.menuC ul a b{margin-left:36%; color:#fff; }
+.menuC ul a.m0{background-image:url(../images/mobile/home.png); }
+.menuC ul a.m1{background-image:url(../images/mobile/icon01.png); }
+.menuC ul a.m2{background-image:url(../images/mobile/icon02.png); }
+.menuC ul a.m3{background-image:url(../images/mobile/icon03.png); }
+.menuC ul a.m4{background-image:url(../images/mobile/icon04.png); background-size:auto 40%; }
+.menuC ul a.m5{background-image:url(../images/mobile/icon05.png); }
+.menuC ul a.m6{background-image:url(../images/mobile/icon06.png); }
+.menuC ul a.m7{background-image:url(../images/mobile/icon07.png); }
+.menuC ul a.m8{background-image:url(../images/mobile/icon08.png); }
+.menuC ul a.m9{background-image:url(../images/mobile/icon09.png); }
+.menuC ul a.m10{background-image:url(../images/mobile/icon10.png); }
+.menuC ul a.m11{background-image:url(../images/mobile/icon11.png); }
+.menuC ul a.m12{background-image:url(../images/mobile/fenxiang.png); }
+.menuC ul a.on{background-color:#32D94B; }
+/* 左侧菜单 end */
+
+
+
+
+
+
+
+
