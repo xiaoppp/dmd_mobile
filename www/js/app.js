@@ -53,9 +53,9 @@ angular.module('starter', ['ionic', 'starter.controllers'])
     controller: 'SignupCtrl'
   })
 
-  .state('forgetpwd', {
-    url: '/forgetpwd',
-    templateUrl: 'templates/forgetpwd.html'
+  .state('resetpwd', {
+    url: '/resetpwd',
+    templateUrl: 'templates/resetpwd.html'
   })
 
   // .state('app.login', {
