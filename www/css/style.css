@@ -4,7 +4,11 @@
 img.captcha{width:80px;height:40px;}
 .box {margin:4px auto;padding: 3px;}
 .text-center{text-align: center;}
-.scroll-content {
-   background: url(../images/bg.png);
-   background-size: 100% 100%
-}
+.text-left{text-align: left;}
+.text-right{text-align: right;}
+.scroll-content { background: url(../images/bg.jpg); background-size: 100% 100% }
+.avator-female , .avator-male, .avator-dmd{ padding: 15px 30px; background-size: cover ;}
+.avator-female{background: url(../images/female1.jpg) no-repeat}
+.avator-male{ background: url(../images/male1.jpg) no-repeat}
+.avator-dmd { background: url(../images/logo2.png) no-repeat}
+.line { border-bottom: 1px dashed #efefef; }
