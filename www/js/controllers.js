@@ -19,5 +19,16 @@ angular.module('starter.controllers', [])
 })
 
 .controller('SignupCtrl', function($scope) {
+    $scope.user = {
+        refer: {
+            mobile: "130202929",
+            username: "酷哥"
+        },
+        sex: 1,
+        username: "asdfdsf",
+        mobile: "1323109292",
+        pwd: "asdfdsf",
+        pay_pwd: "123123"
 
+    }
 })
