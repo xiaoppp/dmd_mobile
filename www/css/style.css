@@ -1,7 +1,9 @@
 .btn-offer , .btn-apply{ font-size: 18px;font-weight: bold;}
 .btn-offer{background: url(../images/btn-offer-bg.png) repeat-x;color: #428110;}
-.btn-apply{background: url(../images/btn-apply-bg.png) repeat-x;color: #683E03}
-
+.btn-apply{background: url(../images/btn-apply-bg.png) repeat-x;color: #683E03;}
+img.captcha{width:80px;height:40px;}
+.box {margin:4px auto;padding: 3px;}
+.text-center{text-align: center;}
 .scroll-content {
    background: url(../images/bg.png);
    background-size: 100% 100%
