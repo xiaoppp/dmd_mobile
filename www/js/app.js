@@ -32,6 +32,41 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.config'])
     controller: 'AppCtrl'
   })
 
+  .state('app.me', {
+    url: '/me',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/me.html'
+      }
+    }
+  })
+
+  .state('signin', {
+    url: '/signin',
+    templateUrl: 'templates/signin.html',
+    controller: 'SigninCtrl'
+  })
+
+  .state('signup', {
+    url: '/signup',
+    templateUrl: 'templates/signup.html',
+    controller: 'SignupCtrl'
+  })
+
+  .state('forgetpwd', {
+    url: '/forgetpwd',
+    templateUrl: 'templates/forgetpwd.html'
+  })
+
+  // .state('app.login', {
+  //   url: '/login',
+  //   views: {
+  //     'menuContent': {
+  //       templateUrl: 'templates/login.html'
+  //     }
+  //   }
+  // })
+
   .state('app.apply', {
     url: '/apply',
     views: {
@@ -68,14 +103,7 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.config'])
     }
   })
 
-  .state('app.me', {
-    url: '/me',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/me.html'
-      }
-    }
-  })
+
 
   .state('app.message', {
     url: '/message',
