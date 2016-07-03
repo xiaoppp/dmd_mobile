@@ -1,0 +1,47 @@
+/**
+ * 全局基础层叠样式
+ * @By LiChuanJiang
+ */
+
+@charset "utf-8";
+
+*{word-wrap:break-word; box-sizing:border-box; font-size:13px; }
+html{width:100%; min-width:1200px; }
+body{width:100%; min-height:100%; position:relative; }
+html,body,div,ol,ul,li,dl,dt,dd,table,tr,th,td,h1,h2,h3,h4,h5,h6,p,em,b,i,a,span,img,mark,time,label,font,center,hr,fieldset,legend,iframe,pre{margin:0; padding:0; border:0; outline:none; list-style:none; color:#333; font-weight:normal; font-style:normal; font-family:"Microsoft Yahei", Arial, "SimSun", sans-serif; }
+button,input,select,option{vertical-align:middle; outline:none; font-size:14px; }
+button,input[type='button'],input[type='submit'],input[type='reset']:hover{cursor:pointer; }
+input[type='text'],input[type='password'],input[type='number']{padding-left:5px; border:1px solid #ccc; }
+input[type='radio'],input[type='checkbox']{width:20px; height:20px; vertical-align:middle; }
+textarea{resize:none; overflow-x:hidden; padding-top:5px; padding-left:6px; border:1px solid #ccc; outline:none; }
+table,caption,thead,tbody,tfoot,tr,th,td{border-collapse:collapse; border-spacing:0; text-align:center; vertical-align:middle; position:relative; }
+table{width:100%; }
+p{text-align:left; font-size:13px; text-indent:2em; margin-top:10px; margin-bottom:10px; line-height:150%; letter-spacing:1px; }
+p *{text-indent:0; }
+em,b,i,a,span,img,label,font,mark,time{width:auto; height:auto; display:inline-block; vertical-align:bottom; }
+a{text-decoration:none; zoom:1; color:#333; transition-duration:.4s; }
+a:hover{color:red; transition-duration:.4s; }
+img{vertical-align:middle; }
+.clear,.clear:before,.clear:after{width:0; height:0; overflow:hidden; clear:both; display:block; zoom:1; visibility:hidden; content:"."; }
+
+
+
+/* HTML5 - CSS3 */
+header,nav,section,article,footer,embed,audio,video{width:100%; margin:0; padding:0; border:0; display:block; }
+
+
+/* 当屏幕宽度大于1580px时执行 */
+@media only screen and (min-width:1580px) {
+	
+}
+
+/* 当屏幕宽度大于681px且小于1580px时执行 */
+@media only screen and (min-width:681px) and (max-width:1580px) {
+	/*html{min-width:1000px; }*/
+}
+
+/* 当屏幕宽度小于681px时执行 */
+@media only screen and (max-width:681px) {
+	*{font-size:1em; -webkit-tap-highlight-color:rgba(0,0,0,0); -webkit-touch-callout:none; -webkit-text-size-adjust:none; /*-webkit-user-select:none;*/ }
+	html{min-width:320px; }
+}

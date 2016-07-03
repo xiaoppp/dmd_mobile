@@ -1,1 +1,52 @@
 /* Empty. Add your own CSS if you like */
+
+ion-content{background:url(../images/bg.jpg) no-repeat center top;}
+
+/* 个人中心首页 start */
+.topC img{height:32px; margin-top:10px; }
+.pimg{width:100%; margin-top:40px; text-align:center; }
+.pimg img{width:100px; height:100px; border-radius:50%; box-sizing:border-box; }
+.info{margin-top:20px; text-align:center; }
+.info span{font-size:23px; color:#fff; }
+.info i{font-size:14px; color:#848AA0; }
+.info b{font-size:14px; color:#30D84D; margin-left:20px; margin-right:20px; padding-left:22px; background:url(/images/dengji.png) no-repeat; background-size:auto 100%; }
+.info a{margin-left:6px; font-size:14px; color:#2FDB4B; letter-spacing:2px; }
+.info .chengxin{color:#fff; }
+.info .sb{width:22px; height:15px; background:url(../images/mobile/message2.png) no-repeat center center; background-size:100% 100%; position:relative; }
+.info .sb i{position:absolute; top:-15px; left:10px; z-index:2; padding:2px 7px; background:rgba(255,0,0,.7); border-radius:10px; color:#fff; }
+.mbwap{width:100%; margin-top:20px; }
+.mbwap li{width:25%; height:60px; float:left; background:rgba(0,0,0,.5); text-align:center; }
+.mbwap li span{width:100%; display:block; margin-top:6px; text-align:center; font-size:.9em; color:#DADADA; }
+.mbwap li b{width:100%; display:block; text-align:center; font-size:1em; margin-top:5px; color:#FADA70; }
+
+.btnarea{width:96%; margin:auto; margin-top:20px; clear:both; }
+.btnarea a{width:47%; height:55px; line-height:55px; border-radius:5px; text-align:center; font-size:1.3em; color:#fff; }
+.btnarea a.o{background:#32D94B url(../images/bozhong_btnbg.png) no-repeat center center; background-size:100% 100%; float:left; color:#24932F; }
+.btnarea a.a{background:#1090FE url(../images/shouhuo_btnbg.png) no-repeat center center; background-size:100% 100%; float:right; color:#AA7506; }
+
+.bzrC{width:100%; margin:auto; margin-top:20px; padding:15px 0; clear:both; background:#191B27; }
+.bzrC .bzr{width:32%; height:50px; display:inline-block; }
+.bzrC .bzr li{display:inline-block; width:70%; margin-left:31%; text-align:center; }
+.bzrC .bzr li b{font-size:1.2em; display:block; }
+.bzrC .bzr li span{font-size:.9em; color:#5F6677; display:block; }
+.bzrC .b{background:url(../images/mobile/paidanbi.png) no-repeat 15% center; background-size:auto 60%; }
+.bzrC .z{background:url(../images/mobile/chenxinzhi.png) no-repeat 15% center; background-size:auto 60%; }
+.bzrC .r{background:url(../images/mobile/tuandui.png) no-repeat 15% center; background-size:auto 60%; }
+.bzrC .b li b{color:#6049A5; }
+.bzrC .z li b{color:#FD7830; }
+.bzrC .r li b{color:#F2D748; }
+
+.otl{width:100%; line-height:50px; background:url(../images/mobile/tigong.png) no-repeat 5% center; background-size:auto 60%; }
+.otl b{margin-left:5%; font-size:1.2em; color:#1090FE; }
+.oli{width:100%; background:rgba(0,0,0,.3); }
+.oli ul{width:96%; margin:auto; padding:10px 0; overflow:hidden; margin-bottom:6px; }
+.oli ul li{line-height:26px; clear:both; }
+.oli ul li span{font-size:0.9em; color:#ddd; }
+.oli ul li span b{font-size:0.9em; color:#ddd; }
+.oli ul li span b.c{color:#EDA935; }
+.oli ul li span b.ctd{color:#3497C7; }
+.oli ul li .ls{float:left; }
+.oli ul li .rs{float:right; }
+.oli ul li.li2{text-align:center; }
+.atl{background:url(../images/mobile/jieshou.png) no-repeat 5% center; background-size:auto 58%; }
+.atl b{color:#31D74A; }

@@ -25,49 +25,112 @@ angular.module('starter', ['ionic', 'starter.controllers'])
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
 
-    .state('app', {
+  .state('app', {
     url: '/app',
     abstract: true,
     templateUrl: 'templates/menu.html',
     controller: 'AppCtrl'
   })
 
-  .state('app.search', {
-    url: '/search',
+  .state('app.apply', {
+    url: '/apply',
     views: {
       'menuContent': {
-        templateUrl: 'templates/search.html'
+        templateUrl: 'templates/apply.html'
       }
     }
   })
 
-  .state('app.browse', {
-      url: '/browse',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/browse.html'
-        }
-      }
-    })
-    .state('app.playlists', {
-      url: '/playlists',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/playlists.html',
-          controller: 'PlaylistsCtrl'
-        }
-      }
-    })
-
-  .state('app.single', {
-    url: '/playlists/:playlistId',
+  .state('app.group', {
+    url: '/group',
     views: {
       'menuContent': {
-        templateUrl: 'templates/playlist.html',
-        controller: 'PlaylistCtrl'
+        templateUrl: 'templates/group.html'
       }
     }
-  });
+  })
+
+  .state('app.info', {
+    url: '/info',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/info.html'
+      }
+    }
+  })
+
+  .state('app.leavemsg', {
+    url: '/leavemsg',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/leavemsg.html'
+      }
+    }
+  })
+
+  .state('app.me', {
+    url: '/me',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/me.html'
+      }
+    }
+  })
+
+  .state('app.message', {
+    url: '/message',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/message.html'
+      }
+    }
+  })
+
+  .state('app.money', {
+    url: '/money',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/money.html'
+      }
+    }
+  })
+
+  .state('app.news', {
+    url: '/news',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/news.html'
+      }
+    }
+  })
+
+  .state('app.offer', {
+    url: '/offer',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/offer.html'
+      }
+    }
+  })
+
+  .state('app.records', {
+    url: '/records',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/records.html'
+      }
+    }
+  })
+
+  .state('app.share', {
+    url: '/share',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/share.html'
+      }
+    }
+  })
+
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/playlists');
+  $urlRouterProvider.otherwise('/app/me');
 });
