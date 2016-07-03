@@ -1,0 +1,73 @@
+<ion-view>
+  <ion-content>
+    <div class="text-center" style="margin-top:100px">
+      <img src="images/logo_zh.png">
+    </div>
+
+    <ul id="signup" style="margin-left:50px;margin-right:50px;">
+        <h3 style="color: #32D94B;" class="text-center">
+            用户注册
+        </h3>
+		<li><span>推荐人：</span><em> <input type="hidden" id="refer_username" value=""></em></li>
+		<li><span>推荐人手机：</span><em></em></li>
+		<li class="sk">
+			<span>性别：</span>
+			<label class="s1"><input type="radio" name="sex" class="sex" value="1" checked="true"></label>
+			<label class="s2"><input type="radio" name="sex" class="sex" value="2"></label>
+		</li>
+		<li>
+            <label class="item item-input" style="border-radius:5px;">
+              <i class="icon ion-person placeholder-icon"></i>
+              <input type="text" placeholder="昵称">
+            </label>
+        </li>
+		<li>
+            <label class="item item-input" style="border-radius:5px;">
+              <i class="icon ion-locked placeholder-icon"></i>
+              <input type="password" placeholder="密码">
+            </label>
+        </li>
+		<li>
+            <label class="item item-input" style="border-radius:5px;">
+              <i class="icon ion-locked placeholder-icon"></i>
+              <input type="password" placeholder="安全密码">
+            </label>
+        </li>
+		<li>
+            <label class="item item-input" style="border-radius:5px;">
+              <i class="icon ion-person placeholder-icon"></i>
+              <input type="text" placeholder="会员手机">
+            </label>
+        </li>
+		<!-- <li>
+			<input type="text" class="text" id="captcha" maxlength="4" placeholder="图形验证码" style="width:53%;">
+			<a href="javascript:void(0);" style="position:relative;" class="validate" title="下一张" onclick="document.getElementById('captchaImg').src='/core/captcha.php?ImgGetCaptcha=true#'+Math.random();">
+				<img id="captchaImg" style="width:130px; height:47px; box-shadow:0 0 5px #ccc;" src="/core/captcha.php?ImgGetCaptcha=true">
+			</a>
+		</li>
+		<li>
+			<input type="text" id="mobile_checkcode" class="text" placeholder="手机验证码" maxlength="6" style="width:53%;">
+			<input type="button" class="sbtn" data-type="reg" id="send_mobile_checkcode" value="获取验证码">
+		</li>
+	 -->
+	</ul>
+
+    <div style="margin-left:70px;margin-right:70px;">
+        <button class="button button-large button-block button-balanced" style="font-weight:bold;border-radius:8px;">
+            注册
+        </button>
+    <div>
+  </ion-content>
+</ion-view>
+
+<style>
+    #signup li {
+        margin-top:10px;
+        margin-bottom:10px;
+    }
+    #signup li span
+    {
+        font-weight: bold;
+        color: #FADA70;
+    }
+</style>

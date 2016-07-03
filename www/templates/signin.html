@@ -1,0 +1,41 @@
+<ion-view>
+  <ion-content>
+    <div class="text-center" style="margin-top:100px">
+      <img src="images/logo_zh.png">
+    </div>
+
+    <div style="margin:50px;">
+      <label class="item item-input" style="border-radius:5px;">
+        <i class="icon ion-person placeholder-icon"></i>
+        <input type="text" ng-model="user.username" placeholder="手机号">
+      </label>
+      <div style="height:20px;">
+      </div>
+      <label class="item item-input" style="border-radius:5px;">
+        <i class="icon ion-locked placeholder-icon"></i>
+        <input type="password" ng-model="user.pwd" placeholder="密码">
+      </label>
+    </div>
+    <div style="display:block;height:20px;margin-right:50px;margin-bottom:30px;">
+        <a id="fgpwd" href="">忘记密码</a>
+    </div>
+    <div style="margin-left:70px;margin-right:70px;">
+        <button ng-click="signin()" class="button button-large button-block button-balanced" style="font-weight:bold;border-radius:8px;">
+          登录
+        </button>
+    <div>
+  </ion-content>
+</ion-view>
+
+<style>
+    #fgpwd {
+        text-decoration: none;
+        font-size:15px;
+        font-weight:bold;
+        zoom: 1;
+        color: #333;
+        transition-duration: .4s;
+        float: right;
+        color: #32D94B;
+    }
+</style>
