@@ -17,7 +17,7 @@ angular.module('starter.controllers', [])
     }
 })
 
-.controller('RecordCtrl', function($scope, $cordovaCamera, AlertService) {
+.controller('RecordCtrl', function($scope, $cordovaCamera, $cordovaFileTransfer, AlertService) {
     $scope.record = {};
 
     function uploadImage() {
@@ -29,7 +29,7 @@ angular.module('starter.controllers', [])
 
         var options = new FileUploadOptions();
         options.fileKey = "image_file";
-        options.fileName = $scope.hint.photo.substr($scope.hint.photo.lastIndexOf('/') + 1);
+        options.fileName = $scope.record.photo.substr($scope.record.photo.lastIndexOf('/') + 1);
         options.mimeType = "text/plain";
 
         $cordovaFileTransfer.upload(server, filePath, options)
@@ -54,7 +54,7 @@ angular.module('starter.controllers', [])
 
         $cordovaCamera.getPicture(options).then(function (imageURI) {
             window.resolveLocalFileSystemURL(imageURI, function (fileEntry) {
-                $scope.hint.photo = fileEntry.toURL();
+                $scope.record.photo = fileEntry.toURL();
                 $scope.$apply();
             });
         }, function (err) {

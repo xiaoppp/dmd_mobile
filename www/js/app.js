@@ -152,7 +152,8 @@ angular.module('starter',
     url: '/records',
     views: {
       'menuContent': {
-        templateUrl: 'templates/records.html'
+        templateUrl: 'templates/records.html',
+	    controller: 'RecordCtrl'
       }
     }
   })
