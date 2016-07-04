@@ -6,21 +6,21 @@ angular.module('starter.controllers', [])
     }
 })
 
-.controller('SigninCtrl', function($scope, $state, DataService, AlertService) {
+.controller('SigninCtrl', function($scope, $state) {
     $scope.user = {
         username: "17703446798",
         pwd: "06091"
     }
 
     $scope.signin = function() {
-        DataService.Login()
-            .then(function(d) {
-                AlertService.Alert('登录成功')
-                $state.go('app.me')
-            })
-            .catch(function(err) {
-                AlertService.Alert(err)
-            })
+        // DataService.Login()
+        //     .then(function(d) {
+        //         AlertService.Alert('登录成功')
+        //         $state.go('app.me')
+        //     })
+        //     .catch(function(err) {
+        //         AlertService.Alert(err)
+        //     })
     }
 })
 
