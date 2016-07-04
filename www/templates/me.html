@@ -1,11 +1,11 @@
 <ion-view view-title="ME">
-  <ion-content>
-      <div class="box me-avator">
-		  <img src="images/female1.jpg">
+  <ion-content padding="true">
+      <div class="box text-center">
+		  <img class="circle" src="images/female1.jpg">
 	  </div>
-	  <div class="box">
-		  <strong>高诚</strong>
-		  <span>
+	  <div class="box text-center">
+		  <strong class="pr">高诚</strong>
+		  <span class="pr">
 			  <img src="images/level.png">
 			  <span>经理人</span>
 		  </span>
@@ -18,64 +18,65 @@
 			  <img src="images/love-gray.png">
 		  </span>
 	  </div>
-	  <div class="box">
-		  <ul>
-			  <li>
-				  <h3>DMD币</h3>
-				  <span>￥0.00</span>
-			  </li>
-			  <li>
-				  <h3>本金总额</h3>
-				  <span>￥50036.00</span>
-			  </li>
-			  <li>
-				  <h3>利息总额</h3>
-				  <span>￥490.36</span>
-			  </li>
-			  <li>
-				  <h3>奖金总额</h3>
-				  <span>￥14002.00</span>
-			  </li>
-		  </ul>
+	  <div class="box text-center">
+		  <div class="table bg-dark-alpha">
+			  <div class="row">
+					<div class="col">
+						<h5>DMD币</h5>
+						<span class="money">￥0.00</span>
+					</div>
+					<div class="col">
+						<h5>DMD币</h5>
+						<span class="money">￥0.00</span>
+					</div>
+					<div class="col">
+						<h5>利息总额</h5>
+						<span class="money">￥490.36</span>
+					</div>
+					<div class="col">
+						<h5>奖金总额</h5>
+						<span class="money">￥14002.00</span>
+					</div>
+				</div>
+		  </div>
 	  </div>
-	  <div class="box">
-			<button class="button btn-offer">
+	  <div class="box text-center">
+			<button class="button btn-offer m" style="width:40%">
 				我要播种
 			</button>
-			<button class="button btn-apply">
+			<button class="button btn-apply m" style="width:40%">
 				我要收获
 			</button>
 	  </div>
 	  <div class="box">
-		  <h3>正在播种...</h3>
-		  <div class="table">
+		  <h4 class="color-green">正在播种...</h4>
+		  <div class="table bg-dark-alpha">
 			  <div class="row">
 				  <div class="col">
-					  <label>金额：</label>  <span>￥500310.00</span>
-				  </span>
+					  <label>金额：</label>
+					  <br> 
+					  <span class="money">￥500310.00</span>
+				  </div>
 				  <div class="col">
-					  <label>时间：</label>  <span>2016-06-23 13:55:26</span>
+					  <label>时间：</label> <br><time>2016-06-23 13:55:26</time>
 				  </div>
 			  </div>
 			  <div class="row">
 				  <div class="col">
-					  <label>利息：</label>  <span>￥75120.00</span>
+					  <label>利息：</label><br><span class="money">￥75120.00</span>
 				  </div>
 				  <div class="col">
-					  <label>匹配人数：</label>  <span>0人</span>
+					  <label>匹配人数：</label><br><span class="number">0人</span>
 				  </div>
 				  <div class="col">
-					  <label>状态：</label>  <span>进行中...</span>
+					  <label>状态：</label><br><span class="status">进行中...</span>
 				  </div>
 			  </div>
 		  </div>
 	  </div>
 	  <div class="box">
-		  <h3>等待收获</h3>
-		  <div class="table"></div>
-	  </div>
-	  <div class="box">
-		  <div class="chart"></div>
+		  <h4 class="color-orange">等待收获...</h4>
+		  <div class="table bg-dark-alpha"></div>
 	  </div>
   </ion-content>
 </ion-view>
