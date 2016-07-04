@@ -6,15 +6,21 @@ angular.module('starter.controllers', [])
     }
 })
 
-.controller('SigninCtrl', function($scope, $state) {
+.controller('SigninCtrl', function($scope, $state, DataService, AlertService) {
     $scope.user = {
         username: "17703446798",
         pwd: "06091"
     }
 
     $scope.signin = function() {
-        localStorage.setItem('userid', $scope.user.username)
-        $state.go('app.me')
+        DataService.Login()
+            .then(function(d) {
+                AlertService.Alert('登录成功')
+                $state.go('app.me')
+            })
+            .catch(function(err) {
+                AlertService.Alert(err)
+            })
     }
 })
 
@@ -29,6 +35,5 @@ angular.module('starter.controllers', [])
         mobile: "1323109292",
         pwd: "asdfdsf",
         pay_pwd: "123123"
-
     }
 })

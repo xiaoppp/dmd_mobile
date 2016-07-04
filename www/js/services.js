@@ -135,10 +135,8 @@ angular.module('starter.services', [])
             console.log(model);
             var deferred = Q.defer();
             config.ajaxRequireToken = false;
-            HTTP_POST(_Combine('member/signin'), model,true).then(function(data){
+            HTTP_POST(_Combine('member/signin'), model, true).then(function(data){
                 if (data.isSuccess){
-                    //data.data   { memberid, token}
-                    //save the login info in localStorage
                     window.localStorage.setItem(config.loginkey, JSON.stringify(data.data));
                     config.ajaxRequireToken = true;
                 }
