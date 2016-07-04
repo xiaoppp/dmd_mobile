@@ -1,26 +1,32 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope, $state) {
-    if (localStorage.getItem('userid') == null) {
+.controller('AppCtrl', function($scope, $state, config) {
+    if (localStorage.getItem(config.loginkey) === null) {
         $state.go('signin')
     }
 })
 
-.controller('SigninCtrl', function($scope, $state) {
+.controller('MenuCtrl', function($scope, $state) {
+    $scope.toggleRight = function () {
+        $state.go('app.share')
+    };
+})
+
+.controller('SigninCtrl', function($scope, $state, DataService, AlertService) {
     $scope.user = {
         username: "17703446798",
         pwd: "06091"
     }
 
     $scope.signin = function() {
-        // DataService.Login()
-        //     .then(function(d) {
-        //         AlertService.Alert('登录成功')
-        //         $state.go('app.me')
-        //     })
-        //     .catch(function(err) {
-        //         AlertService.Alert(err)
-        //     })
+        DataService.Login($scope.user)
+            .then(function(d) {
+                $state.go('app.me')
+                AlertService.Alert('登录成功')
+            })
+            .catch(function(err) {
+                AlertService.Alert(err)
+            })
     }
 })
 

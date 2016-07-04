@@ -64,14 +64,13 @@ angular.module('starter.services',[])
 
             var deferred = $q.defer();
 
-            url = backendURL + url;
             console.log('---------------------->', url);
 
             var req = {
                 method: 'POST',
                 url: url,
                 headers: {'Content-Type': 'application/json'},
-                data: qarams,
+                data: params,
                 timeout: 1000 * 20
             };
             $http(req).
@@ -135,14 +134,17 @@ angular.module('starter.services',[])
 
         service.Login = function(model){
             console.log(model);
-            var deferred = Q.defer();
+            var deferred = $q.defer();
             //config.ajaxRequireToken = false;
             HTTP_POST(_Combine('member/signin'), model,true).then(function(data){
                 if (data.isSuccess){
                     window.localStorage.setItem(config.loginkey, JSON.stringify(data.data));
+                    deferred.resolve(data);
                     //config.ajaxRequireToken = true;
                 }
-                deferred.resolve(data);
+                else {
+                    deferred.reject(data.error.message);    
+                }
             }).catch(function(err){
                 deferred.reject(err);
             });
