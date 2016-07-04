@@ -4,3 +4,8 @@ app.config(function($ionicConfigProvider) {
     $ionicConfigProvider.tabs.position("bottom");
 });
 
+app.constant('config',{
+    host : '',
+    loginKey : 'member.login.information'
+});
+
