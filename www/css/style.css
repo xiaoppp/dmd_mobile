@@ -11,7 +11,7 @@ img.captcha{width:80px;height:40px;}
 .text-center{text-align: center;}
 .text-left{text-align: left;}
 .text-right{text-align: right;}
-.scroll-content { background: url(../images/bg.jpg); background-size: 100% 100%; }
+.scroll-content { background: url(../images/bg.png); background-size: 100% 100%; }
 .avator-female , .avator-male, .avator-dmd{ padding: 15px 30px; background-size: cover ;}
 .avator-female{background: url(../images/female1.jpg) no-repeat}
 .avator-male{ background: url(../images/male1.jpg) no-repeat}

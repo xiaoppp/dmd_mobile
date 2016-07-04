@@ -43,3 +43,7 @@ angular.module('starter.controllers', [])
         pay_pwd: "123123"
     }
 })
+
+.controller('SettingsCtrl', function($scope) {
+    
+})
