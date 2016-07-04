@@ -6,10 +6,15 @@ angular.module('starter.controllers', [])
     }
 })
 
-.controller('MenuCtrl', function($scope, $state) {
+.controller('MenuCtrl', function($scope, $state, $ionicSideMenuDelegate) {
     $scope.toggleRight = function () {
         $state.go('app.share')
     };
+
+    $scope.toggleLeft = function () {
+        console.log('left')
+        $ionicSideMenuDelegate.toggleLeft();
+    }
 })
 
 .controller('SigninCtrl', function($scope, $state, DataService, AlertService) {
@@ -44,6 +49,9 @@ angular.module('starter.controllers', [])
     }
 })
 
-.controller('SettingsCtrl', function($scope) {
-    
+.controller('SettingsCtrl', function($scope, $state, config) {
+    $scope.signout = function() {
+        localStorage.removeItem(config.loginkey)
+        $state.go('signin')
+    }
 })
