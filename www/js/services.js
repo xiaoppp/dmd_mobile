@@ -1,4 +1,4 @@
-angular.module('starter.services', [])
+angular.module('starter.services')
 
     .service("LocalData", function ($rootScope) {
 
@@ -22,11 +22,9 @@ angular.module('starter.services', [])
         return service;
     })
 
-    .service('DataService', function ($http, $q, LoadingService, LocalData, AlertService) {
+    .service('DataService', function ($http, $q, LoadingService, LocalData, AlertService, config) {
 
-        var backendURL = 'http://192.168.1.103/api/'
-
-        var HTTP_GET = function (url, ishowLoading) {
+        function HTTP_GET(url, ishowLoading) {
             if (_.isUndefined(showLoading) || _.isNull(showLoading)) {
                 showLoading = true;
             }
@@ -57,9 +55,9 @@ angular.module('starter.services', [])
                 });
 
             return deferred.promise;
-        };
+        }
 
-        var HTTP_POST = function (url, params, show_loading) {
+        function HTTP_POST (url, params, show_loading) {
             var _show_loading = (typeof(show_loading) == "undefined") ? true : show_loading;
             if (_show_loading)
                 LoadingService.Show();
@@ -89,18 +87,22 @@ angular.module('starter.services', [])
                 });
 
             return deferred.promise;
-        };
+        }
 
         function _Combine(){
             let len = arguments.length;
             if(len === 0) throw 'no parts provided';
             else {
-                let raw = backendURL;
+                let raw = config.host;
                 for(let i=0; i < len; i++){
                     raw += arguments[i];
                 }
                 return raw;
             }
+        }
+
+        function GET_MEMBER_LOGIN_INFO(){
+            return {memberid : 31, token : '...'}
         }
 
         var service = {}
@@ -134,11 +136,11 @@ angular.module('starter.services', [])
         service.Login = function(model){
             console.log(model);
             var deferred = Q.defer();
-            config.ajaxRequireToken = false;
-            HTTP_POST(_Combine('member/signin'), model, true).then(function(data){
+            //config.ajaxRequireToken = false;
+            HTTP_POST(_Combine('member/signin'), model,true).then(function(data){
                 if (data.isSuccess){
                     window.localStorage.setItem(config.loginkey, JSON.stringify(data.data));
-                    config.ajaxRequireToken = true;
+                    //config.ajaxRequireToken = true;
                 }
                 deferred.resolve(data);
             }).catch(function(err){
