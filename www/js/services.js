@@ -23,17 +23,10 @@ angular.module('starter.services', [])
     })
 
     .service('DataService', function ($http, $q, LoadingService, LocalData, AlertService) {
-        var backendURL = "http://192.168.1.103/api/";
 
-        var querystring = function (obj) {
-            var p = [];
-            for (var key in obj) {
-                p.push(key + '=' + encodeURIComponent(obj[key]));
-            }
-            return p.join('&');
-        };
+        var backendURL = 'http://192.168.1.103/api/'
 
-        var getResource = function (url, ishowLoading) {
+        var HTTP_GET = function (url, ishowLoading) {
             if (_.isUndefined(showLoading) || _.isNull(showLoading)) {
                 showLoading = true;
             }
@@ -43,7 +36,6 @@ angular.module('starter.services', [])
 
             var deferred = $q.defer();
 
-            url = backendURL + url
             console.log('---------------------->', url);
 
             var req = {
@@ -56,9 +48,6 @@ angular.module('starter.services', [])
                 .success(function (data, status, headers, config) {
                     console.log(data);
                     deferred.resolve(data);
-                    if (isCache) {
-                        localStorage.setItem(cacheName, angular.toJson(data));
-                    }
                     LoadingService.Hide();
                 })
                 .error(function (data, status, headers, config) {
@@ -70,7 +59,7 @@ angular.module('starter.services', [])
             return deferred.promise;
         };
 
-        var postResource = function (url, params, show_loading) {
+        var HTTP_POST = function (url, params, show_loading) {
             var _show_loading = (typeof(show_loading) == "undefined") ? true : show_loading;
             if (_show_loading)
                 LoadingService.Show();
@@ -102,21 +91,126 @@ angular.module('starter.services', [])
             return deferred.promise;
         };
 
-        var login = function() {
-            
+        function _Combine(){
+            let len = arguments.length;
+            if(len === 0) throw 'no parts provided';
+            else {
+                let raw = backendURL;
+                for(let i=0; i < len; i++){
+                    raw += arguments[i];
+                }
+                return raw;
+            }
         }
 
-        var member = function(username) {
-            return getResource('member/', username);
+        var service = {}
+
+        service.News = function(page){
+            return HTTP_GET(_Combine('news/page/', page));
+        }
+        service.NewsSingle = function(id){
+            return HTTP_GET(_Combine('news/',id));
+        }
+        service.Messages = function(page){
+            var who = GET_MEMBER_LOGIN_INFO();
+            return HTTP_GET(_Combine('messages/page/', who.memberid,'/', page));
+        }
+        service.MessageSingle = function(id){
+            return HTTP_GET(_Combine('message/',id));
+        }
+        service.MessageReplies = function(){
+            var who = GET_MEMBER_LOGIN_INFO();
+            return HTTP_GET(_Combine('messages/reply/',who.memberid));
+        }
+        service.PostMsg = function(model){
+            var who = GET_MEMBER_LOGIN_INFO();
+            model.member_id = who.memberid;
+            model.to_member_id = 0;
+            model.state = 0;
+            console.log(model);
+            return HTTP_POST(_Combine('message/action/leavemsg'), model);
         }
 
-		(function init() {
-
-		})()
-
-        return {
-
+        service.Login = function(model){
+            console.log(model);
+            var deferred = Q.defer();
+            config.ajaxRequireToken = false;
+            HTTP_POST(_Combine('member/signin'), model,true).then(function(data){
+                if (data.isSuccess){
+                    //data.data   { memberid, token}
+                    //save the login info in localStorage
+                    window.localStorage.setItem(config.loginkey, JSON.stringify(data.data));
+                    config.ajaxRequireToken = true;
+                }
+                deferred.resolve(data);
+            }).catch(function(err){
+                deferred.reject(err);
+            });
+            return deferred.promise;
         }
+
+        service.Member = function(username){
+            return HTTP_GET(_Combine('member/',username));
+        }
+        service.ParentMember = function(id){
+            return HTTP_GET(_Combine('member/info/',id));
+        }
+        service.IndexData = function(){
+            var who = GET_MEMBER_LOGIN_INFO();
+             return HTTP_GET(_Combine('index/info/', who.memberid));
+        }
+        service.EditMemberInfo = function(model){
+            return HTTP_POST(_Combine('member/edit/info'),model);
+        }
+        service.EditPwd = function(model){
+            return HTTP_POST(_Combine('member/reset'),model);
+        }
+        service.EditPayPwd = function(model,mode){
+            //mode //  0 通过原始安全密码,  1 通过手机验证码
+        }
+        service.TeamTree = function(id){
+            //member/children
+            return HTTP_GET(_Combine('member/children/',id));
+        }
+        service.Offer = function(money){
+            let who = GET_MEMBER_LOGIN_INFO()
+            let model = {money : money, memberid:who.memberid}
+            return HTTP_POST(_Combine('offer/member'), model)
+        }
+        service.Apply = function(money){
+            let who = GET_MEMBER_LOGIN_INFO()
+            let model = { memberid:who.memberid, money:money }
+            return HTTP_POST(_Combine('apply/member'), model)
+        }
+        service.TeamScope = function(id){
+            return HTTP_GET(_Combine('member/children/amount/',id));
+        }
+        service.IncomeRecords = function(type,page){
+            //type  =  money or  interest or bonus
+            let who = GET_MEMBER_INFO()
+            return HTTP_GET(_Combine('income/',type,'/',who.id,'/',page))
+        }
+        service.DealRecords = function(type,page){
+            // type = offers or applys or unmatches
+            let who = GET_MEMBER_INFO()
+            return HTTP_GET(_Combine(type,'/', who.id))
+        }
+        service.IsNewMember = function(){
+            let who = GET_MEMBER_INFO()
+            return HTTP_GET(_Combine('member/check/new/',who.id))
+        }
+        service.OfferDetail = function(id){
+            let who = GET_MEMBER_INFO()
+            let model = {offerid : id, memberid: who.id}
+            return HTTP_POST(_Combine('offer/detail'),model)
+        }
+        service.ApplyDetail = function(id){
+            let who = GET_MEMBER_INFO()
+            let model = {applyid : id, memberid : who.id}
+            return HTTP_POST(_Combine('apply/detail'),model)
+        }
+
+        return service
     })
 
     .service('MapService', function ($q, $timeout, $window) {
