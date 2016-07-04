@@ -1,4 +1,4 @@
-<ion-side-menus enable-menu-with-back-views="false">
+<ion-side-menus enable-menu-with-back-views="false" ng-controller="MenuCtrl">
   <ion-side-menu-content>
     <ion-nav-bar class="bar-dark bar-black">
       <ion-nav-back-button>
@@ -7,16 +7,31 @@
         <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
         </button>
       </ion-nav-buttons>
+      <ion-nav-buttons side="right">
+          <button class="button button-icon button-clear ion-share" menu-toggle="right" ng-click="toggleRight()">
+          </button>
+      </ion-nav-buttons>
     </ion-nav-bar>
     <ion-nav-view name="menuContent"></ion-nav-view>
   </ion-side-menu-content>
 
   <ion-side-menu side="left">
     <ion-header-bar class="bar-stable">
-      <h1 class="title">我的头像</h1>
+      <h1 class="title">选项</h1>
     </ion-header-bar>
     <ion-content>
-      <ion-list>
+    <div class='menuC'>
+        <ul >
+    		<a href="/?act=center_index" class="m0 on"><b>个人中心</b></a>
+    		<a href="/?act=offer" class="m1" style="background-color: rgb(26, 45, 62);"><b>我要播种</b></a>
+    		<a href="/?act=apply" class="m2"><b>我要收获</b></a>
+    		<a href="/?act=personal" class="m3" style="background-color: rgb(26, 45, 62);"><b>我的资料</b></a>
+    		<a href="/?act=team" class="m4"><b>我的团队</b></a>
+    		<a href="/?act=income" class="m5" style="background-color: rgb(26, 45, 62);"><b>我的资产</b></a>
+    		<a href="/?act=record" class="m6"><b>交易记录</b></a>
+    	</ul>
+    </div>
+      <!-- <ion-list>
         <ion-item menu-close href="#/app/me">
           <img src="images/menu/icon1.png">个人中心
         </ion-item>
@@ -38,6 +53,9 @@
         <ion-item menu-close href="#/app/records">
           <img src="images/menu/icon7.png">交易记录
         </ion-item>
+        <ion-item menu-close href="#/app/records">
+          <img src="images/menu/icon10.png">设置
+        </ion-item>
         <ion-item menu-close href="#/app/news">
           <img src="images/menu/icon8.png">新闻公告
         </ion-item>
@@ -47,10 +65,31 @@
         <ion-item menu-close href="#/app/leavemsg">
           <img src="images/menu/icon10.png">在线留言
         </ion-item>
-        <ion-item menu-close href="#/app/share">
-          <img src="images/menu/icon11.png">分享注册
-        </ion-item>
-      </ion-list>
+      </ion-list> -->
     </ion-content>
   </ion-side-menu>
 </ion-side-menus>
+<style>
+    .menuC {
+        display: block;
+    }
+    .menuC ul a.on {
+        background-color: #32D94B;
+    }
+    .menuC ul a.m0 {
+        background-image: url(images/mobile/home.png);
+    }
+    .menuC ul a {
+        display: block;
+        width: 100%;
+        height: 50px;
+        line-height: 50px;
+        background: url(images/mobile/icon01.png) no-repeat 15% center;
+        background-size: auto 50%;
+        text-decoration: none;
+        zoom: 1;
+        color: #333;
+        transition-duration: .4s;
+    }
+
+</style>
