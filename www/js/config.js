@@ -8,4 +8,3 @@ app.constant('config',{
     host : '',
     loginKey : 'member.login.information'
 });
-

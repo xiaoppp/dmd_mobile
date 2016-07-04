@@ -1,11 +1,8 @@
 /*
  FCC006 money
- 
+
 */
-
-
-
-*{color: #fff;}
+*{color: #fff !important;}
 .btn-offer , .btn-apply{ font-size: 18px;font-weight: bold;}
 .btn-offer{background: url(../images/btn-offer-bg.png) repeat-x;color: #428110;}
 .btn-apply{background: url(../images/btn-apply-bg.png) repeat-x;color: #683E03;}
@@ -20,4 +17,3 @@ img.captcha{width:80px;height:40px;}
 .avator-male{ background: url(../images/male1.jpg) no-repeat}
 .avator-dmd { background: url(../images/logo2.png) no-repeat}
 .line { border-bottom: 1px dashed #efefef; }
-.item{background-color: rgba(0, 0, 0, .5) ; }

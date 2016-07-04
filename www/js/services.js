@@ -21,7 +21,7 @@ angular.module('starter.services', ['starter.config'])
 
         return service;
     })
-
+    
     .service('DataService', function ($http, $q, LoadingService, LocalData, AlertService,config) {
 
         function HTTP_GET(url, ishowLoading) {
@@ -90,11 +90,11 @@ angular.module('starter.services', ['starter.config'])
         }
 
         function _Combine(){
-            let len = arguments.length;
+            var len = arguments.length;
             if(len === 0) throw 'no parts provided';
             else {
-                let raw = config.host;
-                for(let i=0; i < len; i++){
+                var raw = config.host;
+                for(var i=0; i < len; i++){
                     raw += arguments[i];
                 }
                 return raw;
@@ -175,13 +175,13 @@ angular.module('starter.services', ['starter.config'])
             return HTTP_GET(_Combine('member/children/',id));
         }
         service.Offer = function(money){
-            let who = GET_MEMBER_LOGIN_INFO()
-            let model = {money : money, memberid:who.memberid}
+            var who = GET_MEMBER_LOGIN_INFO()
+            var model = {money : money, memberid:who.memberid}
             return HTTP_POST(_Combine('offer/member'), model)
         }
         service.Apply = function(money){
-            let who = GET_MEMBER_LOGIN_INFO()
-            let model = { memberid:who.memberid, money:money }
+            var who = GET_MEMBER_LOGIN_INFO()
+            var model = { memberid:who.memberid, money:money }
             return HTTP_POST(_Combine('apply/member'), model)
         }
         service.TeamScope = function(id){
@@ -189,26 +189,26 @@ angular.module('starter.services', ['starter.config'])
         }
         service.IncomeRecords = function(type,page){
             //type  =  money or  interest or bonus
-            let who = GET_MEMBER_INFO()
+            var who = GET_MEMBER_INFO()
             return HTTP_GET(_Combine('income/',type,'/',who.id,'/',page))
         }
         service.DealRecords = function(type,page){
             // type = offers or applys or unmatches
-            let who = GET_MEMBER_INFO()
+            var who = GET_MEMBER_INFO()
             return HTTP_GET(_Combine(type,'/', who.id))
         }
         service.IsNewMember = function(){
-            let who = GET_MEMBER_INFO()
+            var who = GET_MEMBER_INFO()
             return HTTP_GET(_Combine('member/check/new/',who.id))
         }
         service.OfferDetail = function(id){
-            let who = GET_MEMBER_INFO()
-            let model = {offerid : id, memberid: who.id}
+            var who = GET_MEMBER_INFO()
+            var model = {offerid : id, memberid: who.id}
             return HTTP_POST(_Combine('offer/detail'),model)
         }
         service.ApplyDetail = function(id){
-            let who = GET_MEMBER_INFO()
-            let model = {applyid : id, memberid : who.id}
+            var who = GET_MEMBER_INFO()
+            var model = {applyid : id, memberid : who.id}
             return HTTP_POST(_Combine('apply/detail'),model)
         }
 
