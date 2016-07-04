@@ -1,4 +1,4 @@
-angular.module('starter.services', ['starter.config'])
+angular.module('starter.services',[])
 
     .service("LocalData", function ($rootScope) {
 
@@ -21,8 +21,8 @@ angular.module('starter.services', ['starter.config'])
 
         return service;
     })
-    
-    .service('DataService', function ($http, $q, LoadingService, LocalData, AlertService,config) {
+
+    .service('DataService', function ($http, $q, LoadingService, LocalData, AlertService, config) {
 
         function HTTP_GET(url, ishowLoading) {
             if (_.isUndefined(showLoading) || _.isNull(showLoading)) {
@@ -139,8 +139,6 @@ angular.module('starter.services', ['starter.config'])
             //config.ajaxRequireToken = false;
             HTTP_POST(_Combine('member/signin'), model,true).then(function(data){
                 if (data.isSuccess){
-                    //data.data   { memberid, token}
-                    //save the login info in localStorage
                     window.localStorage.setItem(config.loginkey, JSON.stringify(data.data));
                     //config.ajaxRequireToken = true;
                 }
