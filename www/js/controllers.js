@@ -17,6 +17,52 @@ angular.module('starter.controllers', [])
     }
 })
 
+.controller('RecordCtrl', function($scope, $cordovaCamera, AlertService) {
+    $scope.record = {};
+
+    function uploadImage() {
+        if (!$scope.record.photo)
+            AlertService.Alert("还没有上传凭证")
+
+        var server = "/api/pair/payment/upload";
+        var filePath = $scope.record.photo;
+
+        var options = new FileUploadOptions();
+        options.fileKey = "image_file";
+        options.fileName = $scope.hint.photo.substr($scope.hint.photo.lastIndexOf('/') + 1);
+        options.mimeType = "text/plain";
+
+        $cordovaFileTransfer.upload(server, filePath, options)
+            .then(function (result) {
+                AlertService.Alert("上传图片成功.");
+            }, function (err) {
+                AlertService.Alert("上传图片失败.");
+            }, function (progress) {
+            });
+    }
+
+    $scope.takeImage = function () {
+        var options = {
+            quality: 20,
+            destinationType: Camera.DestinationType.FILE_URI,
+            sourceType: Camera.PictureSourceType.CAMERA,
+            correctOrientation: true,
+            allowEdit: false,
+            popoverOptions: CameraPopoverOptions,
+            saveToPhotoAlbum: false
+        };
+
+        $cordovaCamera.getPicture(options).then(function (imageURI) {
+            window.resolveLocalFileSystemURL(imageURI, function (fileEntry) {
+                $scope.hint.photo = fileEntry.toURL();
+                $scope.$apply();
+            });
+        }, function (err) {
+            AlertService.Alert("拍照错误.");
+        });
+    };
+})
+
 .controller('SigninCtrl', function($scope, $state, DataService, AlertService) {
     $scope.user = {
         username: "17703446798",
