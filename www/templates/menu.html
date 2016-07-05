@@ -1,15 +1,15 @@
-<ion-side-menus enable-menu-with-back-views="false" ng-controller="MenuCtrl">
+<ion-side-menus enable-menu-with-back-views="true" ng-controller="MenuCtrl">
   <ion-side-menu-content>
     <ion-nav-bar class="bar-dark bar-black">
       <ion-nav-back-button>
       </ion-nav-back-button>
       <ion-nav-buttons side="left">
-        <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+        <button class="button button-icon button-clear ion-navicon" menu-toggle="left" ng-click="toggleLeft()">
         </button>
       </ion-nav-buttons>
       <ion-nav-buttons side="right">
-          <button class="button button-icon button-clear ion-share" menu-toggle="right" ng-click="toggleRight()">
-          </button>
+        <button class="button button-icon button-clear ion-share" menu-toggle="right" ng-click="toggleRight()">
+        </button>
       </ion-nav-buttons>
     </ion-nav-bar>
     <ion-nav-view name="menuContent"></ion-nav-view>
@@ -20,62 +20,70 @@
       <h1 class="title">选项</h1>
     </ion-header-bar>
     <ion-content style="background-color:#333">
-        <div class='menuC'>
-            <ul class="text-center">
-        		<a href="#/app/me" class="m0"><b>个人中心</b></a>
-        		<a href="#/app/offer" class="m1" style="background-color: rgb(26, 45, 62);"><b>我要播种</b></a>
-        		<a href="#/app/apply" class="m2"><b>我要收获</b></a>
-        		<a href="#/app/money" class="m3" style="background-color: rgb(26, 45, 62);"><b>我的资产</b></a>
-        		<a href="#/app/records" class="m4"><b>交易记录</b></a>
-                <a href="#/app/leavemsg" class="m5" style="background-color: rgb(26, 45, 62);"><b>在线留言</b></a>
-                <a href="#/app/settings" class="m6"><b>设置</b></a>
-        	</ul>
-        </div>
+      <div class='menuC'>
+        <ul class="text-center">
+          <a ng-click="toggleLeft()" href="#/app/me" class="m0"><b>个人中心</b></a>
+          <a ng-click="toggleLeft()" href="#/app/offer" class="m1" style="background-color: rgb(26, 45, 62);"><b>我要播种</b></a>
+          <a ng-click="toggleLeft()" href="#/app/apply" class="m2"><b>我要收获</b></a>
+          <a ng-click="toggleLeft()" href="#/app/money" class="m3" style="background-color: rgb(26, 45, 62);"><b>我的资产</b></a>
+          <a ng-click="toggleLeft()" href="#/app/records" class="m4"><b>交易记录</b></a>
+          <!-- <a ng-click="toggleLeft()" href="#/app/leavemsg" class="m5" ><b>在线留言</b></a> -->
+          <a ng-click="toggleLeft()" href="#/app/settings" class="m6" style="background-color: rgb(26, 45, 62);"><b>设置</b></a>
+        </ul>
+      </div>
     </ion-content>
   </ion-side-menu>
 </ion-side-menus>
 <style>
-    .menuC {
-        display: block;
-        background: #162635;
-        min-height: 1200px;
-    }
-    .menuC ul a.on {
-        background-color: #32D94B;
-    }
-    .menuC ul a.m0 {
-        background-image: url(images/menu/icon1.png);
-    }
-    .menuC ul a.m1 {
-        background-image: url(images/menu/icon2.png);
-    }
-    .menuC ul a.m2 {
-        background-image: url(images/menu/icon3.png);
-    }
-    .menuC ul a.m3 {
-        background-image: url(images/menu/icon6.png);
-    }
-    .menuC ul a.m4 {
-        background-image: url(images/menu/icon7.png);
-    }
-    .menuC ul a.m5 {
-        background-image: url(images/menu/icon11.png);
-    }
-    .menuC ul a.m6 {
-        background-image: url(images/menu/icon7.png);
-    }
-    .menuC ul a {
-        display: block;
-        width: 100%;
-        height: 50px;
-        line-height: 50px;
-        background: url(images/icon01.png) no-repeat 15% center;
-        background-size: auto 50%;
-        text-decoration: none;
-        font-size: 16px;
-        zoom: 1;
-        color: #fff;
-        transition-duration: .4s;
-    }
+  .menuC {
+    display: block;
+    background: #162635;
+    min-height: 1200px;
+  }
 
+  .menuC ul a.on {
+    background-color: #32D94B;
+  }
+
+  .menuC ul a.m0 {
+    background-image: url(images/menu/icon1.png);
+  }
+
+  .menuC ul a.m1 {
+    background-image: url(images/menu/icon2.png);
+  }
+
+  .menuC ul a.m2 {
+    background-image: url(images/menu/icon3.png);
+  }
+
+  .menuC ul a.m3 {
+    background-image: url(images/menu/icon6.png);
+  }
+
+  .menuC ul a.m4 {
+    background-image: url(images/menu/icon7.png);
+  }
+
+  .menuC ul a.m5 {
+    background-image: url(images/menu/icon10.png);
+  }
+
+  .menuC ul a.m6 {
+    background-image: url(images/menu/icon10.png);
+  }
+
+  .menuC ul a {
+    display: block;
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    background: url(images/icon01.png) no-repeat 15% center;
+    background-size: auto 50%;
+    text-decoration: none;
+    font-size: 16px;
+    zoom: 1;
+    color: #fff;
+    transition-duration: .4s;
+  }
 </style>

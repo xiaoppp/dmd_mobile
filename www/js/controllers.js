@@ -4,29 +4,76 @@ angular.module('starter.controllers', [])
     if (localStorage.getItem(config.loginkey) === null) {
         $state.go('signin');
     }
-
-    DataService.IndexData().then(function(data) {
-        if(data.isSuccess){
-            var d = data.data;
-            $rootScope.member = d.member;
-        } else {
-            AlertService.Alert(data.error.message)
-        }
-    }).catch(function(err){
-        console.log(err)
-    })
 })
 
-.controller('MenuCtrl', function($scope, $state) {
+.controller('MenuCtrl', function($scope, $state, $ionicSideMenuDelegate) {
     $scope.toggleRight = function () {
         $state.go('app.share')
+    };
+
+    $scope.toggleLeft = function () {
+        console.log('left')
+        $ionicSideMenuDelegate.toggleLeft();
+    }
+})
+
+.controller('MoneyCtrl', function($scope, $ionicTabsDelegate, DataService) {
+    $scope.onTabSelected = function(index) {
+        if (index == 0) {
+        }
+    }
+})
+
+.controller('RecordCtrl', function($scope, $cordovaCamera, $cordovaFileTransfer, AlertService) {
+    $scope.record = {};
+
+    function uploadImage() {
+        if (!$scope.record.photo)
+            AlertService.Alert("还没有上传凭证")
+
+        var server = "/api/pair/payment/upload";
+        var filePath = $scope.record.photo;
+
+        var options = new FileUploadOptions();
+        options.fileKey = "image_file";
+        options.fileName = $scope.record.photo.substr($scope.record.photo.lastIndexOf('/') + 1);
+        options.mimeType = "text/plain";
+
+        $cordovaFileTransfer.upload(server, filePath, options)
+            .then(function (result) {
+                AlertService.Alert("上传图片成功.");
+            }, function (err) {
+                AlertService.Alert("上传图片失败.");
+            }, function (progress) {
+            });
+    }
+
+    $scope.takeImage = function () {
+        var options = {
+            quality: 20,
+            destinationType: Camera.DestinationType.FILE_URI,
+            sourceType: Camera.PictureSourceType.CAMERA,
+            correctOrientation: true,
+            allowEdit: false,
+            popoverOptions: CameraPopoverOptions,
+            saveToPhotoAlbum: false
+        };
+
+        $cordovaCamera.getPicture(options).then(function (imageURI) {
+            window.resolveLocalFileSystemURL(imageURI, function (fileEntry) {
+                $scope.record.photo = fileEntry.toURL();
+                $scope.$apply();
+            });
+        }, function (err) {
+            AlertService.Alert("拍照错误.");
+        });
     };
 })
 
 .controller('SigninCtrl', function($scope, $state, DataService, AlertService) {
     $scope.user = {
         username: "17703446798",
-        pwd: "06091"
+        pwd: "1234"
     }
 
     $scope.signin = function() {
@@ -55,6 +102,9 @@ angular.module('starter.controllers', [])
     }
 })
 
-.controller('SettingsCtrl', function($scope) {
-    
+.controller('SettingsCtrl', function($scope, $state, config) {
+    $scope.signout = function() {
+        localStorage.removeItem(config.loginkey)
+        $state.go('signin')
+    }
 })

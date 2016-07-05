@@ -1,4 +1,4 @@
-<ion-view view-title="ME">
+<ion-view view-title="我的资产">
   <ion-content>
     <ion-tabs class="tabs-striped tabs-bottom tabs-background-dark tabs-color-energized">
       <ion-tab title="总资产">
@@ -16,7 +16,7 @@
           </div>
         </ion-content>
       </ion-tab>
-      <ion-tab title="本金">
+      <ion-tab title="本金" on-select="onTabSelected(0)">
         <ion-content padding="true">
           <div class="line2">
             <ul>
@@ -48,9 +48,9 @@
               </ul>
             </ion-item>
           </ion-list>
-        </ion-content>        
+        </ion-content>
       </ion-tab>
-      <ion-tab title="利息">
+      <ion-tab title="利息" on-select="onTabSelected(1)">
         <ion-content padding="true">
           <div class="line2">
             <ul>
@@ -83,7 +83,7 @@
           </ion-list>
         </ion-content>
       </ion-tab>
-      <ion-tab title="团队奖励">
+      <ion-tab title="团队奖励" on-select="onTabSelected(2)">
         <ion-content padding="true">
           <div class="line2">
             <ul>
@@ -115,7 +115,7 @@
               </ul>
             </ion-item>
           </ion-list>
-        </ion-content>    
+        </ion-content>
       </ion-tab>
     </ion-tabs>
   </ion-content>

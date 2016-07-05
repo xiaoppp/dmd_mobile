@@ -1,16 +1,23 @@
 angular.module('starter.services',[])
 
     .service("LocalData", function ($rootScope) {
-
-        var service = {
-        };
-
-        return service;
     })
 
-    .service('DataService', function ($http, $q, LoadingService, LocalData, AlertService, config) {
+    .service('DataService', function ($http, $q, $rootScope, LoadingService, LocalData, AlertService, config) {
 
-        function HTTP_GET(url, ishowLoading) {
+        var member = {};
+
+        // (function() {
+        //     var memberid = localStorage.getItem(config.loginkey)
+        //     HTTP_GET(_Combine('index/info/', memberid))
+        //         .then(function(data) {
+        //             member = data.member
+        //             $rootScope.member = data.data.member
+        //             $rootScope.config = data.data.config
+        //         })
+        // })();
+
+        function HTTP_GET(url,showLoading) {
             if (_.isUndefined(showLoading) || _.isNull(showLoading)) {
                 showLoading = true;
             }
@@ -43,8 +50,8 @@ angular.module('starter.services',[])
             return deferred.promise;
         }
 
-        function HTTP_POST (url, params, show_loading) {
-            var _show_loading = (typeof(show_loading) == "undefined") ? true : show_loading;
+        function HTTP_POST (url, params, showLoading) {
+            var _show_loading = (typeof(showLoading) == "undefined") ? true : showLoading;
             if (_show_loading)
                 LoadingService.Show();
 
@@ -61,7 +68,7 @@ angular.module('starter.services',[])
             };
             $http(req).
                 success(function (data, status, headers, config) {
-                    console.log(req);
+                    //console.log(req);
                     deferred.resolve(data);
                     if (_show_loading) LoadingService.Hide();
                 }).
@@ -70,7 +77,6 @@ angular.module('starter.services',[])
                     if (_show_loading) LoadingService.Hide();
                     AlertService.Alert("网络不稳定，请稍后在试。");
                 });
-
             return deferred.promise;
         }
 
@@ -86,16 +92,30 @@ angular.module('starter.services',[])
             }
         }
 
-        function GET_MEMBER_LOGIN_INFO(){
-            if(!this._who.memberid){
-                var who = window.localStorage.getItem(config.loginkey)
-                this._who = JSON.parse(who)
-            }
-            return this._who;
-        }
+        var service = {}
 
-        var service = this;
-        service._who = {};
+        service.Login = function(model){
+            console.log(model);
+            var deferred = $q.defer();
+            //config.ajaxRequireToken = false;
+            HTTP_POST(_Combine('member/signin'), model,true).then(function(data){
+                if (data.isSuccess){
+                    window.localStorage.setItem(config.loginkey, data.member_id);
+                    deferred.resolve(data);
+                    //config.ajaxRequireToken = true;
+                }
+                else {
+                    deferred.reject(data.error.message);
+                }
+            }).catch(function(err){
+                deferred.reject(err);
+            });
+            return deferred.promise;
+        };
+
+        service.IndexData = function(){
+             return HTTP_GET(_Combine('index/info/', member.id));
+        };
 
         service.News = function(page){
             return HTTP_GET(_Combine('news/page/', page));
@@ -106,8 +126,7 @@ angular.module('starter.services',[])
         };
 
         service.Messages = function(page){
-            var who = GET_MEMBER_LOGIN_INFO();
-            return HTTP_GET(_Combine('messages/page/', who.memberid,'/', page));
+            return HTTP_GET(_Combine('messages/page/', member.id,'/', page));
         };
 
         service.MessageSingle = function(id){
@@ -115,35 +134,15 @@ angular.module('starter.services',[])
         };
 
         service.MessageReplies = function(){
-            var who = GET_MEMBER_LOGIN_INFO();
-            return HTTP_GET(_Combine('messages/reply/',who.memberid));
+            return HTTP_GET(_Combine('messages/reply/',member.id));
         };
 
         service.PostMsg = function(model){
-            var who = GET_MEMBER_LOGIN_INFO();
-            model.member_id = who.memberid;
+            model.member_id = member.id;
             model.to_member_id = 0;
             model.state = 0;
             console.log(model);
             return HTTP_POST(_Combine('message/action/leavemsg'), model);
-        };
-
-        service.Login = function(model){
-            console.log(model);
-            var deferred = $q.defer();
-            //config.ajaxRequireToken = false;
-            HTTP_POST(_Combine('member/signin'), model,true).then(function(data){
-                if (data.isSuccess){
-                    window.localStorage.setItem(config.loginkey, JSON.stringify(data.data));
-                    deferred.resolve(data);
-                    //config.ajaxRequireToken = true;
-                } else {
-                    deferred.reject(data.error.message);    
-                }
-            }).catch(function(err){
-                deferred.reject(err);
-            });
-            return deferred.promise;
         };
 
         service.Member = function(username){
@@ -151,10 +150,6 @@ angular.module('starter.services',[])
         };
         service.ParentMember = function(id){
             return HTTP_GET(_Combine('member/info/',id));
-        };
-        service.IndexData = function(){
-            var who = GET_MEMBER_LOGIN_INFO();
-             return HTTP_GET(_Combine('index/info/', who.memberid));
         };
         service.EditMemberInfo = function(model){
             return HTTP_POST(_Combine('member/edit/info'),model);
@@ -170,42 +165,37 @@ angular.module('starter.services',[])
             return HTTP_GET(_Combine('member/children/',id));
         };
         service.Offer = function(money){
-            var who = GET_MEMBER_LOGIN_INFO()
-            var model = {money : money, memberid:who.memberid}
+            var model = {money : money, memberid:member.id}
             return HTTP_POST(_Combine('offer/member'), model)
         };
         service.Apply = function(money){
-            var who = GET_MEMBER_LOGIN_INFO()
-            var model = { memberid:who.memberid, money:money }
+            var model = { memberid:member.id, money:money }
             return HTTP_POST(_Combine('apply/member'), model)
         };
         service.TeamScope = function(id){
             return HTTP_GET(_Combine('member/children/amount/',id));
         };
-        service.IncomeRecords = function(type,page){
+        service.IncomeRecords = function(type, page){
             //type  =  money or  interest or bonus
-            var who = GET_MEMBER_INFO()
-            return HTTP_GET(_Combine('income/',type,'/',who.id,'/',page))
+            return HTTP_GET(_Combine('income/',type,'/',member.id,'/',page))
         };
         service.DealRecords = function(type,page){
             // type = offers or applys or unmatches
-            var who = GET_MEMBER_INFO()
-            return HTTP_GET(_Combine(type,'/', who.id))
+            return HTTP_GET(_Combine(type,'/', member.id))
         };
         service.IsNewMember = function(){
-            var who = GET_MEMBER_INFO()
-            return HTTP_GET(_Combine('member/check/new/',who.id))
+            return HTTP_GET(_Combine('member/check/new/',member.id))
         };
         service.OfferDetail = function(id){
-            var who = GET_MEMBER_INFO()
-            var model = {offerid : id, memberid: who.id}
+            var model = {offerid : id, memberid: member.id}
             return HTTP_POST(_Combine('offer/detail'),model)
         };
         service.ApplyDetail = function(id){
-            var who = GET_MEMBER_INFO()
-            var model = {applyid : id, memberid : who.id}
+            var model = {applyid : id, memberid : member.id}
             return HTTP_POST(_Combine('apply/detail'),model)
         };
+
+        return service;
     })
 
     .service('AlertService', function ($ionicPopup) {

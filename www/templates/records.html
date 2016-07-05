@@ -1,8 +1,17 @@
-<ion-view view-title="ME">
+<ion-view view-title="交易记录">
   <ion-content>
+
     <ion-tabs class="tabs-striped tabs-bottom tabs-background-dark tabs-color-energized">
       <ion-tab title="播种记录">
         <ion-content padding="true">
+            <div class="item">
+                <img style="width:200px;height:200px;" ng-src="{{record.photo}}" ng-show="record.photo">
+            </div>
+            <div class="item item-input" style="padding-right: 16px;">
+                <span class="input-label">拍照:</span>
+                <button class="button icon button-large ion-camera" ng-click="takeImage()"></button>
+                <button class="button icon button-large ion-ios-folder-outline" ng-click="uploadImage()"></button>
+            </div>
           <ion-list>
             <ion-item>
               <ul>
