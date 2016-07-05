@@ -1,7 +1,7 @@
 angular.module('starter.controllers', [])
 
 .controller('AppCtrl', function($scope, $state, config) {
-    if (localStorage.getItem(config.loginkey) === null) {
+    if (localStorage.getItem('memberid') === null) {
         $state.go('signin')
     }
 })
@@ -14,6 +14,14 @@ angular.module('starter.controllers', [])
     $scope.toggleLeft = function () {
         console.log('left')
         $ionicSideMenuDelegate.toggleLeft();
+    }
+})
+
+.controller('MoneyCtrl', function($scope, $ionicTabsDelegate, DataService) {
+    $scope.onTabSelected = function(index) {
+        if (index == 0) {
+
+        }
     }
 })
 
@@ -66,7 +74,7 @@ angular.module('starter.controllers', [])
 .controller('SigninCtrl', function($scope, $state, DataService, AlertService) {
     $scope.user = {
         username: "17703446798",
-        pwd: "06091"
+        pwd: "1234"
     }
 
     $scope.signin = function() {

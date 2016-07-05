@@ -16,7 +16,7 @@
           </div>
         </ion-content>
       </ion-tab>
-      <ion-tab title="本金">
+      <ion-tab title="本金" on-select="onTabSelected(0)">
         <ion-content padding="true">
           <div class="line2">
             <ul>
@@ -50,7 +50,7 @@
           </ion-list>
         </ion-content>
       </ion-tab>
-      <ion-tab title="利息">
+      <ion-tab title="利息" on-select="onTabSelected(1)">
         <ion-content padding="true">
           <div class="line2">
             <ul>
@@ -83,7 +83,7 @@
           </ion-list>
         </ion-content>
       </ion-tab>
-      <ion-tab title="团队奖励">
+      <ion-tab title="团队奖励" on-select="onTabSelected(2)">
         <ion-content padding="true">
           <div class="line2">
             <ul>

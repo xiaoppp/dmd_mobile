@@ -2,27 +2,24 @@ angular.module('starter.services',[])
 
     .service("LocalData", function ($rootScope) {
 
-        var service = {
-			department: null
-        };
-
-        service.setStationId = function (stationId) {
-            service.stationId = stationId;
-            localStorage.setItem("stationId", stationId);
-
-            $rootScope.$broadcast("StationChanged");
-        };
-
-        (function init() {
-            var stationId = localStorage.getItem("stationId");
-            if (stationId)
-                service.stationId = angular.fromJson(stationId);
-        })();
-
-        return service;
     })
 
-    .service('DataService', function ($http, $q, LoadingService, LocalData, AlertService, config) {
+    .service('DataService', function ($http, $q, , $rootScope, LoadingService, LocalData, AlertService, config) {
+        var member = {}
+
+        (function() {
+            var memberid = localStorage.getItem('memberid')
+            HTTP_GET(_Combine('index/info/', memberid))
+                .then(function(data) {
+                    member = data.member
+                    $rootScope.member = data.data.member
+                    $rootScope.config = data.data.config
+                })
+        })()
+
+        function GET_MEMBER_INFO() {
+            return member
+        }
 
         function HTTP_GET(url, ishowLoading) {
             if (_.isUndefined(showLoading) || _.isNull(showLoading)) {
@@ -100,11 +97,31 @@ angular.module('starter.services',[])
             }
         }
 
-        function GET_MEMBER_LOGIN_INFO(){
-            return {memberid : 31, token : '...'}
+        var service = {}
+
+        service.Login = function(model){
+            console.log(model);
+            var deferred = $q.defer();
+            //config.ajaxRequireToken = false;
+            HTTP_POST(_Combine('member/signin'), model,true).then(function(data){
+                if (data.isSuccess){
+                    window.localStorage.setItem(memberid, data.member_id);
+                    deferred.resolve(data);
+                    //config.ajaxRequireToken = true;
+                }
+                else {
+                    deferred.reject(data.error.message);
+                }
+            }).catch(function(err){
+                deferred.reject(err);
+            });
+            return deferred.promise;
         }
 
-        var service = {}
+        service.IndexData = function(){
+            var who = GET_MEMBER_LOGIN_INFO();
+             return HTTP_GET(_Combine('index/info/', who.memberid));
+        }
 
         service.News = function(page){
             return HTTP_GET(_Combine('news/page/', page));
@@ -132,35 +149,13 @@ angular.module('starter.services',[])
             return HTTP_POST(_Combine('message/action/leavemsg'), model);
         }
 
-        service.Login = function(model){
-            console.log(model);
-            var deferred = $q.defer();
-            //config.ajaxRequireToken = false;
-            HTTP_POST(_Combine('member/signin'), model,true).then(function(data){
-                if (data.isSuccess){
-                    window.localStorage.setItem(config.loginkey, JSON.stringify(data.data));
-                    deferred.resolve(data);
-                    //config.ajaxRequireToken = true;
-                }
-                else {
-                    deferred.reject(data.error.message);    
-                }
-            }).catch(function(err){
-                deferred.reject(err);
-            });
-            return deferred.promise;
-        }
-
         service.Member = function(username){
             return HTTP_GET(_Combine('member/',username));
         }
         service.ParentMember = function(id){
             return HTTP_GET(_Combine('member/info/',id));
         }
-        service.IndexData = function(){
-            var who = GET_MEMBER_LOGIN_INFO();
-             return HTTP_GET(_Combine('index/info/', who.memberid));
-        }
+
         service.EditMemberInfo = function(model){
             return HTTP_POST(_Combine('member/edit/info'),model);
         }
@@ -187,7 +182,7 @@ angular.module('starter.services',[])
         service.TeamScope = function(id){
             return HTTP_GET(_Combine('member/children/amount/',id));
         }
-        service.IncomeRecords = function(type,page){
+        service.IncomeRecords = function(type, page){
             //type  =  money or  interest or bonus
             var who = GET_MEMBER_INFO()
             return HTTP_GET(_Combine('income/',type,'/',who.id,'/',page))
