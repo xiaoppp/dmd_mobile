@@ -3,21 +3,7 @@ angular.module('starter.services',[])
     .service("LocalData", function ($rootScope) {
 
         var service = {
-			department: null
         };
-
-        service.setStationId = function (stationId) {
-            service.stationId = stationId;
-            localStorage.setItem("stationId", stationId);
-
-            $rootScope.$broadcast("StationChanged");
-        };
-
-        (function init() {
-            var stationId = localStorage.getItem("stationId");
-            if (stationId)
-                service.stationId = angular.fromJson(stationId);
-        })();
 
         return service;
     })
@@ -101,28 +87,38 @@ angular.module('starter.services',[])
         }
 
         function GET_MEMBER_LOGIN_INFO(){
-            return {memberid : 31, token : '...'}
+            if(!this._who.memberid){
+                var who = window.localStorage.getItem(config.loginkey)
+                this._who = JSON.parse(who)
+            }
+            return this._who;
         }
 
-        var service = {}
+        var service = this;
+        service._who = {};
 
         service.News = function(page){
             return HTTP_GET(_Combine('news/page/', page));
-        }
+        };
+
         service.NewsSingle = function(id){
             return HTTP_GET(_Combine('news/',id));
-        }
+        };
+
         service.Messages = function(page){
             var who = GET_MEMBER_LOGIN_INFO();
             return HTTP_GET(_Combine('messages/page/', who.memberid,'/', page));
-        }
+        };
+
         service.MessageSingle = function(id){
             return HTTP_GET(_Combine('message/',id));
-        }
+        };
+
         service.MessageReplies = function(){
             var who = GET_MEMBER_LOGIN_INFO();
             return HTTP_GET(_Combine('messages/reply/',who.memberid));
-        }
+        };
+
         service.PostMsg = function(model){
             var who = GET_MEMBER_LOGIN_INFO();
             model.member_id = who.memberid;
@@ -130,7 +126,7 @@ angular.module('starter.services',[])
             model.state = 0;
             console.log(model);
             return HTTP_POST(_Combine('message/action/leavemsg'), model);
-        }
+        };
 
         service.Login = function(model){
             console.log(model);
@@ -141,78 +137,75 @@ angular.module('starter.services',[])
                     window.localStorage.setItem(config.loginkey, JSON.stringify(data.data));
                     deferred.resolve(data);
                     //config.ajaxRequireToken = true;
-                }
-                else {
+                } else {
                     deferred.reject(data.error.message);    
                 }
             }).catch(function(err){
                 deferred.reject(err);
             });
             return deferred.promise;
-        }
+        };
 
         service.Member = function(username){
             return HTTP_GET(_Combine('member/',username));
-        }
+        };
         service.ParentMember = function(id){
             return HTTP_GET(_Combine('member/info/',id));
-        }
+        };
         service.IndexData = function(){
             var who = GET_MEMBER_LOGIN_INFO();
              return HTTP_GET(_Combine('index/info/', who.memberid));
-        }
+        };
         service.EditMemberInfo = function(model){
             return HTTP_POST(_Combine('member/edit/info'),model);
-        }
+        };
         service.EditPwd = function(model){
             return HTTP_POST(_Combine('member/reset'),model);
-        }
+        };
         service.EditPayPwd = function(model,mode){
             //mode //  0 通过原始安全密码,  1 通过手机验证码
-        }
+        };
         service.TeamTree = function(id){
             //member/children
             return HTTP_GET(_Combine('member/children/',id));
-        }
+        };
         service.Offer = function(money){
             var who = GET_MEMBER_LOGIN_INFO()
             var model = {money : money, memberid:who.memberid}
             return HTTP_POST(_Combine('offer/member'), model)
-        }
+        };
         service.Apply = function(money){
             var who = GET_MEMBER_LOGIN_INFO()
             var model = { memberid:who.memberid, money:money }
             return HTTP_POST(_Combine('apply/member'), model)
-        }
+        };
         service.TeamScope = function(id){
             return HTTP_GET(_Combine('member/children/amount/',id));
-        }
+        };
         service.IncomeRecords = function(type,page){
             //type  =  money or  interest or bonus
             var who = GET_MEMBER_INFO()
             return HTTP_GET(_Combine('income/',type,'/',who.id,'/',page))
-        }
+        };
         service.DealRecords = function(type,page){
             // type = offers or applys or unmatches
             var who = GET_MEMBER_INFO()
             return HTTP_GET(_Combine(type,'/', who.id))
-        }
+        };
         service.IsNewMember = function(){
             var who = GET_MEMBER_INFO()
             return HTTP_GET(_Combine('member/check/new/',who.id))
-        }
+        };
         service.OfferDetail = function(id){
             var who = GET_MEMBER_INFO()
             var model = {offerid : id, memberid: who.id}
             return HTTP_POST(_Combine('offer/detail'),model)
-        }
+        };
         service.ApplyDetail = function(id){
             var who = GET_MEMBER_INFO()
             var model = {applyid : id, memberid : who.id}
             return HTTP_POST(_Combine('apply/detail'),model)
-        }
-
-        return service
+        };
     })
 
     .service('AlertService', function ($ionicPopup) {

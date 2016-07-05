@@ -1,9 +1,20 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope, $state, config) {
+.controller('AppCtrl', function($scope,$rootScope, $state, DataService, AlertService, config) {
     if (localStorage.getItem(config.loginkey) === null) {
-        $state.go('signin')
+        $state.go('signin');
     }
+
+    DataService.IndexData().then(function(data) {
+        if(data.isSuccess){
+            var d = data.data;
+            $rootScope.member = d.member;
+        } else {
+            AlertService.Alert(data.error.message)
+        }
+    }).catch(function(err){
+        console.log(err)
+    })
 })
 
 .controller('MenuCtrl', function($scope, $state) {
