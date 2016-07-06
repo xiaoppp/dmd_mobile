@@ -1,8 +1,9 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope,$rootScope, $state, DataService, AlertService, config) {
-    if (!DataService.HasLogin()) {
-        $state.go('signin');
+.controller('AppCtrl', function($scope, $state, config, DataService) {
+    var memberid = localStorage.getItem('memberid')
+    if (memberid === null || memberid === 'undefined') {
+        $state.go('signin')
     }
 })
 
@@ -19,6 +20,13 @@ angular.module('starter.controllers', [])
 .controller('MoneyCtrl', function($scope, $ionicTabsDelegate, DataService) {
     $scope.onTabSelected = function(index) {
         if (index == 0) {
+            DataService.IncomeRecords('money', 1)
+        }
+        if (index == 1) {
+            DataService.IncomeRecords('interest', 1)
+        }
+        if (index == 2) {
+            DataService.IncomeRecords('bonus', 1)
         }
     }
 })
@@ -104,7 +112,7 @@ angular.module('starter.controllers', [])
 
 .controller('SettingsCtrl', function($scope, $state, config) {
     $scope.signout = function() {
-        localStorage.removeItem(config.loginkey)
+        localStorage.removeItem("memberid")
         $state.go('signin')
     }
 })

@@ -113,7 +113,8 @@ angular.module('starter',
     url: '/money',
     views: {
       'menuContent': {
-        templateUrl: 'templates/money.html'
+        templateUrl: 'templates/money.html',
+		controller: 'MoneyCtrl'
       }
     }
   })
