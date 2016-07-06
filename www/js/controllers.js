@@ -17,7 +17,7 @@ angular.module('starter.controllers', [])
     };
 })
 
-.controller('MoneyCtrl', function($scope, $ionicTabsDelegate, DataService) {
+.controller('MoneyCtrl', function($scope, $rootScope, $ionicTabsDelegate, DataService) {
     $scope.incomes = []
     $scope.onTabSelected = function(index) {
         if (index == 0) {
@@ -114,6 +114,39 @@ angular.module('starter.controllers', [])
         mobile: "1323109292",
         pwd: "asdfdsf",
         pay_pwd: "123123"
+    }
+})
+
+.controller('ApplyCtrl', function($scope, $rootScope, DataService) {
+    $scope.data = {
+        money: 0
+    }
+    $scope.apply = function() {
+        console.log(123)
+        DataService.Apply($scope.data.money)
+    }
+})
+
+.controller('OfferCtrl', function($scope, $rootScope, AlertService, DataService) {
+    $scope.data = {
+        money: 0,
+        isChecked: false
+    }
+
+    $scope.offer = function() {
+        console.log($scope.data.money)
+        if ($scope.data.isChecked) {
+            DataService.Offer($scope.data.money).then(function(data) {
+
+            })
+        }
+        else {
+            AlertService.Alert("请先阅读平台提示!")
+        }
+    }
+
+    $scope.select = function(money) {
+        $scope.data.money = money
     }
 })
 

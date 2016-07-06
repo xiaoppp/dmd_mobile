@@ -2,18 +2,19 @@
   <ion-content padding="true">
     <div class="box">
       <p>
-        您的账户总额：<b>65018.72.00</b>元，
-        冻结总额：<b>13262.00</b>元，
-        正在提现总额：<b>0.00</b>元，
-        可提现总额：<b>51756.72.00</b>元。
-        收获金额最少 <em>500</em>元，不能大于账户可用总余额，且必须是<em>100</em>的整倍数。
+        您的账户总额：<b>{{member.capital.total | currency : '￥'}}</b>元，<br/>
+        冻结总额：<b>{{member.capital.frozen | currency : '￥'}}</b>元，<br/>
+        正在提现总额：<b>{{member.moneyApply | currency : '￥'}}</b>元，<br/>
+        可提现总额：<b>{{member.capital.available | currency : '￥'}}</b>元，<br/>
+        收获金额最少<em>{{config.key3[0] | currency : '￥'}}</em>元，<br/>
+        不能大于账户可用总余额，且必须是<em>{{config.key3[1]}}</em>的整倍数
       </p>
       <div class="list">
         <label class="item item-input">
-          <input type="text" placeholder="请输入收获金额">
+          <input type="text" placeholder="请输入收获金额" ng-model="data.money">
         </label>
       </div>
-      <button class="button button-block btn-apply">我要收获</button>
+      <button class="button button-block btn-apply" ng-click="apply()">我要收获</button>
     </div>
   </ion-content>
 </ion-view>

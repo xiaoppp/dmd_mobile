@@ -5,13 +5,13 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
 
-angular.module('starter',
-	['ionic',
-    'ngCordova',
-    'starter.config',
-    'starter.controllers',
-    'starter.services',
-    'starter.directives'])
+angular.module('starter', ['ionic',
+  'ngCordova',
+  'starter.config',
+  'starter.controllers',
+  'starter.services',
+  'starter.directives'
+])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -31,7 +31,7 @@ angular.module('starter',
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
 
-  .state('app', {
+    .state('app', {
     url: '/app',
     abstract: true,
     templateUrl: 'templates/menu.html',
@@ -68,7 +68,8 @@ angular.module('starter',
     url: '/apply',
     views: {
       'menuContent': {
-        templateUrl: 'templates/apply.html'
+        templateUrl: 'templates/apply.html',
+        controller: 'ApplyCtrl'
       }
     }
   })
@@ -114,7 +115,7 @@ angular.module('starter',
     views: {
       'menuContent': {
         templateUrl: 'templates/money.html',
-		controller: 'MoneyCtrl'
+        controller: 'MoneyCtrl'
       }
     }
   })
@@ -124,7 +125,7 @@ angular.module('starter',
     views: {
       'menuContent': {
         templateUrl: 'templates/news.html',
-        controller : 'NewsCtrl'
+        controller: 'NewsCtrl'
       }
     }
   })
@@ -134,7 +135,7 @@ angular.module('starter',
     views: {
       'menuContent': {
         templateUrl: 'templates/newsdetail.html',
-        controller : 'NewsDetailCtrl'
+        controller: 'NewsDetailCtrl'
       }
     }
   })
@@ -143,7 +144,8 @@ angular.module('starter',
     url: '/offer',
     views: {
       'menuContent': {
-        templateUrl: 'templates/offer.html'
+        templateUrl: 'templates/offer.html',
+        controller: 'OfferCtrl'
       }
     }
   })
@@ -153,7 +155,7 @@ angular.module('starter',
     views: {
       'menuContent': {
         templateUrl: 'templates/records.html',
-	      controller: 'RecordCtrl'
+        controller: 'RecordCtrl'
       }
     }
   })
@@ -171,9 +173,9 @@ angular.module('starter',
     url: '/settings',
     views: {
       'menuContent': {
-          templateUrl: 'templates/settings.html',
-          controller: 'SettingsCtrl'
-        }
+        templateUrl: 'templates/settings.html',
+        controller: 'SettingsCtrl'
+      }
     }
   })
 
@@ -181,8 +183,8 @@ angular.module('starter',
     url: '/test',
     views: {
       'menuContent': {
-          templateUrl: 'templates/test.html'
-        }
+        templateUrl: 'templates/test.html'
+      }
     }
   })
 

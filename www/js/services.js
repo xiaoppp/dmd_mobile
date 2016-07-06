@@ -112,7 +112,11 @@ angular.module('starter.services',[])
             $http(req).
                 success(function (data, status, headers, config) {
                     //console.log(req);
-                    deferred.resolve(data);
+                    if (data.isSuccess)
+                        deferred.resolve(data);
+                    else {
+                        AlertService.Alert(data.error.message)
+                    }
                     if (_show_loading) LoadingService.Hide();
                 }).
                 error(function (data, status, headers, config) {
@@ -199,7 +203,7 @@ angular.module('starter.services',[])
             return HTTP_GET(_Combine('member/children/',id));
         };
         service.Offer = function(money){
-            var model = {money : money, memberid:member.id}
+            var model = {money: money, memberid:member.id}
             return HTTP_POST(_Combine('offer/member'), model)
         };
         service.Apply = function(money){
