@@ -19,15 +19,22 @@ angular.module('starter.controllers', [])
 })
 
 .controller('MoneyCtrl', function($scope, $ionicTabsDelegate, DataService) {
+    $scope.incomes = []
     $scope.onTabSelected = function(index) {
         if (index == 0) {
-            DataService.IncomeRecords('money', 1)
+            DataService.IncomeRecords('money', 1).then(function(data) {
+                $scope.incomes = data.data.rows
+            })
         }
         if (index == 1) {
-            DataService.IncomeRecords('interest', 1)
+            DataService.IncomeRecords('interest', 1).then(function(data) {
+                $scope.incomes = data.data.rows
+            })
         }
         if (index == 2) {
-            DataService.IncomeRecords('bonus', 1)
+            DataService.IncomeRecords('bonus', 1).then(function(data) {
+                $scope.incomes = data.data.rows
+            })
         }
     }
 })
