@@ -3,26 +3,26 @@
       <div class="box table text-center">
         <div class="row">
           <div class="col">
-            <a class="offer-option on" href="">1000</a>
+            <a class="offer-option" ng-class="{on: data.money == 1000}" ng-click="select(1000)" href="">1000</a>
           </div>
         </div>
         <div class="row">
           <div class="col">
-            <a class="offer-option" href="">3000</a>
+            <a class="offer-option" ng-class="{on: data.money == 3000}" ng-click="select(3000)" href="">3000</a>
           </div>
           <div class="col">
-            <a class="offer-option" href="">5000</a>
+            <a class="offer-option" ng-class="{on: data.money == 5000}" ng-click="select(5000)" href="">5000</a>
           </div>
         </div>
         <div class="row">
           <div class="col">
-            <a class="offer-option" href="">10000</a>
+            <a class="offer-option" ng-class="{on: data.money == 10000}" ng-click="select(10000)" href="">10000</a>
           </div>
           <div class="col">
-            <a class="offer-option" href="">30000</a>
+            <a class="offer-option" ng-class="{on: data.money == 30000}" ng-click="select(30000)" href="">30000</a>
           </div>
           <div class="col">
-            <a class="offer-option" href="">50000</a>
+            <a class="offer-option" ng-class="{on: data.money == 50000}" ng-click="select(50000)" href="">50000</a>
           </div>
         </div>
       </div>
@@ -33,10 +33,10 @@
             本平台只提供大家一个信息交流的渠道，平台不收取任何费用，资金在会员中流转，闲钱互助，风险自控！请在自愿的前提下完成交易。
           </p>
         </div>
-        <ion-checkbox ng-model="isChecked">我已阅读并同意</ion-checkbox>
+        <ion-checkbox ng-model="data.isChecked">我已阅读并同意</ion-checkbox>
       </div>
       <div class="box">
-        <button class="button button-block btn-offer">
+        <button class="button button-block btn-offer" ng-click="offer()">
           我要播种
         </button>
       </div>

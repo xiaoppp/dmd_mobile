@@ -119,7 +119,11 @@ angular.module('starter.services',[])
             $http(req).
                 success(function (data, status, headers, config) {
                     //console.log(req);
-                    deferred.resolve(data);
+                    if (data.isSuccess)
+                        deferred.resolve(data);
+                    else {
+                        AlertService.Alert(data.error.message)
+                    }
                     if (_show_loading) LoadingService.Hide();
                 }).
                 error(function (data, status, headers, config) {

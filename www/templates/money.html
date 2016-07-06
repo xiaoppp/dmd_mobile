@@ -5,10 +5,14 @@
         <ion-content padding="true">
           <div class="box" style="height:100px;">
             <ul>
-              <li><label>账户总资产：</label><span class="money">￥514548</span></li>
-              <li><label>账户冻结总资产：</label><span class="money">￥514548</span></li>
-              <li><label>账户正在提现总资产：</label><span class="money">￥514548</span></li>
-              <li><label>账户可提现总资产：</label><span class="money">￥514548</span></li>
+              <li>
+                <label>账户总资产：</label><span class="money">{{member.capital.total | currency :'￥'}}</span></li>
+              <li>
+                <label>账户冻结总资产：</label><span class="money">{{member.capital.frozen | currency :'￥'}}</span></li>
+              <li>
+                <label>账户正在提现总资产：</label><span class="money">{{member.moneyApply | currency :'￥'}}</span></li>
+              <li>
+                <label>账户可提现总资产：</label><span class="money">{{member.capital.available | currency :'￥'}}</span></li>
             </ul>
             <p class="tips pt">
               提现说明：首先扣除可提团队奖，不够再扣利息，利息不够再扣可提本金。
@@ -20,31 +24,27 @@
         <ion-content padding="true">
           <div class="line2">
             <ul>
-              <li><label>本金总额：</label><span class="money">￥514548</span></li>
-              <li><label>本金冻结总额：</label><span class="money">￥514548</span></li>
-              <li><label>本金可提现总额：</label><span class="money">￥514548</span></li>
+              <li>
+                <label>本金总额：</label><span class="money">{{member.capital.sum | currency :'￥'}}</span></li>
+              <li>
+                <label>本金冻结总额：</label><span class="money">{{member.moneyFreeze | currency :'￥'}}</span></li>
+              <li>
+                <label>本金可提现总额：</label><span class="money">{{member.money | currency :'￥'}}</span></li>
             </ul>
           </div>
           <ion-list>
-            <ion-item>
+            <ion-item ng-repeat="income in incomes">
               <ul>
-                <li><label>金额：</label><span class="money">￥514548</span></li>
-                <li><label>时间：</label><time>2016-06-23 11:23:56</time></li>
-                <li><label>说明：</label><p class="intro">成功播种￥1545454.00元，本金将在冻结7天后自动收入现金</p></li>
-              </ul>
-            </ion-item>
-             <ion-item>
-              <ul>
-                <li><label>金额：</label><span class="money">￥514548</span></li>
-                <li><label>时间：</label><time>2016-06-23 11:23:56</time></li>
-                <li><label>说明：</label><p class="intro">成功播种￥1545454.00元，本金将在冻结7天后自动收入现金</p></li>
-              </ul>
-            </ion-item>
-             <ion-item>
-              <ul>
-                <li><label>金额：</label><span class="money">￥514548</span></li>
-                <li><label>时间：</label><time>2016-06-23 11:23:56</time></li>
-                <li><label>说明：</label><p class="intro">成功播种￥1545454.00元，本金将在冻结7天后自动收入现金</p></li>
+                <li>
+                  <label>金额：</label><span class="money">￥{{income.money}}</span></li>
+                <li>
+                  <label>时间：</label>
+                  <time>{{income.the_time}}</time>
+                </li>
+                <li>
+                  <label>说明：</label>
+                  <p class="intro">{{income.intro}}</p>
+                </li>
               </ul>
             </ion-item>
           </ion-list>
@@ -54,30 +54,25 @@
         <ion-content padding="true">
           <div class="line2">
             <ul>
-              <li><label>利息总额：</label><span class="money">￥514548</span></li>
-              <li><label>利息可提现总额：</label><span class="money">￥514548</span></li>
+              <li>
+                <label>利息总额：</label><span class="money">{{member.interest | currency :'￥'}}</span></li>
+              <li>
+                <label>利息可提现总额：</label><span class="money">{{member.interest | currency :'￥'}}</span></li>
             </ul>
           </div>
           <ion-list>
-            <ion-item>
+            <ion-item ng-repeat="income in incomes">
               <ul>
-               <li><label>金额：</label><span class="money">￥514548</span></li>
-                <li><label>时间：</label><time>2016-06-23 11:23:56</time></li>
-                <li><label>说明：</label><p class="intro">成功播种￥1545454.00元，本金将在冻结7天后自动收入现金</p></li>
-              </ul>
-            </ion-item>
-             <ion-item>
-              <ul>
-                <li><label>金额：</label><span class="money">￥514548</span></li>
-                <li><label>时间：</label><time>2016-06-23 11:23:56</time></li>
-                <li><label>说明：</label><p class="intro">成功播种￥1545454.00元，本金将在冻结7天后自动收入现金</p></li>
-              </ul>
-            </ion-item>
-             <ion-item>
-              <ul>
-                <li><label>金额：</label><span class="money">￥514548</span></li>
-                <li><label>时间：</label><time>2016-06-23 11:23:56</time></li>
-                <li><label>说明：</label><p class="intro">成功播种￥1545454.00元，本金将在冻结7天后自动收入现金</p></li>
+                <li>
+                  <label>金额：</label><span class="money">￥{{income.money}}</span></li>
+                <li>
+                  <label>时间：</label>
+                  <time>{{income.the_time}}</time>
+                </li>
+                <li>
+                  <label>说明：</label>
+                  <p class="intro">{{income.intro}}</p>
+                </li>
               </ul>
             </ion-item>
           </ion-list>
@@ -87,31 +82,27 @@
         <ion-content padding="true">
           <div class="line2">
             <ul>
-              <li><label>团队奖励总额：</label><span class="money">￥514548</span></li>
-              <li><label>团队奖励冻结总额：</label><span class="money">￥514548</span></li>
-              <li><label>团队奖励可提现总额：</label><span class="money">￥514548</span></li>
+              <li>
+                <label>团队奖励总额：</label><span class="money">{{member.capital.sum | currency :'￥'}}</span></li>
+              <li>
+                <label>团队奖励冻结总额：</label><span class="money">{{member.bonusFreeze | currency :'￥'}}</span></li>
+              <li>
+                <label>团队奖励可提现总额：</label><span class="money">{{member.bonus | currency :'￥'}}</span></li>
             </ul>
           </div>
           <ion-list>
-            <ion-item>
+            <ion-item ng-repeat="income in incomes">
               <ul>
-                <li><label>金额：</label><span class="money">￥514548</span></li>
-                <li><label>时间：</label><time>2016-06-23 11:23:56</time></li>
-                <li><label>说明：</label><p class="intro">成功播种￥1545454.00元，本金将在冻结7天后自动收入现金</p></li>
-              </ul>
-            </ion-item>
-             <ion-item>
-              <ul>
-                <li><label>金额：</label><span class="money">￥514548</span></li>
-                <li><label>时间：</label><time>2016-06-23 11:23:56</time></li>
-                <li><label>说明：</label><p class="intro">成功播种￥1545454.00元，本金将在冻结7天后自动收入现金</p></li>
-              </ul>
-            </ion-item>
-             <ion-item>
-              <ul>
-                <li><label>金额：</label><span class="money">￥514548</span></li>
-                <li><label>时间：</label><time>2016-06-23 11:23:56</time></li>
-                <li><label>说明：</label><p class="intro">成功播种￥1545454.00元，本金将在冻结7天后自动收入现金</p></li>
+                <li>
+                  <label>金额：</label><span class="money">￥{{income.money}}</span></li>
+                <li>
+                  <label>时间：</label>
+                  <time>{{income.the_time}}</time>
+                </li>
+                <li>
+                  <label>说明：</label>
+                  <p class="intro">{{income.intro}}</p>
+                </li>
               </ul>
             </ion-item>
           </ion-list>
