@@ -5,34 +5,26 @@ angular.module('starter.services',[])
 
     .service('DataService', function ($http, $q, $rootScope, LoadingService, LocalData, AlertService, config) {
 
-        var member = {};
+        var service  = this;
+        var self = this;
 
         (function init() {
             var memberid = localStorage.getItem('memberid')
             if (!_.isUndefined(memberid) && !_.isNull(memberid) && memberid !== 'undefined') {
-                GetIndexData(memberid)
+                GetIndexData(memberid);
             }
         })();
 
         function PrefixIndexData(data){
-            $rootScope.member = (function(){
-                var m = data.member;
-                m.showNews = data.showNews;
-                m.teamScope = data.teamScope;
-                m.moneyApply = data.moneyApply || 0;
-                m.bonusFreeze = data.bonusFreeze || 0;
-                m.moneyFreeze = data.moneyFreeze || 0;
-                return m;
-            })();
 
             $rootScope.config = (function(){
                 var cfg = {};
                 _.each(data.config, function(item,i){
                     var id = item.id;
-                    var val = item.val;
+                    var t = item.val;
                     if(/-/.test(t)){
                         t = t.split('-');
-                        _.each(t, function(item, i){
+                        _.each(t, function(v, i){
                             if(/\./.test(v)) t[i] = parseFloat(v);
                             else t[i] = parseInt(v);
                         });
@@ -45,19 +37,34 @@ angular.module('starter.services',[])
                 return cfg;
             })();
 
-            $rootScope.lastOffer = data.lastOffer;
-            $rootScope.lastApply = data.lastApply;
+            $rootScope.member = (function(){
+                var m = data.member;
+                m.showNews = data.showNews;
+                m.teamScope = data.teamScope;
+                m.moneyApply = data.moneyApply || 0;
+                m.bonusFreeze = data.bonusFreeze || 0;
+                m.moneyFreeze = data.moneyFreeze || 0;
+                m.lastOffer = data.lastOffer;
+                m.lastApply = data.lastApply;
+                return m;
+            })();
+            var o = {
+                    sum       :  self.Capital.sum(),
+                    bonus     :  self.Capital.bonus(),
+                    total     :  self.Capital.total(),
+                    frozen    :  self.Capital.frozen(),
+                    available :  self.Capital.available(),
+                    about     :  self.Capital.about()
+            };
+            $rootScope.member.capital = o;
         }
 
         //初始化加载首页数据，如果没有登录，则login的时候加载，如果有数据，则服务自动加载
         function GetIndexData(memberid) {
             HTTP_GET(_Combine('index/info/', memberid))
                 .then(function(data) {
-                    member = data.data.member
-                    $rootScope.member = data.data.member
-                    $rootScope.config = data.data.config
-
-                })
+                    PrefixIndexData(data.data);
+                });
         }
 
         function HTTP_GET(url,showLoading) {
@@ -131,7 +138,46 @@ angular.module('starter.services',[])
             return raw;
         }
 
-        var service = {}
+        function MemberId(){
+            var id = localStorage.getItem("memberid");
+            return parseInt(id);
+        }
+
+        //资产计算
+        service.Capital = {
+            sum: function(){
+                var member = $rootScope.member;
+                return member.money + member.moneyFreeze;
+            },
+            bonus: function(){
+                var member = $rootScope.member;
+                return member.bonus + member.bonusFreeze
+            },
+            total: function(){
+                var member = $rootScope.member;
+                return 	member.money + member.interest + 
+                        member.bonus + member.moneyFreeze +
+                        member.bonusFreeze
+            },
+            frozen: function(){
+                var member = $rootScope.member;
+                return member.moneyFreeze + member.bonusFreeze
+            },
+            available: function(){
+                var member = $rootScope.member;
+                return 	member.money + member.interest + 
+                        member.bonus - member.moneyApply
+            },
+            about: function(){
+                var member = $rootScope.member;
+                var config = $rootScope.config;
+                var offer = arguments[0] || member.lastOffer
+                if(!offer) return 0
+                if(offer && offer.fst)
+                    return offer.money * config.key6 * config.key24
+                else return 0
+            },
+        };
 
         service.Login = function(model){
             console.log(model);
@@ -168,14 +214,13 @@ angular.module('starter.services',[])
         };
 
         service.MessageReplies = function(){
-            return HTTP_GET(_Combine('messages/reply/',member.id));
+            return HTTP_GET(_Combine('messages/reply/', MemberId()));
         };
 
         service.PostMsg = function(model){
-            model.member_id = member.id;
+            model.member_id = MemberId();
             model.to_member_id = 0;
             model.state = 0;
-            console.log(model);
             return HTTP_POST(_Combine('message/action/leavemsg'), model);
         };
 
@@ -186,10 +231,10 @@ angular.module('starter.services',[])
             return HTTP_GET(_Combine('member/info/',id));
         };
         service.EditMemberInfo = function(model){
-            return HTTP_POST(_Combine('member/edit/info'),model);
+            return HTTP_POST(_Combine('member/edit/info'), model);
         };
         service.EditPwd = function(model){
-            return HTTP_POST(_Combine('member/reset'),model);
+            return HTTP_POST(_Combine('member/reset'), model);
         };
         service.EditPayPwd = function(model,mode){
             //mode //  0 通过原始安全密码,  1 通过手机验证码
@@ -199,11 +244,11 @@ angular.module('starter.services',[])
             return HTTP_GET(_Combine('member/children/',id));
         };
         service.Offer = function(money){
-            var model = {money : money, memberid:member.id}
+            var model = {money : money, memberid: MemberId()}
             return HTTP_POST(_Combine('offer/member'), model)
         };
         service.Apply = function(money){
-            var model = { memberid:member.id, money:money }
+            var model = { memberid: MemberId(), money:money }
             return HTTP_POST(_Combine('apply/member'), model)
         };
         service.TeamScope = function(id){
@@ -211,25 +256,23 @@ angular.module('starter.services',[])
         };
         service.IncomeRecords = function(type, page){
             //type  =  money or  interest or bonus
-            return HTTP_GET(_Combine('income/',type,'/',member.id,'/',page))
+            return HTTP_GET(_Combine('income/',type,'/', MemberId(), '/', page))
         };
         service.DealRecords = function(type,page){
             // type = offers or applys or unmatches
-            return HTTP_GET(_Combine(type,'/', member.id))
+            return HTTP_GET(_Combine(type,'/', MemberId()))
         };
         service.IsNewMember = function(){
-            return HTTP_GET(_Combine('member/check/new/',member.id))
+            return HTTP_GET(_Combine('member/check/new/', MemberId()))
         };
         service.OfferDetail = function(id){
-            var model = {offerid : id, memberid: member.id}
+            var model = {offerid : id, memberid: MemberId()}
             return HTTP_POST(_Combine('offer/detail'),model)
         };
         service.ApplyDetail = function(id){
-            var model = {applyid : id, memberid : member.id}
+            var model = {applyid : id, memberid : MemberId()}
             return HTTP_POST(_Combine('apply/detail'),model)
         };
-
-        return service;
     })
 
     .service('AlertService', function ($ionicPopup) {

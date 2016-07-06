@@ -4,7 +4,7 @@
 		  <img class="circle" src="images/female1.jpg">
 	  </div>
 	  <div class="box text-center">
-		  <strong class="pr">高诚</strong>
+		  <strong class="pr">{{member.truename}}</strong>
 		  <span class="pr">
 			  <img src="images/level.png">
 			  <span>经理人</span>
@@ -23,19 +23,19 @@
 			  <div class="row">
 					<div class="col">
 						<h5>DMD币</h5>
-						<span class="money">￥0.00</span>
+						<span class="money">{{member.dmd}}</span>
 					</div>
 					<div class="col">
-						<h5>DMD币</h5>
-						<span class="money">￥0.00</span>
+						<h5>本金总额</h5>
+						<span class="money">{{member.capital.sum | currency:'￥'}}</span>
 					</div>
 					<div class="col">
 						<h5>利息总额</h5>
-						<span class="money">￥490.36</span>
+						<span class="money">{{member.interest | currency:'￥'}}</span>
 					</div>
 					<div class="col">
 						<h5>奖金总额</h5>
-						<span class="money">￥14002.00</span>
+						<span class="money">{{member.capital.bonus | currency:'￥'}}</span>
 					</div>
 				</div>
 		  </div>
@@ -48,35 +48,73 @@
 				我要收获
 			</button>
 	  </div>
-	  <div class="box">
+	  
+	  <div class="box" ng-if="member.lastOffer">
 		  <h4 class="color-green">正在播种...</h4>
 		  <div class="table bg-dark-alpha">
 			  <div class="row">
 				  <div class="col">
 					  <label>金额：</label>
 					  <br> 
-					  <span class="money">￥500310.00</span>
+					  <span class="money">{{member.lastOffer.money}}</span>
 				  </div>
 				  <div class="col">
-					  <label>时间：</label> <br><time>2016-06-23 13:55:26</time>
+					  <label>时间：</label> <br><time>{{member.lastOffer.the_time}}</time>
 				  </div>
 			  </div>
 			  <div class="row">
 				  <div class="col">
-					  <label>利息：</label><br><span class="money">￥75120.00</span>
+					  <label>利息：</label><br><span class="money">{{0}}</span>
 				  </div>
 				  <div class="col">
-					  <label>匹配人数：</label><br><span class="number">0人</span>
+					  <label>匹配人数：</label><br><span class="number">{{member.lastOffer.pairs}}人</span>
 				  </div>
 				  <div class="col">
-					  <label>状态：</label><br><span class="status">进行中...</span>
+					  <label>状态：</label><br><span class="status">{{member.state}}</span>
 				  </div>
 			  </div>
 		  </div>
 	  </div>
-	  <div class="box">
+
+	  <div class="box" ng-if="!member.lastOffer">
+		  <h4 class="color-green">等待播种...</h4>
+		  <div class="table bg-dark-alpha"></div>
+	  </div>
+
+	  <div class="box" ng-if="member.lastApply">
+		  <h4 class="color-orange">正在收获.</h4>
+		  <div class="table bg-dark-alpha">
+
+			  <div class="row">
+				  <div class="col">
+					  <label>金额：</label>
+					  <br> 
+					  <span class="money">{{member.lastApply.money}}</span>
+				  </div>
+				  <div class="col">
+					  <label>时间：</label> <br><time>{{member.lastApply.the_time}}</time>
+				  </div>
+			  </div>
+			  <div class="row">
+				  <div class="col">
+					  <label>利息：</label><br><span class="money">{{0}}</span>
+				  </div>
+				  <div class="col">
+					  <label>匹配人数：</label><br><span class="number">{{member.lastApply.pairs}}人</span>
+				  </div>
+				  <div class="col">
+					  <label>状态：</label><br><span class="status">{{member.lastApply.state}}</span>
+				  </div>
+			  </div>
+
+		  </div>
+	  </div>
+	
+
+	 <div class="box" ng-if="!member.lastApply">
 		  <h4 class="color-orange">等待收获...</h4>
 		  <div class="table bg-dark-alpha"></div>
 	  </div>
+
   </ion-content>
 </ion-view>
