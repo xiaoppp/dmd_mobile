@@ -20,7 +20,6 @@ angular.module('starter',
     if (window.cordova && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
       cordova.plugins.Keyboard.disableScroll(true);
-
     }
     if (window.StatusBar) {
       // org.apache.cordova.statusbar required
@@ -124,7 +123,18 @@ angular.module('starter',
     url: '/news',
     views: {
       'menuContent': {
-        templateUrl: 'templates/news.html'
+        templateUrl: 'templates/news.html',
+        controller : 'NewsCtrl'
+      }
+    }
+  })
+
+  .state('app.newsdetail', {
+    url: '/newsdetail/:id',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/newsdetail.html',
+        controller : 'NewsDetailCtrl'
       }
     }
   })
@@ -143,7 +153,7 @@ angular.module('starter',
     views: {
       'menuContent': {
         templateUrl: 'templates/records.html',
-	    controller: 'RecordCtrl'
+	      controller: 'RecordCtrl'
       }
     }
   })
@@ -158,14 +168,25 @@ angular.module('starter',
   })
 
   .state('app.settings', {
-	url: '/settings',
-	views: {
-	  'menuContent': {
-		templateUrl: 'templates/settings.html',
-	    controller: 'SettingsCtrl'
-	  }
-	}
+    url: '/settings',
+    views: {
+      'menuContent': {
+          templateUrl: 'templates/settings.html',
+          controller: 'SettingsCtrl'
+        }
+    }
   })
+
+  .state('app.test', {
+    url: '/test',
+    views: {
+      'menuContent': {
+          templateUrl: 'templates/test.html'
+        }
+    }
+  })
+
+
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app/me');

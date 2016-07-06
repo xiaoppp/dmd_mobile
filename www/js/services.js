@@ -5,15 +5,49 @@ angular.module('starter.services',[])
 
     .service('DataService', function ($http, $q, $rootScope, LoadingService, LocalData, AlertService, config) {
 
-        var member = {
-        };
+        var member = {};
 
         (function init() {
             var memberid = localStorage.getItem('memberid')
             if (!_.isUndefined(memberid) && !_.isNull(memberid) && memberid !== 'undefined') {
                 GetIndexData(memberid)
             }
-        })()
+        })();
+
+        function PrefixIndexData(data){
+            $rootScope.member = (function(){
+                var m = data.member;
+                m.showNews = data.showNews;
+                m.teamScope = data.teamScope;
+                m.moneyApply = data.moneyApply || 0;
+                m.bonusFreeze = data.bonusFreeze || 0;
+                m.moneyFreeze = data.moneyFreeze || 0;
+                return m;
+            })();
+
+            $rootScope.config = (function(){
+                var cfg = {};
+                _.each(data.config, function(item,i){
+                    var id = item.id;
+                    var val = item.val;
+                    if(/-/.test(t)){
+                        t = t.split('-');
+                        _.each(t, function(item, i){
+                            if(/\./.test(v)) t[i] = parseFloat(v);
+                            else t[i] = parseInt(v);
+                        });
+                    } else {
+                        if(/\./.test(t)) t = parseFloat(t);
+                        else t = parseInt(t);
+                    }
+                    cfg['key' + id] = t;
+                });
+                return cfg;
+            })();
+
+            $rootScope.lastOffer = data.lastOffer;
+            $rootScope.lastApply = data.lastApply;
+        }
 
         //初始化加载首页数据，如果没有登录，则login的时候加载，如果有数据，则服务自动加载
         function GetIndexData(memberid) {
@@ -22,10 +56,9 @@ angular.module('starter.services',[])
                     member = data.data.member
                     $rootScope.member = data.data.member
                     $rootScope.config = data.data.config
+
                 })
         }
-
-        var member = {};
 
         function HTTP_GET(url,showLoading) {
             if (_.isUndefined(showLoading) || _.isNull(showLoading)) {
@@ -92,14 +125,10 @@ angular.module('starter.services',[])
 
         function _Combine(){
             var len = arguments.length;
-            if(len === 0) throw 'no parts provided';
-            else {
-                var raw = config.host;
-                for(var i=0; i < len; i++){
-                    raw += arguments[i];
-                }
-                return raw;
-            }
+            var raw = config.host;
+            for(var i=0; i < len; i++)
+                raw += arguments[i];
+            return raw;
         }
 
         var service = {}

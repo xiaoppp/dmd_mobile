@@ -1,9 +1,9 @@
 <ion-view view-title="交易记录">
-  <ion-content>
-
     <ion-tabs class="tabs-striped tabs-bottom tabs-background-dark tabs-color-energized">
       <ion-tab title="播种记录">
         <ion-content padding="true">
+          <div class="list padding-y">
+
             <div class="item">
                 <img style="width:200px;height:200px;" ng-src="{{record.photo}}" ng-show="record.photo">
             </div>
@@ -12,6 +12,9 @@
                 <button class="button icon button-large ion-camera" ng-click="takeImage()"></button>
                 <button class="button icon button-large ion-ios-folder-outline" ng-click="uploadImage()"></button>
             </div>
+
+          </div>
+            
           <ion-list>
             <ion-item>
               <ul>
@@ -56,7 +59,8 @@
       </ion-tab>
       <ion-tab title="收获记录">
         <ion-content padding="true">
-           <ion-list>
+          <div class="padding-y">
+            <ion-list>
             <ion-item>
               <ul>
                 <li>
@@ -96,11 +100,14 @@
               </ul>
             </ion-item>
           </ion-list>
+          </div>
+           
         </ion-content>
       </ion-tab>
       <ion-tab title="失败记录">
         <ion-content padding="true">
-          <ion-list>
+          <div class="padding-y">
+            <ion-list>
             <ion-item>
               <ul>
                 <li><label>类型：</label> <span class="yellow">收获</span></li>
@@ -114,9 +121,9 @@
               </ul>
             </ion-item>
           </ion-list>
+          </div>
         </ion-content>
       </ion-tab>
     </ion-tabs>
 
-  </ion-content>
 </ion-view>
