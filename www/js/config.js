@@ -1,10 +1,8 @@
-var app = angular.module('starter.config',['ionic']);
-
-app.constant('config',{
+angular.module('starter.config',['ionic'])
+.constant('config',{
     host : 'http://192.168.1.101:3000/api/',
-    loginKey : 'member.login.information'
-});
-
-app.config(function($ionicConfigProvider) {
+    loginkey : 'memberid'
+})
+.config(function($ionicConfigProvider) {
     $ionicConfigProvider.tabs.position("bottom");
 });

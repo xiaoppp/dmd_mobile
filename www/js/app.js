@@ -65,15 +65,6 @@ angular.module('starter',
     templateUrl: 'templates/resetpwd.html'
   })
 
-  // .state('app.login', {
-  //   url: '/login',
-  //   views: {
-  //     'menuContent': {
-  //       templateUrl: 'templates/login.html'
-  //     }
-  //   }
-  // })
-
   .state('app.apply', {
     url: '/apply',
     views: {
@@ -109,8 +100,6 @@ angular.module('starter',
       }
     }
   })
-
-
 
   .state('app.message', {
     url: '/message',
