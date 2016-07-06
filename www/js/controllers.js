@@ -1,7 +1,7 @@
 angular.module('starter.controllers', [])
 
 .controller('AppCtrl', function($scope,$rootScope, $state, DataService, AlertService, config) {
-    if (localStorage.getItem(config.loginkey) === null) {
+    if (!DataService.HasLogin()) {
         $state.go('signin');
     }
 })
@@ -10,11 +10,10 @@ angular.module('starter.controllers', [])
     $scope.toggleRight = function () {
         $state.go('app.share')
     };
-
     $scope.toggleLeft = function () {
         console.log('left')
         $ionicSideMenuDelegate.toggleLeft();
-    }
+    };
 })
 
 .controller('MoneyCtrl', function($scope, $ionicTabsDelegate, DataService) {
@@ -71,10 +70,11 @@ angular.module('starter.controllers', [])
 })
 
 .controller('SigninCtrl', function($scope, $state, DataService, AlertService) {
+
     $scope.user = {
         username: "17703446798",
         pwd: "1234"
-    }
+    };
 
     $scope.signin = function() {
         DataService.Login($scope.user)
@@ -107,4 +107,23 @@ angular.module('starter.controllers', [])
         localStorage.removeItem(config.loginkey)
         $state.go('signin')
     }
+})
+
+.controller('NewsCtrl',function($scope,$state,DataService,config){
+    $scope.model = [];
+    DataService.News(1).then(function(data){
+        $scope.model = data.data.rows;
+    }).catch(function(err){
+        console.log(err)
+    });
+})
+
+.controller('NewsDetailCtrl',function($scope,$state,$stateParams,DataService,config){
+    var id = $stateParams.id
+    $scope.model = {};
+    DataService.NewsSingle(id).then(function(data){
+        $scope.model = data.data;
+    }).catch(function(err){
+        console.log(err)
+    });
 })

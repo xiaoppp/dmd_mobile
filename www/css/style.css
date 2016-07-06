@@ -24,6 +24,7 @@ input.color-dark{color: #111 !important;}
 .circle{border-radius: 30px;}
 .offer-option{display:block;width:100px;height:50px;border:2px solid #43C328;margin:10px auto;color:#fff;line-height: 50px;text-align: center;font-size: 20px;text-decoration: none;}
 .offer-option.on{background-color: #43C328;}
+.padding-y{padding-top: 45px; padding-bottom: 45px;}
 
 /*override ionic css*/
 .scroll-content { background: url(../images/bg.jpg); background-size: 100% 100%; }

@@ -82,14 +82,10 @@ angular.module('starter.services',[])
 
         function _Combine(){
             var len = arguments.length;
-            if(len === 0) throw 'no parts provided';
-            else {
-                var raw = config.host;
-                for(var i=0; i < len; i++){
-                    raw += arguments[i];
-                }
-                return raw;
-            }
+            var raw = config.host;
+            for(var i=0; i < len; i++)
+                raw += arguments[i];
+            return raw;
         }
 
         var service = {}
@@ -100,11 +96,10 @@ angular.module('starter.services',[])
             //config.ajaxRequireToken = false;
             HTTP_POST(_Combine('member/signin'), model,true).then(function(data){
                 if (data.isSuccess){
-                    window.localStorage.setItem(config.loginkey, data.member_id);
+                    window.localStorage.setItem(config.loginkey, data.data.memberid);
                     deferred.resolve(data);
                     //config.ajaxRequireToken = true;
-                }
-                else {
+                } else {
                     deferred.reject(data.error.message);
                 }
             }).catch(function(err){
@@ -113,6 +108,10 @@ angular.module('starter.services',[])
             return deferred.promise;
         };
 
+        service.HasLogin = function(){
+            return /^\d+$/.test(window.localStorage.getItem(config.loginkey))
+        };
+        
         service.IndexData = function(){
              return HTTP_GET(_Combine('index/info/', member.id));
         };
