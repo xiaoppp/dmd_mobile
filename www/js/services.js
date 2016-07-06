@@ -4,24 +4,32 @@ angular.module('starter.services',[])
 
     })
 
-    .service('DataService', function ($http, $q, , $rootScope, LoadingService, LocalData, AlertService, config) {
-        var member = {}
+    .service('DataService', function ($http, $q, $rootScope, LoadingService, LocalData, AlertService, config) {
+        var member = {
+        };
 
-        (function() {
+        (function init() {
             var memberid = localStorage.getItem('memberid')
+            if (!_.isUndefined(memberid) && !_.isNull(memberid) && memberid !== 'undefined') {
+                GetIndexData(memberid)
+            }
+        })()
+
+        //初始化加载首页数据，如果没有登录，则login的时候加载，如果有数据，则服务自动加载
+        function GetIndexData(memberid) {
             HTTP_GET(_Combine('index/info/', memberid))
                 .then(function(data) {
-                    member = data.member
+                    member = data.data.member
                     $rootScope.member = data.data.member
                     $rootScope.config = data.data.config
                 })
-        })()
+        }
 
         function GET_MEMBER_INFO() {
             return member
         }
 
-        function HTTP_GET(url, ishowLoading) {
+        function HTTP_GET(url, showLoading) {
             if (_.isUndefined(showLoading) || _.isNull(showLoading)) {
                 showLoading = true;
             }
@@ -102,25 +110,19 @@ angular.module('starter.services',[])
         service.Login = function(model){
             console.log(model);
             var deferred = $q.defer();
-            //config.ajaxRequireToken = false;
             HTTP_POST(_Combine('member/signin'), model,true).then(function(data){
                 if (data.isSuccess){
-                    window.localStorage.setItem(memberid, data.member_id);
-                    deferred.resolve(data);
-                    //config.ajaxRequireToken = true;
+                    localStorage.setItem("memberid", data.data.memberid)
+                    deferred.resolve(data)
+                    GetIndexData(data.data.memberid)
                 }
                 else {
-                    deferred.reject(data.error.message);
+                    deferred.reject(data.error.message)
                 }
             }).catch(function(err){
                 deferred.reject(err);
             });
             return deferred.promise;
-        }
-
-        service.IndexData = function(){
-            var who = GET_MEMBER_LOGIN_INFO();
-             return HTTP_GET(_Combine('index/info/', who.memberid));
         }
 
         service.News = function(page){
