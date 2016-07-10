@@ -21,17 +21,17 @@ angular.module('starter.controllers', [])
     $scope.incomes = []
     $scope.onTabSelected = function(index) {
         if (index == 0) {
-            DataService.IncomeRecords('money', 1).then(function(data) {
+            DataService.IncomeRecords('money', 0).then(function(data) {
                 $scope.incomes = data.data.rows;
             });
         }
         if (index == 1) {
-            DataService.IncomeRecords('interest', 1).then(function(data) {
+            DataService.IncomeRecords('interest', 0).then(function(data) {
                 $scope.incomes = data.data.rows;
             });
         }
         if (index == 2) {
-            DataService.IncomeRecords('bonus', 1).then(function(data) {
+            DataService.IncomeRecords('bonus', 0).then(function(data) {
                 $scope.incomes = data.data.rows;
             });
         }
@@ -44,8 +44,12 @@ angular.module('starter.controllers', [])
         applys : [],
         fails : []
     };
-    
+
     $scope.record={}
+
+    $scope.record = {
+        photo: null
+    };
 
     function uploadImage() {
         if (!$scope.record.photo)
@@ -68,6 +72,22 @@ angular.module('starter.controllers', [])
             });
     }
 
+    $scope.selectImage = function() {
+        var options = {
+            destinationType: Camera.DestinationType.FILE_URI,
+            sourceType: Camera.PictureSourceType.PHOTOLIBRARY
+        }
+
+        $cordovaCamera.getPicture(options)
+            .then(function(imageURI) {
+                 $scope.record.photo = fileEntry.toURL();
+                 $scope.$apply();
+             },
+             function(err) {
+                 AlertService.Alert("选择图片错误.");
+            });
+    }
+
     $scope.takeImage = function () {
         var options = {
             quality: 20,
@@ -85,7 +105,7 @@ angular.module('starter.controllers', [])
                 $scope.$apply();
             });
         }, function (err) {
-            AlertService.Alert("拍照错误.");
+            AlertService.Alert("拍照出错.");
         });
     };
 
@@ -157,7 +177,7 @@ angular.module('starter.controllers', [])
     $scope.mark = 0;
 
     var id = $stateParams.id;
-    
+
     DataService.ApplyDetail(id).then(function(data){
         $scope.apply = data.data.apply;
         $scope.pairs = data.data.pairs;
@@ -174,7 +194,7 @@ angular.module('starter.controllers', [])
         var time =  cfg * 60 * 60  - moment().diff(moment.unix(start),'seconds');
         return time;
     };
-    
+
     $scope.judage = function(){
         AlertService.Alert('judge');
     };
@@ -192,7 +212,6 @@ angular.module('starter.controllers', [])
             if(data.isSuccess) AlertService.Alert('success');
         });
     };
-
 })
 
 .controller('OfferCtrl', function($scope, $rootScope, AlertService, DataService) {
@@ -230,7 +249,7 @@ angular.module('starter.controllers', [])
     $scope.offer = {};
     $scope.pairs = [];
     var id = $stateParams.id;
-    
+
     DataService.OfferDetail(id).then(function(data){
         $scope.offer = data.data.offer;
         $scope.pairs = data.data.pairs;
