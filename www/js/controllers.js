@@ -189,7 +189,7 @@ angular.module('starter.controllers', [])
 })
 
 
-.controller('OfferDetailCtrl',function($scope, $state, $stateParams, $rootScope, $cordovaCamera, $cordovaFileTransfer, AlertService, DataService,config){
+.controller('OfferDetailCtrl',function($scope, $state, $stateParams, $rootScope, $cordovaCamera, $cordovaFileTransfer, AlertService, DataService, config){
     $scope.offer = {};
     $scope.pairs = [];
     var id = $stateParams.id;
@@ -224,10 +224,10 @@ angular.module('starter.controllers', [])
         if (!item.img)
             return AlertService.Alert("还没有提供打款凭证");
 
-        var server = "http://112.124.15.7/api/pair/payment/mobile/upload";
+        var server = config.host + "pair/payment/mobile/upload";
         var filePath = item.img;
 
-        var ext = item.img.substr(item.img.lastIndexOf('/') + 1);
+        var ext = item.img.substr(item.img.lastIndexOf('/'));
         var filename = item.id + "_" + moment().format('YYYYMMDDhhmmss') + '.' + ext;
 
         var options = new FileUploadOptions();
@@ -254,15 +254,14 @@ angular.module('starter.controllers', [])
             sourceType: Camera.PictureSourceType.PHOTOLIBRARY
         }
 
-        $cordovaCamera.getPicture(options).then(function(imageURI) {
-                window.resolveLocalFileSystemURL(imageURI, function (fileEntry) {
-                    item.img = fileEntry.toURL();
-                    $scope.$apply();
-                });
-             },
-             function(err) {
-                 AlertService.Alert("选择图片错误.");
+        $cordovaCamera.getPicture(options).then(function (imageURI) {
+            window.resolveLocalFileSystemURL(imageURI, function (fileEntry) {
+                item.img = fileEntry.toURL();
+                $scope.$apply();
             });
+        }, function (err) {
+            AlertService.Alert("拍照出错.");
+        });
     }
 
     $scope.takeImage = function (item) {
