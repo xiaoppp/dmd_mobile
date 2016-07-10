@@ -16,7 +16,7 @@ angular.module('starter.services',[])
         })();
 
         function PrefixIndexData(data){
-
+            
             $rootScope.config = (function(){
                 var cfg = {};
                 _.each(data.config, function(item,i){
@@ -112,7 +112,9 @@ angular.module('starter.services',[])
             var req = {
                 method: 'POST',
                 url: url,
-                headers: {'Content-Type': 'application/json'},
+                headers: {
+                    'Content-Type': 'application/json',
+                },
                 data: params,
                 timeout: 1000 * 20
             };
@@ -175,11 +177,11 @@ angular.module('starter.services',[])
             about: function(){
                 var member = $rootScope.member;
                 var config = $rootScope.config;
-                var offer = arguments[0] || member.lastOffer
-                if(!offer) return 0
+                var offer = arguments[0] || member.lastOffer;
+                if(!offer) return 0;
                 if(offer && offer.fst)
-                    return offer.money * config.key6 * config.key24
-                else return 0
+                    return offer.money * config.key6 * config.key24;
+                else return 0;
             },
         };
 
@@ -263,7 +265,7 @@ angular.module('starter.services',[])
             return HTTP_GET(_Combine('income/',type,'/', MemberId(), '/', page))
         };
         service.DealRecords = function(type,page){
-            // type = offers or applys or unmatches
+            // type = offers or applys or pairs/failed
             return HTTP_GET(_Combine(type,'/', MemberId()))
         };
         service.IsNewMember = function(){
@@ -285,7 +287,12 @@ angular.module('starter.services',[])
         service.Confirm = function (title, content, fnOK, fnCancel) {
             $ionicPopup.confirm({
                 title: title,
-                template: content
+                template: content,
+                cssClass : '',
+                okType : 'button-balanced',
+                okText : '确定',
+                cancelType : 'button-light',
+                cancelText : '取消'
             }).then(function (res) {
                 if (res) {
                     if (fnOK != null)
@@ -299,7 +306,9 @@ angular.module('starter.services',[])
         service.Alert = function (title, content, fn) {
             $ionicPopup.alert({
                 title: title,
-                template: content
+                template: content,
+                okType : 'button-balanced',
+                okText : '确定'
             }).then(function (res) {
                 if (fn != null)
                     fn(res);

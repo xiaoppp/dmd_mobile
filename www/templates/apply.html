@@ -2,12 +2,12 @@
   <ion-content padding="true">
     <div class="box">
       <p>
-        您的账户总额：<b>{{member.capital.total | currency : '￥'}}</b>元，<br/>
-        冻结总额：<b>{{member.capital.frozen | currency : '￥'}}</b>元，<br/>
-        正在提现总额：<b>{{member.moneyApply | currency : '￥'}}</b>元，<br/>
-        可提现总额：<b>{{member.capital.available | currency : '￥'}}</b>元，<br/>
-        收获金额最少<em>{{config.key3[0] | currency : '￥'}}</em>元，<br/>
-        不能大于账户可用总余额，且必须是<em>{{config.key3[1]}}</em>的整倍数
+        您的账户总额：<b class="money">{{member.capital.total | currency : '￥'}}</b>，<br/>
+        冻结总额：<b class="money">{{member.capital.frozen | currency : '￥'}}</b>，<br/>
+        正在提现总额：<b class="money">{{member.moneyApply | currency : '￥'}}</b>，<br/>
+        可提现总额：<b class="money">{{member.capital.available | currency : '￥'}}</b>，<br/>
+        收获金额最少<em class="money">{{config.key3[0] | currency : '￥'}}</em>，<br/>
+        不能大于账户可用总余额，且必须是<em class="money">{{config.key3[1]}}</em>的整倍数
       </p>
       <div class="list">
         <label class="item item-input">

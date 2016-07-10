@@ -1,0 +1,115 @@
+<ion-view title="播种">
+    <ion-content padding="true">
+
+        <h4 class="text-center">播种记录</h4>
+        
+        <div class="table bg-dark-alpha">
+            <div class="row">
+                <div class="col-20">
+                     <span class="color-green">{{offer.state < 100 ? '正在播种' : '播种完成'}}</span>
+                </div>
+                <div class="col-80">
+                    <div class="progress">
+                        <div class="progress-bar" style="position:absolute" ng-style="{width : progress + '%'}">
+                        </div>
+                        <label class="progress-text" ng-style="{left : (progress + 1) + '%'}">{{progress}}%</label>
+                        <i class="progress-btn" ng-style="{left : (progress - 1) + '%'}"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label>金额：</label>
+                    <br>
+                    <span class="money">
+                        {{offer.money | currency : '￥'}}
+                    </span>
+                </div>
+                <div class="col">
+                    <label>时间：</label>
+                    <br>
+                    <time>
+                        {{offer.the_time | datetime}}
+                    </time>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label>利息：</label>
+                    <br>
+                    <span class="money">
+                        {{offer.money | currency : '￥'}}
+                    </span>
+                </div>
+                <div class="col">
+                    <label>匹配人数：</label>
+                    <br>
+                    <span class="number">
+                        {{offer.money | currency : '￥'}}
+                    </span>
+                </div>
+                <div class="col">
+                    <label>状态：</label>
+                    <br>
+                    <span class="money">
+                        {{offer.state | orderstate}}
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <ion-list>
+            <ion-item ng-repeat="item in pairs">
+                <div class="box">
+                    <div class="sub-order">
+                        <label>匹配金额：</label><span class="money">{{item.money | currency : '￥'}}</span>
+                        <br>
+                        <label>状态：</label><span class="status">{{item.state | suborderstate}}</span>
+                        <br>
+                        <label>匹配时间：</label><time>{{item.the_time | datetime}}</time>
+                        <br>
+                        <label>打款时间：</label><time>{{item.pay_time | datetime}}</time>
+                        <br>
+                        <label>对方账号：</label><span>{{item.applyMember.username}}</span>
+                        <br>
+                        <label>对方姓名：</label><span>{{item.applyMember.truename}}</span>
+                        <br>
+                        <label>手机号：</label><span>{{item.applyMember.mobile}}</span>
+                        <br>
+                        <label>支付宝：</label><span>{{item.applyMember.alipay}}</span>
+                        <br>
+                        <label>微信号：</label><span>{{item.applyMember.weixin}}</span>
+                        <br>
+                        <label>银行名称：</label><span>{{item.applyMember.bank}}</span>
+                        <br>
+                        <label>开户行：</label><span>{{item.applyMember.bank_addr}}</span>
+                        <br>
+                        <label>银行账号：</label><span>{{item.applyMember.bank_num}}</span>
+                        <br>
+                        <label>打款倒计时：</label><time>{{remainTime(item)}}</time>
+                    </div>
+                    <div class="sub-order-oper text-center">
+                        <div ng-if="item.state == 2">
+                            <div ng-if="item.img">
+                                <img class="snapshot" ng-src="{{item.img}}">
+                            </div>
+                            <div ng-if="!item.img">
+                                <img class="snapshot" ng-src="{{item.img}}">
+						        <input type="file" name="imgfile" class="uploadimgfile" value="确认打款">
+                                <em class="deny-payment">拒绝打款</em>
+                            </div>
+                        </div>
+                        <div ng-if="item.state == 3">
+                            <img class="snapshot" ng-src="{{item.img}}">
+                            <label class="state state-3">已打款</label>
+                        </div>
+                        <div ng-if="item.state == 4">
+                            <img class="snapshot" ng-src="{{item.img}}">
+                            <label class="state state-4">订单已完成</label>
+                        </div>
+                    </div>
+                </div>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>

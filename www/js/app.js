@@ -8,9 +8,10 @@
 angular.module('starter', ['ionic',
   'ngCordova',
   'starter.config',
+  'starter.filters',
   'starter.controllers',
   'starter.services',
-  'starter.directives'
+  'starter.directives',
 ])
 
 .run(function($ionicPlatform) {
@@ -146,6 +147,16 @@ angular.module('starter', ['ionic',
       'menuContent': {
         templateUrl: 'templates/offer.html',
         controller: 'OfferCtrl'
+      }
+    }
+  })
+
+  .state('app.offerdetail', {
+    url: '/offer/:id',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/offerdetail.html',
+        controller: 'OfferDetailCtrl'
       }
     }
   })

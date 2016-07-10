@@ -22,24 +22,28 @@ angular.module('starter.controllers', [])
     $scope.onTabSelected = function(index) {
         if (index == 0) {
             DataService.IncomeRecords('money', 1).then(function(data) {
-                $scope.incomes = data.data.rows
-            })
+                $scope.incomes = data.data.rows;
+            });
         }
         if (index == 1) {
             DataService.IncomeRecords('interest', 1).then(function(data) {
-                $scope.incomes = data.data.rows
-            })
+                $scope.incomes = data.data.rows;
+            });
         }
         if (index == 2) {
             DataService.IncomeRecords('bonus', 1).then(function(data) {
-                $scope.incomes = data.data.rows
-            })
+                $scope.incomes = data.data.rows;
+            });
         }
     }
 })
 
-.controller('RecordCtrl', function($scope, $cordovaCamera, $cordovaFileTransfer, AlertService) {
-    $scope.record = {};
+.controller('RecordCtrl', function($scope, $cordovaCamera, $cordovaFileTransfer, DataService, AlertService) {
+    $scope.records = {
+        offers : [],
+        applys : [],
+        fails : []
+    };
 
     function uploadImage() {
         if (!$scope.record.photo)
@@ -82,6 +86,15 @@ angular.module('starter.controllers', [])
             AlertService.Alert("拍照错误.");
         });
     };
+
+    $scope.onTabSelected = function(n){
+        var type = n == 0　? "offers" : n == 1 ? "applys" : "pairs/failed";
+        var type2 = n == 0　? "offers" : n == 1 ? "applys" : "failed";
+        DataService.DealRecords(type).then(function(data){
+            $scope.records[type2] = data.data;
+        });
+    };
+
 })
 
 .controller('SigninCtrl', function($scope, $state, DataService, AlertService) {
@@ -117,37 +130,98 @@ angular.module('starter.controllers', [])
     }
 })
 
-.controller('ApplyCtrl', function($scope, $rootScope, DataService) {
+.controller('ApplyCtrl', function($scope, $rootScope, DataService, AlertService) {
     $scope.data = {
         money: 0
-    }
+    };
+
     $scope.apply = function() {
         console.log(123)
-        DataService.Apply($scope.data.money)
-    }
+        var money = $scope.data.money;
+        var min = $rootScope.config.key3[0];
+        var time = $rootScope.config.key3[1];
+        if(money < min) return AlertService.Alert('提现金额不可小于' + min + '元。');
+		else if(money % time != 0) AlertService.Alert('提现金额必须是' + time + '的倍数。');
+        else DataService.Apply($scope.data.money).then(function(data){
+            AlertService.Alert('收获成功，等待匹配、打款')
+        });
+    };
+
+})
+
+.controller('ApplyDetailCtrl',function($scope, $rootScope, AlertService, DataService){
+    
 })
 
 .controller('OfferCtrl', function($scope, $rootScope, AlertService, DataService) {
     $scope.data = {
-        money: 0,
-        isChecked: false
-    }
+        money: 1000,
+        isChecked: false,
+        first : true
+    };
+
+    DataService.IsNewMember().then(function(data){
+        if(data.isSuccess){
+            $scope.data.first = data.data;
+        }else {
+            AlertService.Alert(data.error.message);
+        }
+    });
 
     $scope.offer = function() {
         console.log($scope.data.money)
         if ($scope.data.isChecked) {
             DataService.Offer($scope.data.money).then(function(data) {
-
-            })
+            });
         }
         else {
-            AlertService.Alert("请先阅读平台提示!")
+            AlertService.Alert("请先阅读平台提示!");
         }
     }
 
     $scope.select = function(money) {
         $scope.data.money = money
     }
+})
+
+.controller('OfferDetailCtrl',function($scope,$state,$stateParams, $rootScope, AlertService, DataService){
+    $scope.offer = {};
+    $scope.pairs = [];
+    var id = $stateParams.id;
+    
+    DataService.OfferDetail(id).then(function(data){
+        $scope.offer = data.data.offer;
+        $scope.pairs = data.data.pairs;
+        $scope.progress = (function(){
+            var state = $scope.offer.state;
+            if(state < 100) return state * 10;
+            else return 100;
+        })();
+    });
+
+    $scope.aboutIncome = function(item){
+        return DataService.Capital.about(item);
+    };
+
+    $scope.remainTime = function(item){
+        var cfg12 = $rootScope.config.key12;
+        var time =  cfg12 * 60 * 60 -  moment().diff(moment.unix(item.the_time),'seconds');
+        return time;
+    };
+    
+    $scope.denyPay = function(item){
+        DataService.DenyPayment(item.id).then(function(data){
+            if(data.isSuccess){
+                AlertService.Alert('您已拒绝打款,系统正在处理...');
+            } else {
+                AlertService.Alert(data.error.message);
+            }
+        })
+    };
+
+    $scope.payOut = function(item){
+        //文件
+    };
 })
 
 .controller('SettingsCtrl', function($scope, $state, config) {

@@ -1,21 +1,19 @@
 <ion-view view-title="ME">
   <ion-content padding="true">
       <div class="box text-center">
-		  <img class="circle" src="images/female1.jpg">
+		  <img class="circle" ng-if="member.sex == 1" src="images/female1.jpg">
+		  <img class="circle" ng-if="member.sex == 2" src="images/male1.jpg">
 	  </div>
 	  <div class="box text-center">
-		  <strong class="pr">{{member.truename}}</strong>
+		  <strong style="font-size:18px;" class="pr">{{member.nickname || member.truename || member.username}}</strong>
 		  <span class="pr">
-			  <img src="images/level.png">
+			  <span class="level"></span>
 			  <span>经理人</span>
 		  </span>
 		  <span>
 			  诚信 ： 
-			  <img src="images/love-color.png">
-			  <img src="images/love-color.png">
-			  <img src="images/love-color.png">
-			  <img src="images/love-color.png">
-			  <img src="images/love-gray.png">
+			  <img class="bstar" ng-repeat="n in member.believe | range" src="images/love-color.png">
+			  <img class="bstar" ng-repeat="n in 5 - member.believe | range" src="images/love-gray.png">
 		  </span>
 	  </div>
 	  <div class="box text-center">
@@ -23,7 +21,7 @@
 			  <div class="row">
 					<div class="col">
 						<h5>DMD币</h5>
-						<span class="money">{{member.dmd}}</span>
+						<span class="money">{{member.dmd || 0}}</span>
 					</div>
 					<div class="col">
 						<h5>本金总额</h5>
@@ -41,36 +39,36 @@
 		  </div>
 	  </div>
 	  <div class="box text-center">
-			<button class="button btn-offer m" style="width:40%">
+			<button class="button btn-offer m" ui-sref="app.offer" style="width:40%">
 				我要播种
 			</button>
-			<button class="button btn-apply m" style="width:40%">
+			<button class="button btn-apply m" ui-sref="app.apply" style="width:40%">
 				我要收获
 			</button>
 	  </div>
 	  
 	  <div class="box" ng-if="member.lastOffer">
-		  <h4 class="color-green">正在播种...</h4>
+		  <h4 class="color-green">正在播种</h4>
 		  <div class="table bg-dark-alpha">
 			  <div class="row">
 				  <div class="col">
 					  <label>金额：</label>
 					  <br> 
-					  <span class="money">{{member.lastOffer.money}}</span>
+					  <span class="money">{{member.lastOffer.money | currency : '￥'}}</span>
 				  </div>
 				  <div class="col">
-					  <label>时间：</label> <br><time>{{member.lastOffer.the_time}}</time>
+					  <label>时间：</label> <br><time>{{member.lastOffer.the_time | datetime}}</time>
 				  </div>
 			  </div>
 			  <div class="row">
 				  <div class="col">
-					  <label>利息：</label><br><span class="money">{{0}}</span>
+					  <label>利息：</label><br><span class="money">{{member.capital.about | currency : '￥'}}</span>
 				  </div>
 				  <div class="col">
-					  <label>匹配人数：</label><br><span class="number">{{member.lastOffer.pairs}}人</span>
+					  <label>匹配人数：</label><br><span class="number">{{member.lastOffer.pairs || 0}}人</span>
 				  </div>
 				  <div class="col">
-					  <label>状态：</label><br><span class="status">{{member.state}}</span>
+					  <label>状态：</label><br><span class="status">{{member.lastOffer.state | orderstate}}</span>
 				  </div>
 			  </div>
 		  </div>
@@ -82,34 +80,28 @@
 	  </div>
 
 	  <div class="box" ng-if="member.lastApply">
-		  <h4 class="color-orange">正在收获.</h4>
+		  <h4 class="color-orange">正在收获</h4>
 		  <div class="table bg-dark-alpha">
-
 			  <div class="row">
 				  <div class="col">
 					  <label>金额：</label>
 					  <br> 
-					  <span class="money">{{member.lastApply.money}}</span>
+					  <span class="money">{{member.lastApply.money | currency : '￥'}}</span>
 				  </div>
 				  <div class="col">
-					  <label>时间：</label> <br><time>{{member.lastApply.the_time}}</time>
+					  <label>时间：</label> <br><time>{{member.lastApply.the_time | datetime}}</time>
 				  </div>
 			  </div>
 			  <div class="row">
 				  <div class="col">
-					  <label>利息：</label><br><span class="money">{{0}}</span>
+					  <label>匹配人数：</label><br><span class="number">{{member.lastApply.pairs || 0}}人</span>
 				  </div>
 				  <div class="col">
-					  <label>匹配人数：</label><br><span class="number">{{member.lastApply.pairs}}人</span>
-				  </div>
-				  <div class="col">
-					  <label>状态：</label><br><span class="status">{{member.lastApply.state}}</span>
+					  <label>状态：</label><br><span class="status">{{member.lastApply.state | orderstate}}</span>
 				  </div>
 			  </div>
-
 		  </div>
 	  </div>
-	
 
 	 <div class="box" ng-if="!member.lastApply">
 		  <h4 class="color-orange">等待收获...</h4>

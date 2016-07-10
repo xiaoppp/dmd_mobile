@@ -1,9 +1,9 @@
 <ion-view view-title="我的资产">
-  <ion-content>
     <ion-tabs class="tabs-striped tabs-bottom tabs-background-dark tabs-color-energized">
+      
       <ion-tab title="总资产">
         <ion-content padding="true">
-          <div class="box" style="height:100px;">
+          <div class="box padding-y">
             <ul>
               <li>
                 <label>账户总资产：</label><span class="money">{{member.capital.total | currency :'￥'}}</span></li>
@@ -20,94 +20,104 @@
           </div>
         </ion-content>
       </ion-tab>
+      
       <ion-tab title="本金" on-select="onTabSelected(0)">
         <ion-content padding="true">
-          <div class="line2">
-            <ul>
-              <li>
-                <label>本金总额：</label><span class="money">{{member.capital.sum | currency :'￥'}}</span></li>
-              <li>
-                <label>本金冻结总额：</label><span class="money">{{member.moneyFreeze | currency :'￥'}}</span></li>
-              <li>
-                <label>本金可提现总额：</label><span class="money">{{member.money | currency :'￥'}}</span></li>
-            </ul>
-          </div>
-          <ion-list>
-            <ion-item ng-repeat="income in incomes">
+          <div class="padding-y">
+            <div class="line2">
               <ul>
                 <li>
-                  <label>金额：</label><span class="money">￥{{income.money}}</span></li>
+                  <label>本金总额：</label><span class="money">{{member.capital.sum | currency :'￥'}}</span></li>
                 <li>
-                  <label>时间：</label>
-                  <time>{{income.the_time}}</time>
-                </li>
+                  <label>本金冻结总额：</label><span class="money">{{member.moneyFreeze | currency :'￥'}}</span></li>
                 <li>
-                  <label>说明：</label>
-                  <p class="intro">{{income.intro}}</p>
-                </li>
+                  <label>本金可提现总额：</label><span class="money">{{member.money | currency :'￥'}}</span></li>
               </ul>
-            </ion-item>
-          </ion-list>
+            </div>
+            <ion-list>
+              <ion-item ng-repeat="income in incomes">
+                <ul>
+                  <li>
+                    <label>金额：</label><span class="money">{{income.money | currency : '￥'}}</span></li>
+                  <li>
+                    <label>时间：</label>
+                    <time>{{income.the_time | datetime}}</time>
+                  </li>
+                  <li>
+                    <label>说明：</label>
+                    <p class="intro">{{income.intro}}</p>
+                  </li>
+                </ul>
+              </ion-item>
+            </ion-list>
+          </div>
+          
         </ion-content>
       </ion-tab>
+      
       <ion-tab title="利息" on-select="onTabSelected(1)">
         <ion-content padding="true">
-          <div class="line2">
-            <ul>
-              <li>
-                <label>利息总额：</label><span class="money">{{member.interest | currency :'￥'}}</span></li>
-              <li>
-                <label>利息可提现总额：</label><span class="money">{{member.interest | currency :'￥'}}</span></li>
-            </ul>
-          </div>
-          <ion-list>
-            <ion-item ng-repeat="income in incomes">
+          <div class="padding-y">
+            <div class="line2">
               <ul>
                 <li>
-                  <label>金额：</label><span class="money">￥{{income.money}}</span></li>
+                  <label>利息总额：</label><span class="money">{{member.interest | currency :'￥'}}</span></li>
                 <li>
-                  <label>时间：</label>
-                  <time>{{income.the_time}}</time>
-                </li>
-                <li>
-                  <label>说明：</label>
-                  <p class="intro">{{income.intro}}</p>
-                </li>
+                  <label>利息可提现总额：</label><span class="money">{{member.interest | currency :'￥'}}</span></li>
               </ul>
-            </ion-item>
-          </ion-list>
+            </div>
+            <ion-list>
+              <ion-item ng-repeat="income in incomes">
+                <ul>
+                  <li>
+                    <label>金额：</label><span class="money">{{income.money | currency : '￥'}}</span></li>
+                  <li>
+                    <label>时间：</label>
+                    <time>{{income.the_time | datetime}}</time>
+                  </li>
+                  <li>
+                    <label>说明：</label>
+                    <p class="intro">{{income.intro}}</p>
+                  </li>
+                </ul>
+              </ion-item>
+            </ion-list>
+          </div>
         </ion-content>
       </ion-tab>
+      
       <ion-tab title="团队奖励" on-select="onTabSelected(2)">
         <ion-content padding="true">
-          <div class="line2">
-            <ul>
-              <li>
-                <label>团队奖励总额：</label><span class="money">{{member.capital.sum | currency :'￥'}}</span></li>
-              <li>
-                <label>团队奖励冻结总额：</label><span class="money">{{member.bonusFreeze | currency :'￥'}}</span></li>
-              <li>
-                <label>团队奖励可提现总额：</label><span class="money">{{member.bonus | currency :'￥'}}</span></li>
-            </ul>
-          </div>
-          <ion-list>
-            <ion-item ng-repeat="income in incomes">
+          <div class="padding-y">
+            <div class="line2">
               <ul>
                 <li>
-                  <label>金额：</label><span class="money">￥{{income.money}}</span></li>
+                  <label>团队奖励总额：</label><span class="money">{{member.capital.sum | currency :'￥'}}</span></li>
                 <li>
-                  <label>时间：</label>
-                  <time>{{income.the_time}}</time>
-                </li>
+                  <label>团队奖励冻结总额：</label><span class="money">{{member.bonusFreeze | currency :'￥'}}</span></li>
                 <li>
-                  <label>说明：</label>
-                  <p class="intro">{{income.intro}}</p>
-                </li>
+                  <label>团队奖励可提现总额：</label><span class="money">{{member.bonus | currency :'￥'}}</span></li>
               </ul>
-            </ion-item>
-          </ion-list>
+            </div>
+            <ion-list>
+              <ion-item ng-repeat="income in incomes">
+                <ul>
+                  <li>
+                    <label>金额：</label><span class="money">{{income.money | currency : '￥'}}</span></li>
+                  <li>
+                    <label>时间：</label>
+                    <time>{{income.the_time | datetime}}</time>
+                  </li>
+                  <li>
+                    <label>说明：</label>
+                    <p class="intro">{{income.intro}}</p>
+                  </li>
+                </ul>
+              </ion-item>
+            </ion-list>
+          </div>
         </ion-content>
       </ion-tab>
+
     </ion-tabs>
-  </ion-content>
 </ion-view>
