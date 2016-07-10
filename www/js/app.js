@@ -75,6 +75,16 @@ angular.module('starter', ['ionic',
     }
   })
 
+  .state('app.applydetail', {
+    url: '/apply/:id',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/applydetail.html',
+        controller: 'ApplyDetailCtrl'
+      }
+    }
+  })
+
   .state('app.group', {
     url: '/group',
     views: {
@@ -132,7 +142,7 @@ angular.module('starter', ['ionic',
   })
 
   .state('app.newsdetail', {
-    url: '/newsdetail/:id',
+    url: '/news/:id',
     views: {
       'menuContent': {
         templateUrl: 'templates/newsdetail.html',

@@ -19,10 +19,18 @@ angular.module('starter.filters',[])
 .filter('orderstate',function(){
     return function(input){
         if(input == 100) return '已完成';
-        else return '进行中...'
-    }
+        else return '进行中...';
+    };
 })
 
 .filter('suborderstate',function() {
-    
+    return function(input){
+        return input;
+    };
+})
+
+.filter('duration',function(){
+    return function(input){
+        return input;
+    };
 })
