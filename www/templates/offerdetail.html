@@ -96,7 +96,7 @@
                                 <button class="button icon button-positive ion-ios-folder-outline" ng-click="selectImage(item)"></button>
                             </div>
                             <button class="button icon button-small button-balanced" ng-click="payOut(item)">确认打款</button>
-                            <em class="deny-payment" ng-click="denyPay()">拒绝打款</em>
+                            <button class="button icon button-small button-assertive" ng-click="denyPay(item)">拒绝打款</button>
                         </div>
                         <div ng-if="item.state == 3">
                             <img class="snapshot" ng-src="{{item.img}}">
