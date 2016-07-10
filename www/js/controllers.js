@@ -108,7 +108,7 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('ApplyDetailCtrl',function($scope,$state,$stateParams, $rootScope, AlertService, DataService,config){
+.controller('ApplyDetailCtrl',function($scope,$state,$stateParams, $rootScope, AlertService, DataService,config,Utils){
     $scope.apply = {};
     $scope.pairs = [];
     $scope.mark = 0;
@@ -123,14 +123,10 @@ angular.module('starter.controllers', [])
             if(state < 100) return state * 10;
             else return 100;
         })();
+        _each($scope.pairs,function(item){
+            item.remainTime = remainTime(item.pay_time, 0);
+        });
     });
-
-    $scope.remainTime = function(start, flag){
-        if(!$rootScope.config) return 0;
-        var cfg = flag  ? $rootScope.config.key12 : $rootScope.config.key13;
-        var time =  cfg * 60 * 60  - moment().diff(moment.unix(start),'seconds');
-        return time;
-    };
 
     $scope.judage = function(){
         AlertService.Alert('judge');
@@ -149,6 +145,14 @@ angular.module('starter.controllers', [])
             if(data.isSuccess) AlertService.Alert('success');
         });
     };
+
+    function remainTime(start, flag){
+        if(!$rootScope.config) return 0;
+        var cfg = flag  ? $rootScope.config.key12 : $rootScope.config.key13;
+        var time =  cfg * 60 * 60  - moment().diff(moment.unix(start),'seconds');
+        return Utils.duration(time);
+    }
+
 })
 
 .controller('OfferCtrl', function($scope, $rootScope, $state, AlertService, DataService) {
@@ -282,11 +286,7 @@ angular.module('starter.controllers', [])
         });
     };
 
-    $scope.aboutIncome = function(item){
-        return DataService.Capital.about(item);
-    };
-
-    $scope.remainTime = function(item){
+    function remainTime(item){
         if(!$rootScope.config) return 0;
         var cfg12 = $rootScope.config.key12;
         var time =  cfg12 * 60 * 60 -  moment().diff(moment.unix(item.the_time),'seconds');

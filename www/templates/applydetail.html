@@ -67,7 +67,7 @@
                         <br>
                         <label>手机号：</label><span>{{item.offerMember.mobile}}</span>
                         <br>
-                        <label>收款款倒计时：</label><time>{{remainTime(item.pay_time, 0)}}</time>
+                        <label>收款款倒计时：</label><time>{{item.remainTime}}</time>
                     </div>
                     <div class="sub-order-oper text-center">
                         <div ng-if="item.state == 2">
