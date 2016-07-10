@@ -57,26 +57,7 @@
                     <label>时间 ：</label> <time>{{item.apply.the_time | datetime}}<time>
                   </li>
                   <li class="text-center">
-                    <button class="button button-balanced">查看</button>
-                  </li>
-                </ul>
-              </ion-item>
-              <ion-item>
-                <ul>
-                  <li>
-                    <label>编号：</label> <span class="yellow">O89y38489345y793456</span>
-                  </li>
-                  <li>
-                    <label>状态：</label> <span class="status status-2">进行中...</span>
-                  </li>
-                  <li>
-                    <label>金额 ：</label> <span class="money">￥215645458.00</span>
-                  </li>
-                  <li>
-                    <label>时间 ：</label> <time>2015-02-23 12:25:32<time>
-                  </li>
-                  <li class="text-center">
-                    <button class="button button-balanced">查看</button>
+                    <button class="button button-balanced" ui-sref="app.applydetail({id:{{item.apply.id}}})">查看</button>
                   </li>
                 </ul>
               </ion-item>

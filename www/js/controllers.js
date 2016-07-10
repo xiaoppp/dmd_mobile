@@ -44,6 +44,8 @@ angular.module('starter.controllers', [])
         applys : [],
         fails : []
     };
+    
+    $scope.record={}
 
     function uploadImage() {
         if (!$scope.record.photo)
@@ -149,8 +151,48 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('ApplyDetailCtrl',function($scope, $rootScope, AlertService, DataService){
+.controller('ApplyDetailCtrl',function($scope,$state,$stateParams, $rootScope, AlertService, DataService,config){
+    $scope.apply = {};
+    $scope.pairs = [];
+    $scope.mark = 0;
+
+    var id = $stateParams.id;
     
+    DataService.ApplyDetail(id).then(function(data){
+        $scope.apply = data.data.apply;
+        $scope.pairs = data.data.pairs;
+        $scope.progress = (function(){
+            var state = $scope.apply.state;
+            if(state < 100) return state * 10;
+            else return 100;
+        })();
+    });
+
+    $scope.remainTime = function(start, flag){
+        if(!$rootScope.config) return 0;
+        var cfg = flag  ? $rootScope.config.key12 : $rootScope.config.key13;
+        var time =  cfg * 60 * 60  - moment().diff(moment.unix(start),'seconds');
+        return time;
+    };
+    
+    $scope.judage = function(){
+        AlertService.Alert('judge');
+    };
+
+    $scope.payIn = function(item){
+        AlertService.Alert('payIn');
+    };
+
+    $scope.cancelJudge = function(item){
+        AlertService.Alert('cancelJudge');
+	};
+
+    $scope.remark = function(item){
+        DataService.Remark(item.id, $scope.remark).then(function(data){
+            if(data.isSuccess) AlertService.Alert('success');
+        });
+    };
+
 })
 
 .controller('OfferCtrl', function($scope, $rootScope, AlertService, DataService) {
@@ -184,7 +226,7 @@ angular.module('starter.controllers', [])
     }
 })
 
-.controller('OfferDetailCtrl',function($scope,$state,$stateParams, $rootScope, AlertService, DataService){
+.controller('OfferDetailCtrl',function($scope,$state,$stateParams, $rootScope, AlertService, DataService,config){
     $scope.offer = {};
     $scope.pairs = [];
     var id = $stateParams.id;
@@ -204,6 +246,7 @@ angular.module('starter.controllers', [])
     };
 
     $scope.remainTime = function(item){
+        if(!$rootScope.config) return 0;
         var cfg12 = $rootScope.config.key12;
         var time =  cfg12 * 60 * 60 -  moment().diff(moment.unix(item.the_time),'seconds');
         return time;
@@ -241,11 +284,12 @@ angular.module('starter.controllers', [])
 })
 
 .controller('NewsDetailCtrl',function($scope,$state,$stateParams,DataService,config){
-    var id = $stateParams.id
     $scope.model = {};
+    var id = $stateParams.id;
     DataService.NewsSingle(id).then(function(data){
         $scope.model = data.data;
+        $scope.model.content = htmlDecode(data.data.content);
     }).catch(function(err){
-        console.log(err)
+        console.log(err);
     });
 })

@@ -16,7 +16,6 @@ angular.module('starter.services',[])
         })();
 
         function PrefixIndexData(data){
-            
             $rootScope.config = (function(){
                 var cfg = {};
                 _.each(data.config, function(item,i){
@@ -48,6 +47,7 @@ angular.module('starter.services',[])
                 m.lastApply = data.lastApply;
                 return m;
             })();
+
             var o = {
                     sum       :  self.Capital.sum(),
                     bonus     :  self.Capital.bonus(),
@@ -56,6 +56,7 @@ angular.module('starter.services',[])
                     available :  self.Capital.available(),
                     about     :  self.Capital.about()
             };
+
             $rootScope.member.capital = o;
         }
 
@@ -279,6 +280,57 @@ angular.module('starter.services',[])
             var model = {applyid : id, memberid : MemberId()}
             return HTTP_POST(_Combine('apply/detail'),model)
         };
+        service.Freeze = function(){
+        };
+        service.DenyPay = function(){
+            //pair/payment/deny/:memberid
+            return HTTP_GET(_Combine('pair/payment/deny/', MemberId()))
+        };
+        service.PayOut = function(pairid,file){
+            //pair/payment/out
+            var who = D.Member.id
+            var deferred = Q.defer()
+            request.post(_Combine('pair/payment/out/', pairid))
+                .attach('imgFile',file)
+                .field('memberid', who)
+                .field('oaid', pairid)
+                .end(function(err,res){
+                    if(err){
+                            deferred.reject(err)
+                        } else {
+                            deferred.resolve(res.body)
+                    }
+                })
+            return deferred.promise
+        };
+        service.PayIn = function(pairid){
+            //pair/payment/in
+            var model = {
+                memberid : MemberId(),
+                oaid : pairid
+            };
+            return HTTP_POST(_Combine('pair/payment/in'), model);
+        };
+        service.Judge = function(pairid,judge){
+            //pairs/judge
+            //0为正常，1为仲裁状态，2为被驳回
+            var model = {
+                oaid  : pairid,
+                judge  :judge,
+                memberid : MemberId()
+            };
+            return HTTP_POST(_Combine('pairs/judge'), model);
+        };
+        service.Remark = function(pairid,remark){
+            //pairs/remark
+            var model = {
+                oaid : pairid,
+                remark : remark,
+                memberid : MemberId()
+            };
+            return HTTP_POST(_Combine('pairs/remark'), model);
+        };
+
     })
 
     .service('AlertService', function ($ionicPopup) {

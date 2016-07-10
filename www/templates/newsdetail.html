@@ -1,8 +1,16 @@
 <ion-view>
     <ion-content padding="true">
-        <h4>{{model.title}}</h4>
-        <p>
-            {{model.content}}
-        </p>
+        <h4 class="text-center">{{model.title}}</h4>
+        <div class="box text-center">
+            <label>来自：</label><span>{{model.the_from}}</span>
+            <br>
+            <label>时间：</label><span>{{model.the_time | datetime}}</span>
+            <br>
+            <label>阅读次数：</label><span>{{model.vcount}}</span>
+        </div>
+        <div class="bg-dark-alpha mt p news-content" style="color:#fff;">
+            <div ng-bind-html="model.content">
+            </div>
+        </div>
     </ion-content>
 </ion-view>

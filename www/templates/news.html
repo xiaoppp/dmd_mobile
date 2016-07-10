@@ -2,7 +2,7 @@
   <ion-content padding="true">
     <ion-list>
       <ion-item ng-repeat="item in model">
-        <a href="#/app/newsdetail/{{model.id}}">
+        <a ui-sref="app.newsdetail({id:{{item.id}}})">
           <h4>{{item.title}}</h4>
           <time>{{item.the_time}}</time>
         </a>
