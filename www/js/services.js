@@ -162,7 +162,7 @@ angular.module('starter.services',[])
             },
             total: function(){
                 var member = $rootScope.member;
-                return 	member.money + member.interest + 
+                return 	member.money + member.interest +
                         member.bonus + member.moneyFreeze +
                         member.bonusFreeze
             },
@@ -172,7 +172,7 @@ angular.module('starter.services',[])
             },
             available: function(){
                 var member = $rootScope.member;
-                return 	member.money + member.interest + 
+                return 	member.money + member.interest +
                         member.bonus - member.moneyApply
             },
             about: function(){
@@ -286,22 +286,8 @@ angular.module('starter.services',[])
             //pair/payment/deny/:memberid
             return HTTP_GET(_Combine('pair/payment/deny/', MemberId()))
         };
-        service.PayOut = function(pairid,file){
-            //pair/payment/out
-            var who = D.Member.id
-            var deferred = Q.defer()
-            request.post(_Combine('pair/payment/out/', pairid))
-                .attach('imgFile',file)
-                .field('memberid', who)
-                .field('oaid', pairid)
-                .end(function(err,res){
-                    if(err){
-                            deferred.reject(err)
-                        } else {
-                            deferred.resolve(res.body)
-                    }
-                })
-            return deferred.promise
+        service.PayOut = function(pairid, imgurl){
+            return HTTP_POST(_Combine('pair/payment/out'), {memberid: MemberId(), imgurl:imgurl, oaid: pairid})
         };
         service.PayIn = function(pairid){
             //pair/payment/in

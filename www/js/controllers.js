@@ -38,75 +38,11 @@ angular.module('starter.controllers', [])
     }
 })
 
-.controller('RecordCtrl', function($scope, $cordovaCamera, $cordovaFileTransfer, DataService, AlertService) {
+.controller('RecordCtrl', function($scope, DataService, AlertService) {
     $scope.records = {
         offers : [],
         applys : [],
         fails : []
-    };
-
-    $scope.record={}
-
-    $scope.record = {
-        photo: null
-    };
-
-    function uploadImage() {
-        if (!$scope.record.photo)
-            AlertService.Alert("还没有上传凭证")
-
-        var server = "/api/pair/payment/upload";
-        var filePath = $scope.record.photo;
-
-        var options = new FileUploadOptions();
-        options.fileKey = "image_file";
-        options.fileName = $scope.record.photo.substr($scope.record.photo.lastIndexOf('/') + 1);
-        options.mimeType = "text/plain";
-
-        $cordovaFileTransfer.upload(server, filePath, options)
-            .then(function (result) {
-                AlertService.Alert("上传图片成功.");
-            }, function (err) {
-                AlertService.Alert("上传图片失败.");
-            }, function (progress) {
-            });
-    }
-
-    $scope.selectImage = function() {
-        var options = {
-            destinationType: Camera.DestinationType.FILE_URI,
-            sourceType: Camera.PictureSourceType.PHOTOLIBRARY
-        }
-
-        $cordovaCamera.getPicture(options)
-            .then(function(imageURI) {
-                 $scope.record.photo = fileEntry.toURL();
-                 $scope.$apply();
-             },
-             function(err) {
-                 AlertService.Alert("选择图片错误.");
-            });
-    }
-
-    $scope.takeImage = function () {
-        var options = {
-            quality: 20,
-            destinationType: Camera.DestinationType.FILE_URI,
-            sourceType: Camera.PictureSourceType.CAMERA,
-            correctOrientation: true,
-            allowEdit: false,
-            popoverOptions: CameraPopoverOptions,
-            saveToPhotoAlbum: false
-        };
-
-        $cordovaCamera.getPicture(options).then(function (imageURI) {
-            window.resolveLocalFileSystemURL(imageURI, function (fileEntry) {
-                $scope.record.photo = fileEntry.toURL();
-                $scope.$apply();
-            });
-        }, function (err) {
-            AlertService.Alert("拍照出错.");
-        });
     };
 
     $scope.onTabSelected = function(n){
@@ -122,7 +58,7 @@ angular.module('starter.controllers', [])
 .controller('SigninCtrl', function($scope, $state, DataService, AlertService) {
 
     $scope.user = {
-        username: "17703446798",
+        username: "13803431018",
         pwd: "1234"
     };
 
@@ -152,7 +88,7 @@ angular.module('starter.controllers', [])
     }
 })
 
-.controller('ApplyCtrl', function($scope, $rootScope, DataService, AlertService) {
+.controller('ApplyCtrl', function($scope, $rootScope, $state, DataService, AlertService) {
     $scope.data = {
         money: 0
     };
@@ -166,6 +102,7 @@ angular.module('starter.controllers', [])
 		else if(money % time != 0) AlertService.Alert('提现金额必须是' + time + '的倍数。');
         else DataService.Apply($scope.data.money).then(function(data){
             AlertService.Alert('收获成功，等待匹配、打款')
+            $state.go('app.applydetail')
         });
     };
 
@@ -218,7 +155,7 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('OfferCtrl', function($scope, $rootScope, AlertService, DataService) {
+.controller('OfferCtrl', function($scope, $rootScope, $state, AlertService, DataService) {
     $scope.data = {
         money: 1000,
         isChecked: false,
@@ -237,6 +174,8 @@ angular.module('starter.controllers', [])
         console.log($scope.data.money)
         if ($scope.data.isChecked) {
             DataService.Offer($scope.data.money).then(function(data) {
+                console.log(data)
+                $state.go('app.offerdetail')
             });
         }
         else {
@@ -249,12 +188,14 @@ angular.module('starter.controllers', [])
     }
 })
 
-.controller('OfferDetailCtrl',function($scope,$state,$stateParams, $rootScope, AlertService, DataService,config,Utils){
+
+.controller('OfferDetailCtrl',function($scope, $state, $stateParams, $rootScope, $cordovaCamera, $cordovaFileTransfer, AlertService, DataService,config){
     $scope.offer = {};
     $scope.pairs = [];
     var id = $stateParams.id;
 
     DataService.OfferDetail(id).then(function(data){
+        console.log(data)
         $scope.offer = data.data.offer;
         $scope.pairs = data.data.pairs;
         $scope.progress = (function(){
@@ -268,6 +209,90 @@ angular.module('starter.controllers', [])
         });
     });
 
+    $scope.payOut = function(item){
+        alert('payout')
+        uploadImage(item, function(r, data) {
+            if (r) {
+                DataService.PayOut(item.id, data).then(function(data) {
+                    AlertService.Alert('打款成功')
+                })
+            }
+        })
+    };
+
+    function uploadImage(item, fn) {
+        if (!item.img)
+            return AlertService.Alert("还没有提供打款凭证");
+
+        var server = "http://112.124.15.7/api/pair/payment/mobile/upload";
+        var filePath = item.img;
+
+        var ext = item.img.substr(item.img.lastIndexOf('/') + 1);
+        var filename = item.id + "_" + moment().format('YYYYMMDDhhmmss') + '.' + ext;
+
+        var options = new FileUploadOptions();
+
+        options.fileKey = "image_file";
+        options.fileName = filename;
+        options.mimeType = "text/plain";
+
+        $cordovaFileTransfer.upload(server, filePath, options)
+            .then(function (result) {
+                AlertService.Alert("上传图片成功.");
+                fn(true, result.data)
+            }, function (err) {
+                AlertService.Alert("上传图片失败.");
+                fn(false)
+            }, function (progress) {
+            });
+    }
+
+    $scope.selectImage = function(item) {
+        console.log(item)
+        var options = {
+            destinationType: Camera.DestinationType.FILE_URI,
+            sourceType: Camera.PictureSourceType.PHOTOLIBRARY
+        }
+
+        $cordovaCamera.getPicture(options).then(function(imageURI) {
+                window.resolveLocalFileSystemURL(imageURI, function (fileEntry) {
+                    item.img = fileEntry.toURL();
+                    $scope.$apply();
+                });
+             },
+             function(err) {
+                 AlertService.Alert("选择图片错误.");
+            });
+    }
+
+    $scope.takeImage = function (item) {
+        var options = {
+            quality: 20,
+            destinationType: Camera.DestinationType.FILE_URI,
+            sourceType: Camera.PictureSourceType.CAMERA,
+            correctOrientation: true,
+            allowEdit: false,
+            popoverOptions: CameraPopoverOptions,
+            saveToPhotoAlbum: false
+        };
+
+        $cordovaCamera.getPicture(options).then(function (imageURI) {
+            window.resolveLocalFileSystemURL(imageURI, function (fileEntry) {
+                item.img = fileEntry.toURL();
+                $scope.$apply();
+            });
+        }, function (err) {
+            AlertService.Alert("拍照出错.");
+        });
+    };
+
+    function remainTime(item){
+        if(!$rootScope.config) return 0;
+        var cfg12 = $rootScope.config.key12;
+        var time =  cfg12 * 60 * 60 -  moment().diff(moment.unix(item.the_time),'seconds');
+        return time;
+    };
+
     $scope.denyPay = function(item){
         DataService.DenyPayment(item.id).then(function(data){
             if(data.isSuccess){
@@ -277,18 +302,6 @@ angular.module('starter.controllers', [])
             }
         });
     };
-
-    $scope.payOut = function(item){
-        //文件
-    };
-
-    function remainTime(item){
-        if(!$rootScope.config) return 0;
-        var cfg12 = $rootScope.config.key12;
-        var time =  cfg12 * 60 * 60 -  moment().diff(moment.unix(item.the_time),'seconds');
-        return Utils.duration(time);
-    }
-
 })
 
 .controller('SettingsCtrl', function($scope, $state, config) {
