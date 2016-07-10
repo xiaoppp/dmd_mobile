@@ -2,7 +2,7 @@
     <ion-content padding="true">
 
         <h4 class="text-center">播种记录</h4>
-        
+
         <div class="table bg-dark-alpha">
             <div class="row">
                 <div class="col-20">
@@ -90,14 +90,13 @@
                     </div>
                     <div class="sub-order-oper text-center">
                         <div ng-if="item.state == 2">
-                            <div ng-if="item.img">
-                                <img class="snapshot" ng-src="{{item.img}}">
+                            <div style="margin-bottom:10px;">
+                                <img style="width:150px;height:150px;" ng-src="{{item.img}}" ng-if="item.img">
+                                <button class="button icon button-balanced ion-camera" ng-click="takeImage(item)"></button>
+                                <button class="button icon button-positive ion-ios-folder-outline" ng-click="selectImage(item)"></button>
                             </div>
-                            <div ng-if="!item.img">
-                                <img class="snapshot" ng-src="{{item.img}}">
-						        <input type="file" name="imgfile" class="uploadimgfile" value="确认打款">
-                                <em class="deny-payment">拒绝打款</em>
-                            </div>
+                            <button class="button icon button-small button-balanced" ng-click="payOut(item)">确认打款</button>
+                            <em class="deny-payment" ng-click="denyPay()">拒绝打款</em>
                         </div>
                         <div ng-if="item.state == 3">
                             <img class="snapshot" ng-src="{{item.img}}">
