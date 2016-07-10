@@ -1,0 +1,11 @@
+<ion-view view-title="ME">
+  <ion-content padding="true">
+        <h4 class="text-center">{{model.title}}</h4>
+        <div class="box text-center">
+            <label>时间：</label><span>{{model.the_time | datetime}}</span>
+        </div>
+        <div class="bg-dark-alpha mt p news-content" style="color:#fff;">
+            {{model.content}}
+        </div>
+  </ion-content>
+</ion-view>

@@ -51,7 +51,7 @@
                 <div class="col">
                     <label>状态：</label>
                     <br>
-                    <span class="money">
+                    <span class="state state-{{offer.state}}">
                         {{offer.state | orderstate}}
                     </span>
                 </div>
@@ -64,7 +64,7 @@
                     <div class="sub-order">
                         <label>匹配金额：</label><span class="money">{{item.money | currency : '￥'}}</span>
                         <br>
-                        <label>状态：</label><span class="status">{{item.state | suborderstate}}</span>
+                        <label>状态：</label><span class="state state-{{item.state}}">{{item.state | suborderstate}}</span>
                         <br>
                         <label>匹配时间：</label><time>{{item.the_time | datetime}}</time>
                         <br>
@@ -80,13 +80,13 @@
                         <br>
                         <label>微信号：</label><span>{{item.applyMember.weixin}}</span>
                         <br>
-                        <label>银行名称：</label><span>{{item.applyMember.bank}}</span>
+                        <label>银行名称：</label><span>{{item.applyMember.bank | bank}}</span>
                         <br>
                         <label>开户行：</label><span>{{item.applyMember.bank_addr}}</span>
                         <br>
                         <label>银行账号：</label><span>{{item.applyMember.bank_num}}</span>
                         <br>
-                        <label>打款倒计时：</label><time>{{remainTime(item)}}</time>
+                        <label>打款倒计时：</label><time>{{item.remainTime}}</time>
                     </div>
                     <div class="sub-order-oper text-center">
                         <div ng-if="item.state == 2">

@@ -1,4 +1,4 @@
-angular.module('starter.filters',[])
+angular.module('starter.filters', ['starter.constants','starter.services'])
 
 .filter('datetime',function(){
     return function(input){
@@ -25,12 +25,36 @@ angular.module('starter.filters',[])
 
 .filter('suborderstate',function() {
     return function(input){
-        return input;
+        switch (input) {
+            case 0:
+                return '已取消';                
+            case 1:
+                return '等待配对';
+            case 2:
+                return '配对成功，待打款';
+            case 3:
+                return '打款成功，待收款';
+            case 4:
+                return '订单已完成';
+            default:
+                return '未知状态';
+        }
     };
 })
 
-.filter('duration',function(){
+.filter('duration',function(Utils){
     return function(input){
-        return input;
+        return Utils.duration(input);
+    };
+})
+
+.filter('bank',function(banks){
+    return function(input){
+        var l = banks.length;
+        for(var i = 0; i< l; i++){
+            if(banks[i].value == input) 
+                return banks[i].text;
+        }
+        return '未知';
     };
 })

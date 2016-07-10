@@ -226,7 +226,7 @@ angular.module('starter.controllers', [])
     }
 })
 
-.controller('OfferDetailCtrl',function($scope,$state,$stateParams, $rootScope, AlertService, DataService,config){
+.controller('OfferDetailCtrl',function($scope,$state,$stateParams, $rootScope, AlertService, DataService,config,Utils){
     $scope.offer = {};
     $scope.pairs = [];
     var id = $stateParams.id;
@@ -239,18 +239,11 @@ angular.module('starter.controllers', [])
             if(state < 100) return state * 10;
             else return 100;
         })();
+        _.each($scope.pairs,function(item,i){
+            item.remainTime = remainTime(item);
+            //item.aboutIncome = DataService.Capital.about(item);
+        });
     });
-
-    $scope.aboutIncome = function(item){
-        return DataService.Capital.about(item);
-    };
-
-    $scope.remainTime = function(item){
-        if(!$rootScope.config) return 0;
-        var cfg12 = $rootScope.config.key12;
-        var time =  cfg12 * 60 * 60 -  moment().diff(moment.unix(item.the_time),'seconds');
-        return time;
-    };
     
     $scope.denyPay = function(item){
         DataService.DenyPayment(item.id).then(function(data){
@@ -259,12 +252,20 @@ angular.module('starter.controllers', [])
             } else {
                 AlertService.Alert(data.error.message);
             }
-        })
+        });
     };
 
     $scope.payOut = function(item){
         //文件
     };
+
+    function remainTime(item){
+        if(!$rootScope.config) return 0;
+        var cfg12 = $rootScope.config.key12;
+        var time =  cfg12 * 60 * 60 -  moment().diff(moment.unix(item.the_time),'seconds');
+        return Utils.duration(time);
+    }
+
 })
 
 .controller('SettingsCtrl', function($scope, $state, config) {
@@ -291,5 +292,20 @@ angular.module('starter.controllers', [])
         $scope.model.content = htmlDecode(data.data.content);
     }).catch(function(err){
         console.log(err);
+    });
+})
+
+.controller('MessageCtrl',function($scope,$state,DataService,config){
+    $scope.messages = [];
+    DataService.Messages(1).then(function(data){
+        $scope.messages = data.data.rows;
+    });
+})
+
+.controller('MessageDetailCtrl',function($scope,$state,$stateParams,DataService,config){
+    $scope.model = {};
+    var id = $stateParams.id;
+    DataService.MessageSingle(id).then(function(data){
+        $scope.model = data.data;
     });
 })

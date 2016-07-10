@@ -1,25 +1,11 @@
 <ion-view view-title="ME">
-  <ion-content>
+  <ion-content padding="true">
     <ion-list>
-      <ion-item>
-        <h4>【回复】晓燕</h4>
-        <time>2016-06-22 14:36:35</time>
-      </ion-item>
-      <ion-item>
-        <h4>【回复】晓燕</h4>
-        <time>2016-06-22 14:36:35</time>
-      </ion-item>
-      <ion-item>
-        <h4>【回复】晓燕</h4>
-        <time>2016-06-22 14:36:35</time>
-      </ion-item>
-      <ion-item>
-        <h4>【回复】晓燕</h4>
-        <time>2016-06-22 14:36:35</time>
-      </ion-item>
-      <ion-item>
-        <h4>【回复】晓燕</h4>
-        <time>2016-06-22 14:36:35</time>
+      <ion-item ng-repeat="item in messages">
+        <a href="#/app/message/{{item.id}}">
+          <h4>{{item.title}}</h4>
+          <time>{{item.the_time | datetime}}</time>
+        </a>
       </ion-item>
     </ion-list>
   </ion-content>
