@@ -3,7 +3,7 @@ angular.module('starter.controllers', [])
 .controller('AppCtrl', function($scope, $state, config, DataService) {
     var memberid = localStorage.getItem('memberid')
     if (memberid === null || memberid === 'undefined') {
-        $state.go('signin')
+        //$state.go('signin')
     }
 })
 
@@ -69,7 +69,7 @@ angular.module('starter.controllers', [])
                 AlertService.Alert('登录成功')
             })
             .catch(function(err) {
-                AlertService.Alert(err)
+                //AlertService.Alert(err)
             })
     }
 })
@@ -102,7 +102,7 @@ angular.module('starter.controllers', [])
 		else if(money % time != 0) AlertService.Alert('提现金额必须是' + time + '的倍数。');
         else DataService.Apply($scope.data.money).then(function(data){
             AlertService.Alert('收获成功，等待匹配、打款')
-            $state.go('app.applydetail')
+            $state.go('app.applydetail',{id: data.data.id})
         });
     };
 
@@ -128,16 +128,25 @@ angular.module('starter.controllers', [])
         });
     });
 
-    $scope.judage = function(){
-        AlertService.Alert('judge');
+    $scope.judage = function(item){
+        DataService.Judge(item.id, 1).then(function(x){
+            if(x.isSuccess) AlertService.Alert('仲裁成功，系统正在处理...')
+            else AlertService.Alert(x.error.message)
+        })
     };
 
     $scope.payIn = function(item){
-        AlertService.Alert('payIn');
+        DataService.PayIn(item.id).then(function(x){
+            if(x.isSuccess){ 
+                AlertService.Alert('确认收款成功，系统正在处理...');
+                item.state = 4;
+            }
+            else AlertService.Alert(x.error.message)
+        });
     };
 
     $scope.cancelJudge = function(item){
-        AlertService.Alert('cancelJudge');
+        AlertService.Alert('cancelJudge not implemented');
 	};
 
     $scope.remark = function(item){
@@ -175,7 +184,7 @@ angular.module('starter.controllers', [])
         if ($scope.data.isChecked) {
             DataService.Offer($scope.data.money).then(function(data) {
                 console.log(data)
-                $state.go('app.offerdetail')
+                $state.go('app.offerdetail',{id: data.data.id})
             });
         }
         else {
@@ -187,7 +196,6 @@ angular.module('starter.controllers', [])
         $scope.data.money = money
     }
 })
-
 
 .controller('OfferDetailCtrl',function($scope, $state, $stateParams, $rootScope, $cordovaCamera, $cordovaFileTransfer, AlertService, DataService,config){
     $scope.offer = {};
@@ -214,7 +222,9 @@ angular.module('starter.controllers', [])
         uploadImage(item, function(r, data) {
             if (r) {
                 DataService.PayOut(item.id, data).then(function(data) {
-                    AlertService.Alert('打款成功')
+                    AlertService.Alert('打款成功');
+                    //update state
+                    item.state = 3;
                 })
             }
         })
@@ -263,7 +273,7 @@ angular.module('starter.controllers', [])
              function(err) {
                  AlertService.Alert("选择图片错误.");
             });
-    }
+    };
 
     $scope.takeImage = function (item) {
         var options = {
@@ -294,12 +304,16 @@ angular.module('starter.controllers', [])
     };
 
     $scope.denyPay = function(item){
-        DataService.DenyPayment(item.id).then(function(data){
-            if(data.isSuccess){
-                AlertService.Alert('您已拒绝打款,系统正在处理...');
-            } else {
-                AlertService.Alert(data.error.message);
-            }
+        AlertService.Confirm('您确定要拒绝打款，拒绝后系统将冻结您的账号','',function(){
+            DataService.DenyPayment(item.id).then(function(data){
+                if(data.isSuccess){
+                    AlertService.Alert('您已拒绝打款,系统正在处理...');
+                } else {
+                    AlertService.Alert(data.error.message);
+                }
+            });
+        }, function(){
+
         });
     };
 })
