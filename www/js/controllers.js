@@ -21,17 +21,17 @@ angular.module('starter.controllers', [])
     $scope.incomes = []
     $scope.onTabSelected = function(index) {
         if (index == 0) {
-            DataService.IncomeRecords('money', 1).then(function(data) {
+            DataService.IncomeRecords('money', 0).then(function(data) {
                 $scope.incomes = data.data.rows;
             });
         }
         if (index == 1) {
-            DataService.IncomeRecords('interest', 1).then(function(data) {
+            DataService.IncomeRecords('interest', 0).then(function(data) {
                 $scope.incomes = data.data.rows;
             });
         }
         if (index == 2) {
-            DataService.IncomeRecords('bonus', 1).then(function(data) {
+            DataService.IncomeRecords('bonus', 0).then(function(data) {
                 $scope.incomes = data.data.rows;
             });
         }
@@ -43,6 +43,10 @@ angular.module('starter.controllers', [])
         offers : [],
         applys : [],
         fails : []
+    };
+
+    $scope.record = {
+        photo: null
     };
 
     function uploadImage() {
@@ -66,6 +70,22 @@ angular.module('starter.controllers', [])
             });
     }
 
+    $scope.selectImage = function() {
+        var options = {
+            destinationType: Camera.DestinationType.FILE_URI,
+            sourceType: Camera.PictureSourceType.PHOTOLIBRARY
+        }
+
+        $cordovaCamera.getPicture(options)
+            .then(function(imageURI) {
+                 $scope.record.photo = fileEntry.toURL();
+                 $scope.$apply();
+             },
+             function(err) {
+                 AlertService.Alert("选择图片错误.");
+            });
+    }
+
     $scope.takeImage = function () {
         var options = {
             quality: 20,
@@ -83,7 +103,7 @@ angular.module('starter.controllers', [])
                 $scope.$apply();
             });
         }, function (err) {
-            AlertService.Alert("拍照错误.");
+            AlertService.Alert("拍照出错.");
         });
     };
 
@@ -150,7 +170,7 @@ angular.module('starter.controllers', [])
 })
 
 .controller('ApplyDetailCtrl',function($scope, $rootScope, AlertService, DataService){
-    
+
 })
 
 .controller('OfferCtrl', function($scope, $rootScope, AlertService, DataService) {
@@ -188,7 +208,7 @@ angular.module('starter.controllers', [])
     $scope.offer = {};
     $scope.pairs = [];
     var id = $stateParams.id;
-    
+
     DataService.OfferDetail(id).then(function(data){
         $scope.offer = data.data.offer;
         $scope.pairs = data.data.pairs;
@@ -208,7 +228,7 @@ angular.module('starter.controllers', [])
         var time =  cfg12 * 60 * 60 -  moment().diff(moment.unix(item.the_time),'seconds');
         return time;
     };
-    
+
     $scope.denyPay = function(item){
         DataService.DenyPayment(item.id).then(function(data){
             if(data.isSuccess){
