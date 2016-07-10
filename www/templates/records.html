@@ -1,5 +1,5 @@
 <ion-view view-title="交易记录">
-
+<ion-content>
     <ion-tabs class="tabs-striped tabs-bottom tabs-background-dark tabs-color-energized tabs-positive">
       <ion-tab title="播种记录" on-select="onTabSelected(0)">
         <ion-content padding="true">
@@ -11,7 +11,7 @@
                     <label>编号：</label> <span class="yellow">{{item.offer.code}}</span>
                   </li>
                   <li>
-                    <label>状态：</label> <span class="status status-2">{{item.offer.state | orderstate}}</span>
+                    <label>状态：</label> <span class="status status-{{item.offer.state}}">{{item.offer.state | orderstate}}</span>
                   </li>
                   <li>
                     <label>金额 ：</label> <span class="money">{{item.offer.money | currency : '￥'}}</span>
@@ -38,7 +38,7 @@
                     <label>编号：</label> <span class="yellow">{{item.apply.code}}</span>
                   </li>
                   <li>
-                    <label>状态：</label> <span class="status status-2">{{item.apply.state | orderstate}}</span>
+                    <label>状态：</label> <span class="status status-{{item.apply.state}}">{{item.apply.state | orderstate}}</span>
                   </li>
                   <li>
                     <label>金额 ：</label> <span class="money">{{item.apply.money | currency : '￥'}}</span>
@@ -76,4 +76,5 @@
         </ion-content>
       </ion-tab>
     </ion-tabs>
+    </ion-content>
 </ion-view>

@@ -213,7 +213,7 @@ angular.module('starter.services',[])
         };
 
         service.Messages = function(page){
-            return HTTP_GET(_Combine('messages/page/', member.id,'/', page));
+            return HTTP_GET(_Combine('messages/page/',MemberId(),'/', page));
         };
 
         service.MessageSingle = function(id){
@@ -364,7 +364,7 @@ angular.module('starter.services',[])
 
                 // Show the loading overlay and text
                 $ionicLoading.show({
-                    template: '<ion-spinner icon="bubbles" class="spinner-positive"></ion-spinner>' + content
+                    template: '<ion-spinner icon="bubbles" class="spinner-balanced"></ion-spinner>' + content
                 });
             },
             Hide: function () {
@@ -372,4 +372,33 @@ angular.module('starter.services',[])
             }
         };
         return service;
-    });
+    })
+
+    .service('Utils', function(){
+        var self = this;
+
+        self.paddingLeft = function(n,m,l){
+            var sn =  n.toString();
+            var prefix = '';
+            var len = l -sn.length;
+            for(var i = 0; i < len; i++) prefix += m;
+            sn = prefix + sn;
+            return sn;
+        };
+
+        self.duration = function(time){
+            var t = parseInt(time);
+            if(t < 0) return '00 : 00 : 00';
+            else if(t < 60) return "00 : " + paddingLeft(t,'0',2);
+            else if(input < 60 * 60) {
+                var m = Math.floor(t / 60);
+                var s = t % 60;
+                return paddingLeft(m,'0',2) + ' : ' + paddingLeft(s,'0',2);
+            } else {
+                var h = Math.floor(t / 3600);
+                var m = Math.floor((t % 3600)/60);
+                var s = (t % 3600) % 60;
+                return paddingLeft(h,'0',2) + ' : ' + paddingLeft(m,'0',2) + ' : ' + paddingLeft(s,'0',2);
+            }
+        };
+    })

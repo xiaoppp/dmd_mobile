@@ -16,7 +16,14 @@ img.captcha{width:80px;height:40px;}
 .avator-male{ background: url(../images/male1.jpg) no-repeat}
 .avator-dmd { background: url(../images/logo2.png) no-repeat}
 .line { border-bottom: 1px dashed #efefef;margin-bottom: 3px; }
-time, .money, .number, .status,.color-warning,.yellow{color:#FCC006}
+time, .money, .number, .status,.state,.color-warning,.yellow{color:#FCC006}
+.status.status-0,.state.state-0{color: #DDD}
+.status.status-1,.state.state-1{color: #F3AE39}
+.status.status-2,.state.state-2{color: #39A3D5}
+.status.status-3,.state.state-3{color: #EA7B89}
+.status.status-4,.state.state-4{color: #2EDB4D}
+.status2,.state2{color:#39A3D5 }
+.status2.status2-100,.state2.state2-100{color: #2EDB4D}
 .bg-dark-alpha, .list > .item{background-color: rgba(0, 0, 0, .5);border-radius: 4px;}
 .color-green{color: lime}
 .color-orange{color: orange}
@@ -34,8 +41,8 @@ img.bstar{margin:0 2px;}
 .dmd-tabs{width:100%;padding: 0px;position: absolute;bottom:0px;z-index: 999;}
 .dmd-tab{height:43px;background-color: #26272C;text-align: center;border-right: 1px solid #ddd;color:#fff;line-height: 43px;}
 .dmd-tabs>.dmd-tab.last{border-right: none;}
-.dmd-tab-contents{}
-.dmd-tab-content{}
+.dmd-tab-contents{color: #fff;}
+.dmd-tab-content{color: #fff;}
 
 /*override ionic css*/
 .scroll-content { background: url(../images/bg.jpg); background-size: 100% 100%; }
@@ -46,3 +53,4 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 ,strong,label,span,p,p.intr
 .popup-title{color:#111;}
 .item.item-checkbox span{color: #000;}
 .bar.bar-dark,.tabs-striped.tabs-background-dark .tabs{background-color: #162635;}
+.card.item{background-color: rgba(255,255,255,.1)}

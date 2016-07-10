@@ -8,10 +8,11 @@
 angular.module('starter', ['ionic',
   'ngCordova',
   'starter.config',
+  'starter.constants',
   'starter.filters',
   'starter.controllers',
   'starter.services',
-  'starter.directives',
+  'starter.directives'
 ])
 
 .run(function($ionicPlatform) {
@@ -116,7 +117,18 @@ angular.module('starter', ['ionic',
     url: '/message',
     views: {
       'menuContent': {
-        templateUrl: 'templates/message.html'
+        templateUrl: 'templates/message.html',
+        controller: 'MessageCtrl'
+      }
+    }
+  })
+
+  .state('app.messagedetail', {
+    url: '/message/:id',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/messagedetail.html',
+        controller: 'MessageDetailCtrl'
       }
     }
   })

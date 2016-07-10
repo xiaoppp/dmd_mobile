@@ -42,7 +42,7 @@
                 <div class="col">
                     <label>状态：</label>
                     <br>
-                    <span class="money">
+                    <span class="state2 state2-{{apply.state}}">
                         {{apply.state | orderstate}}
                     </span>
                 </div>
@@ -55,7 +55,7 @@
                     <div class="sub-order">
                         <label>匹配金额：</label><span class="money">{{item.money | currency : '￥'}}</span>
                         <br>
-                        <label>状态：</label><span class="status">{{item.state | suborderstate}}</span>
+                        <label>状态：</label><span class="state state-{{item.state}}">{{item.state | suborderstate}}</span>
                         <br>
                         <label>匹配时间：</label><time>{{item.the_time | datetime}}</time>
                         <br>

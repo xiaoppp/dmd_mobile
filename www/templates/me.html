@@ -68,7 +68,7 @@
 					  <label>匹配人数：</label><br><span class="number">{{member.lastOffer.pairs || 0}}人</span>
 				  </div>
 				  <div class="col">
-					  <label>状态：</label><br><span class="status">{{member.lastOffer.state | orderstate}}</span>
+					  <label>状态：</label><br><span class="state2 state2-{{member.lastOffer.state}}">{{member.lastOffer.state | orderstate}}</span>
 				  </div>
 			  </div>
 		  </div>
@@ -97,7 +97,7 @@
 					  <label>匹配人数：</label><br><span class="number">{{member.lastApply.pairs || 0}}人</span>
 				  </div>
 				  <div class="col">
-					  <label>状态：</label><br><span class="status">{{member.lastApply.state | orderstate}}</span>
+					  <label>状态：</label><br><span class="state2 state2-{{member.lastApply.state}}">{{member.lastApply.state | orderstate}}</span>
 				  </div>
 			  </div>
 		  </div>
