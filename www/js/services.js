@@ -8,14 +8,7 @@ angular.module('starter.services',[])
         var service  = this;
         var self = this;
 
-        (function init() {
-            var memberid = localStorage.getItem('memberid')
-            if (!_.isUndefined(memberid) && !_.isNull(memberid) && memberid !== 'undefined') {
-                GetIndexData(memberid);
-            }
-        })();
-
-        function PrefixIndexData(data){
+        function _PrefixIndexData(data){
             $rootScope.config = (function(){
                 var cfg = {};
                 _.each(data.config, function(item,i){
@@ -58,14 +51,6 @@ angular.module('starter.services',[])
             };
 
             $rootScope.member.capital = o;
-        }
-
-        //初始化加载首页数据，如果没有登录，则login的时候加载，如果有数据，则服务自动加载
-        function GetIndexData(memberid) {
-            HTTP_GET(_Combine('index/info/', memberid))
-                .then(function(data) {
-                    PrefixIndexData(data.data);
-                });
         }
 
         function HTTP_GET(url,showLoading) {
@@ -146,8 +131,28 @@ angular.module('starter.services',[])
         }
 
         function MemberId(){
-            var id = localStorage.getItem("memberid");
+            var id = localStorage.getItem(config.loginkey);
             return parseInt(id);
+        }
+
+        service.loadAppData = function(){
+            var deferred = $q.defer();
+            var memberid = localStorage.getItem(config.loginkey);
+            console.log('//////memberid from localstorage//',memberid,config.loginkey);
+            if (!_.isUndefined(memberid) && !_.isNull(memberid) && memberid !== 'undefined') {
+                HTTP_GET(_Combine('index/info/', memberid)).then(function(data) {
+                            if(data.isSuccess){
+                                //初始化加载首页数据，如果没有登录，则login的时候加载，如果有数据，则服务自动加载
+                                _PrefixIndexData(data.data);
+                                deferred.resolve('completed');
+                            } else {
+                                //error page
+                                deferred.reject('error');
+                            }
+                        });
+            }
+
+            return deferred.promise;   
         }
 
         //资产计算
@@ -230,11 +235,10 @@ angular.module('starter.services',[])
             model.state = 0;
             return HTTP_POST(_Combine('message/action/leavemsg'), model);
         };
-
         service.Member = function(username){
             return HTTP_GET(_Combine('member/',username));
         };
-        service.ParentMember = function(id){
+        service.MemberByID = function(id){
             return HTTP_GET(_Combine('member/info/',id));
         };
         service.EditMemberInfo = function(model){
@@ -377,20 +381,22 @@ angular.module('starter.services',[])
     .service('Utils', function(){
         var self = this;
 
-        self.paddingLeft = function(n,m,l){
+        self.duration = duration;
+
+        function paddingLeft(n,m,l){
             var sn =  n.toString();
             var prefix = '';
             var len = l -sn.length;
             for(var i = 0; i < len; i++) prefix += m;
             sn = prefix + sn;
             return sn;
-        };
+        }
 
-        self.duration = function(time){
+        function duration(time){
             var t = parseInt(time);
             if(t < 0) return '00 : 00 : 00';
             else if(t < 60) return "00 : " + paddingLeft(t,'0',2);
-            else if(input < 60 * 60) {
+            else if(t < 60 * 60) {
                 var m = Math.floor(t / 60);
                 var s = t % 60;
                 return paddingLeft(m,'0',2) + ' : ' + paddingLeft(s,'0',2);
@@ -400,5 +406,5 @@ angular.module('starter.services',[])
                 var s = (t % 3600) % 60;
                 return paddingLeft(h,'0',2) + ' : ' + paddingLeft(m,'0',2) + ' : ' + paddingLeft(s,'0',2);
             }
-        };
+        }
     })

@@ -33,11 +33,21 @@ angular.module('starter', ['ionic',
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
 
-    .state('app', {
+  .state('app', {
     url: '/app',
     abstract: true,
     templateUrl: 'templates/menu.html',
     controller: 'AppCtrl'
+  })
+
+  .state('app.loading', {
+    url: '/loading',
+    views:{
+        'menuContent':{
+          templateUrl: 'templates/loading.html',
+          controller: 'LoadingCtrl'
+        }
+    }
   })
 
   .state('app.me', {
@@ -45,6 +55,16 @@ angular.module('starter', ['ionic',
     views: {
       'menuContent': {
         templateUrl: 'templates/me.html'
+      }
+    }
+  })
+
+  .state('app.error', {
+    url: '/error?code',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/error.html',
+        controller: 'ErrorCtrl'
       }
     }
   })
@@ -99,7 +119,8 @@ angular.module('starter', ['ionic',
     url: '/info',
     views: {
       'menuContent': {
-        templateUrl: 'templates/info.html'
+        templateUrl: 'templates/info.html',
+        controller : 'InfoCtrl'
       }
     }
   })

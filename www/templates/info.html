@@ -1,175 +1,60 @@
-<ion-view view-title="ME">
-  <ion-content>
-    <ion-tabs class="tabs-striped tabs-bottom tabs-background-dark tabs-color-energized">
-        <ion-tab title="个人资料">
-          <ion-content padding="true">
+<ion-view view-title="会员资料">
+    <ion-content padding="true">
          <div class="list padding-y">
           <label class="item item-input">
             <span class="input-label">推荐人姓名：</span>
-            <input type="text" value="张伟荣">
+            <input type="text" value="{{info.referName}}">
           </label>
           <label class="item item-input">
             <span class="input-label">推荐人手机：</span>
-            <input type="text">
+            <input type="text" value="{{info.referMobile}}">
           </label>
           <label class="item item-input">
             <span class="input-label">账号/手机：</span>
-            <input type="text">
+            <input type="text" ng-model="info.username">
           </label>
           <label class="item item-input">
             <span class="input-label">昵称：</span>
-            <input type="text">
+            <input type="text" ng-model="info.nickname">
           </label>
           <label class="item item-input">
             <span class="input-label">真实姓名：</span>
-            <input type="text">
+            <input type="text" ng-model="info.truename">
           </label>
           <label class="item item-input">
             <span class="input-label">手机号：</span>
-            <input type="text">
+            <input type="text" ng-model="info.mobile">
           </label>
           <label class="item item-input">
             <span class="input-label">支付宝账号：</span>
-            <input type="text">
+            <input type="text" ng-model="info.alipay">
           </label>
           <label class="item item-input">
             <span class="input-label">微信号：</span>
-            <input type="text">
+            <input type="text" ng-model="info.weixin">
           </label>
           <label class="item item-input item-select">
             <div class="input-label">
                 开户银行：
             </div>
-            <select>
-              <option>中国建设银行</option>
-              <option selected>中国工商银行</option>
-              <option>中国招商银行</option>
-              <option>中国建设银行</option>
-              <option>中国工商银行</option>
-              <option>中国招商银行</option>
-              <option>中国建设银行</option>
-              <option>中国工商银行</option>
-              <option>中国招商银行</option>
-              <option>中国建设银行</option>
-              <option>中国工商银行</option>
-              <option>中国招商银行</option>
-              <option>中国建设银行</option>
-              <option>中国工商银行</option>
-              <option>中国招商银行</option>
-              <option>中国建设银行</option>
-              <option>中国工商银行</option>
-              <option>中国招商银行</option>
-              <option>中国建设银行</option>
-              <option>中国工商银行</option>
-              <option>中国招商银行</option>
-              <option>中国建设银行</option>
-              <option>中国工商银行</option>
-              <option>中国招商银行</option>
-              <option>中国建设银行</option>
-              <option>中国工商银行</option>
-              <option>中国招商银行</option>
-              <option>中国建设银行</option>
-              <option>中国工商银行</option>
-              <option>中国招商银行</option>
-              <option>中国建设银行</option>
-              <option>中国工商银行</option>
-              <option>中国招商银行</option>
+            <select ng-model="info.bank">
+              <option ng-repeat="item in banks" value="{{item.value}}">{{item.text}}</option>
             </select>
           </label>
           <label class="item item-input">
             <span class="input-label">分行名称：</span>
-            <input type="text">
+            <input type="text" ng-model="info.bank_addr">
           </label>
           <label class="item item-input">
             <span class="input-label">账号/卡号：</span>
-            <input type="text">
+            <input type="text" ng-model="info.bank_num">
           </label>
           <label class="item item-input">
             <span class="input-label">安全密码：</span>
-            <input type="password">
+            <input type="password" ng-model="info.paypwd">
           </label>
         </div>
-        <button class="button button-balanced button-block">修改个人资料</button>
+        <button class="button button-balanced button-block" ng-click="saveInfo();">修改个人资料</button>
         <div style="height:30px;"></div>
        </ion-content>
-           
-        </ion-tab>
-
-        <ion-tab title="修改密码">
-          <ion-content padding="true">
-            <div class="list padding-y">
-              <label class="item item-input">
-                <span class="input-label">原密码：</span>
-                <input type="password">
-              </label>
-              <label class="item item-input">
-                <span class="input-label">新密码：</span>
-                <input type="password">
-              </label>
-              <label class="item item-input">
-                <span class="input-label">重复密码：</span>
-                <input type="password">
-              </label>
-              <label class="item item-input">
-                <span class="input-label">安全密码：</span>
-                <input type="password">
-              </label>
-
-              <button class="button button-balanced button-block">修改登录密码</button>
-              
-            </div>
-            
-          </ion-content>
-        </ion-tab>
-
-        <ion-tab title="修改安全密码">
-          <ion-content padding="true">
-
-            <div class="list padding-y">
-              <label class="item item-input">
-                <span class="input-label">原安全密码：</span>
-                <input type="password">
-              </label>
-              <label class="item item-input">
-                <span class="input-label">新安全密码：</span>
-                <input type="password">
-              </label>
-              <label class="item item-input">
-                <span class="input-label">重复密码：</span>
-                <input type="password">
-              </label>
-
-              <button class="button button-balanced button-block">修改安全密码</button>
-
-            </div>           
-
-            <div class="list padding-y">
-              <label class="item item-input">
-                <span class="input-label">手机号：</span>
-                <input type="text" value="18742538743">
-              </label>
-              <label class="item item-input">
-                <span class="input-label">图形验证码：</span>
-                <input type="text">
-                <img src="" class="captcha">
-              </label>
-              <label class="item item-input">
-                <span class="input-label">手机验证码：</span>
-                <input type="text">
-                <button class="mobile-checkcode button button-energized mr-sm">发送验证码</button>
-              </label>
-              <label class="item item-input">
-                <span class="input-label">新安全密码：</span>
-                <input type="password">
-              </label>
-
-              <button class="button button-balanced button-block">重置安全密码</button>
-
-            </div>
-
-          </ion-content>
-        </ion-tab>
-
-    </ion-tabs>
-  </ion-content>
 </ion-view>

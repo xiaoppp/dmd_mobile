@@ -1,11 +1,11 @@
-<ion-view view-title="ME">
+<ion-view view-title="个人中心">
   <ion-content padding="true">
       <div class="box text-center">
 		  <img class="circle" ng-if="member.sex == 1" src="images/female1.jpg">
 		  <img class="circle" ng-if="member.sex == 2" src="images/male1.jpg">
 	  </div>
 	  <div class="box text-center">
-		  <strong style="font-size:18px;" class="pr">{{member.nickname || member.truename || member.username}}</strong>
+		  <strong style="font-size:18px;" class="pr">{{member.truename || member.nickname || member.username}}</strong>
 		  <span class="pr">
 			  <span class="level"></span>
 			  <span>经理人</span>

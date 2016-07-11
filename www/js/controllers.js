@@ -1,10 +1,23 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope, $state, config, DataService) {
-    var memberid = localStorage.getItem('memberid')
+.controller('AppCtrl', function($scope, $state, config) {
+    var memberid = localStorage.getItem(config.loginkey)
     if (memberid === null || memberid === 'undefined') {
-        //$state.go('signin')
+        $state.go('signin');
+    } else {
+        $state.go('app.loading'); //加载应用基本数据
     }
+})
+
+.controller('LoadingCtrl',function($scope,$state,config,DataService){
+    console.log('////app loading.');
+    DataService.loadAppData().then(function(data){
+        $state.go('app.me');
+    });
+})
+
+.controller('ErrorCtrl',function($scope, $state, config, DataService){
+    $scope.message = "Error";
 })
 
 .controller('MenuCtrl', function($scope, $state, $ionicSideMenuDelegate) {
@@ -39,17 +52,15 @@ angular.module('starter.controllers', [])
 })
 
 .controller('RecordCtrl', function($scope, DataService, AlertService) {
-    $scope.records = {
-        offers : [],
-        applys : [],
-        fails : []
-    };
+    $scope.offers = [];
+    $scope.applys = [];
+    $scope.fails  = [];
 
     $scope.onTabSelected = function(n){
         var type = n == 0　? "offers" : n == 1 ? "applys" : "pairs/failed";
         var type2 = n == 0　? "offers" : n == 1 ? "applys" : "failed";
         DataService.DealRecords(type).then(function(data){
-            $scope.records[type2] = data.data;
+            $scope[type2] = data.data;
         });
     };
 
@@ -99,7 +110,7 @@ angular.module('starter.controllers', [])
         var min = $rootScope.config.key3[0];
         var time = $rootScope.config.key3[1];
         if(money < min) return AlertService.Alert('提现金额不可小于' + min + '元。');
-		else if(money % time != 0) AlertService.Alert('提现金额必须是' + time + '的倍数。');
+		else if(money % time != 0) return AlertService.Alert('提现金额必须是' + time + '的倍数。');
         else DataService.Apply($scope.data.money).then(function(data){
             AlertService.Alert('收获成功，等待匹配、打款')
             $state.go('app.applydetail',{id: data.data.id})
@@ -123,7 +134,7 @@ angular.module('starter.controllers', [])
             if(state < 100) return state * 10;
             else return 100;
         })();
-        _each($scope.pairs,function(item){
+        _.each($scope.pairs,function(item){
             item.remainTime = remainTime(item.pay_time, 0);
         });
     });
@@ -156,9 +167,11 @@ angular.module('starter.controllers', [])
     };
 
     function remainTime(start, flag){
+        console.log('///////////////',start,flag);
         if(!$rootScope.config) return 0;
         var cfg = flag  ? $rootScope.config.key12 : $rootScope.config.key13;
         var time =  cfg * 60 * 60  - moment().diff(moment.unix(start),'seconds');
+        console.log('////////////////////time//',time);
         return Utils.duration(time);
     }
 
@@ -197,39 +210,31 @@ angular.module('starter.controllers', [])
     }
 })
 
-
-.controller('OfferDetailCtrl',function($scope, $state, $stateParams, $rootScope, $cordovaCamera, $cordovaFileTransfer, AlertService, DataService, config){
+.controller('OfferDetailCtrl',function($scope, $state, $stateParams, $rootScope, 
+                                        $cordovaCamera, $cordovaFileTransfer, AlertService, 
+                                        DataService, config,Utils){
     $scope.offer = {};
     $scope.pairs = [];
     var id = $stateParams.id;
 
-    DataService.OfferDetail(id).then(function(data){
-        console.log(data)
-        $scope.offer = data.data.offer;
-        $scope.pairs = data.data.pairs;
-        $scope.progress = (function(){
-            var state = $scope.offer.state;
-            if(state < 100) return state * 10;
-            else return 100;
-        })();
-        _.each($scope.pairs,function(item,i){
-            item.remainTime = remainTime(item);
-            //item.aboutIncome = DataService.Capital.about(item);
-        });
-    });
+    loadData();
 
-    $scope.payOut = function(item){
-        alert('payout')
-        uploadImage(item, function(r, data) {
-            if (r) {
-                DataService.PayOut(item.id, data).then(function(data) {
-                    AlertService.Alert('打款成功');
-                    //update state
-                    item.state = 3;
-                })
-            }
-        })
-    };
+    function loadData(){
+        DataService.OfferDetail(id).then(function(data){
+            console.log(data)
+            $scope.offer = data.data.offer;
+            $scope.pairs = data.data.pairs;
+            $scope.progress = (function(){
+                var state = $scope.offer.state;
+                if(state < 100) return state * 10;
+                else return 100;
+            })();
+            _.each($scope.pairs,function(item,i){
+                item.remainTime = remainTime(item);
+                //item.aboutIncome = DataService.Capital.about(item);
+            });
+        });
+    }
 
     function uploadImage(item, fn) {
         if (!item.img)
@@ -257,6 +262,26 @@ angular.module('starter.controllers', [])
             }, function (progress) {
             });
     }
+    
+    function remainTime(item){
+        if(!$rootScope.config) return 0;
+        var cfg12 = $rootScope.config.key12;
+        var time =  cfg12 * 60 * 60 -  moment().diff(moment.unix(item.the_time),'seconds');
+        return Utils.duration(time);
+    }
+
+    $scope.payOut = function(item){
+        alert('payout')
+        uploadImage(item, function(r, data) {
+            if (r) {
+                DataService.PayOut(item.id, data).then(function(data) {
+                    AlertService.Alert('打款成功');
+                    //update state
+                    item.state = 3;
+                })
+            }
+        })
+    };
 
     $scope.selectImage = function(item) {
         console.log(item)
@@ -296,24 +321,19 @@ angular.module('starter.controllers', [])
         });
     };
 
-    function remainTime(item){
-        if(!$rootScope.config) return 0;
-        var cfg12 = $rootScope.config.key12;
-        var time =  cfg12 * 60 * 60 -  moment().diff(moment.unix(item.the_time),'seconds');
-        return time;
-    };
+    
 
     $scope.denyPay = function(item){
         AlertService.Confirm('您确定要拒绝打款，拒绝后系统将冻结您的账号','',function(){
-            DataService.DenyPayment(item.id).then(function(data){
+            DataService.DenyPay(item.id).then(function(data){
                 if(data.isSuccess){
                     AlertService.Alert('您已拒绝打款,系统正在处理...');
+                    loadData();
                 } else {
                     AlertService.Alert(data.error.message);
                 }
             });
         }, function(){
-
         });
     };
 })
@@ -327,8 +347,8 @@ angular.module('starter.controllers', [])
 
 .controller('NewsCtrl',function($scope,$state,DataService,config){
     $scope.model = [];
-    DataService.News(1).then(function(data){
-        $scope.model = data.data.rows;
+    DataService.News(0).then(function(data){
+        $scope.model = data.data;
     }).catch(function(err){
         console.log(err)
     });
@@ -347,8 +367,8 @@ angular.module('starter.controllers', [])
 
 .controller('MessageCtrl',function($scope,$state,DataService,config){
     $scope.messages = [];
-    DataService.Messages(1).then(function(data){
-        $scope.messages = data.data.rows;
+    DataService.Messages(0).then(function(data){
+        $scope.messages = data.data;
     });
 })
 
@@ -358,4 +378,36 @@ angular.module('starter.controllers', [])
     DataService.MessageSingle(id).then(function(data){
         $scope.model = data.data;
     });
+})
+
+.controller('InfoCtrl',function($scope,$rootScope,$state,$stateParams,DataService,config,banks,AlertService){
+    var member = $rootScope.member;
+    var id = member.id;
+    $scope.info = {};
+    $scope.banks = banks;
+    $scope.saveInfo = saveInfo;
+
+    loadInfo();
+
+    function loadInfo(){
+        DataService.MemberByID(id).then(function(data){
+            if(data.isSuccess) _.extend($scope.info,data.data);
+        });
+        DataService.MemberByID(member.parent_id).then(function(data){
+            if(data.isSuccess){
+                var d = data.data;
+                 _.extend($scope.info,{referName : d.truename,referMobile:d.mobile});
+            }
+        });
+    }
+
+    function saveInfo(){
+        var data = angular.copy($scope.info);
+        if(_.isEmpty(data.paypwd)) return AlertService.Alert('请填写安全密码');
+        DataService.EditMemberInfo(data).then(function(data){
+            if(data.isSuccess) AlertService.Alert('资料保存成功');
+            else AlertService.Alert(data.error.message);
+        });
+    }
+
 })
