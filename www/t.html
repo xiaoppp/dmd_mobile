@@ -1,0 +1,218 @@
+<html><head><style type="text/css">@charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>
+    <title>播种</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <meta charset="utf-8">
+    <meta name="robots" content="none">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="must-revalidate,no-cache">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="format-detection" content="telephone=no">
+
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+    <link href="css/ionic.app.css" rel="stylesheet">
+    -->
+  </head>
+
+  <body ng-app="starter" class="grade-a platform-browser platform-win32 platform-ready">
+    <ion-nav-view class="view-container" nav-view-transition="ios" nav-view-direction="none" nav-swipe="">
+    <div class="pane" nav-view="active" style="opacity: 1; transform: translate3d(0%, 0px, 0px);"><ion-side-menus enable-menu-with-back-views="true" ng-controller="MenuCtrl" class=" view">
+  <ion-side-menu-content class="menu-content pane menu-animated" style="transform: translate3d(0px, 0px, 0px);">
+    <ion-nav-bar class="bar-dark bar-black nav-bar-container" nav-bar-transition="ios" nav-bar-direction="none" nav-swipe="">
+      <ion-nav-back-button class="hide"></ion-nav-back-button>
+      <ion-nav-buttons side="left" class="hide"></ion-nav-buttons>
+      <ion-nav-buttons side="right" class="hide"></ion-nav-buttons>
+    <div class="nav-bar-block" nav-bar="active"><ion-header-bar class="bar-dark bar-black bar bar-header" align-title="center"><button ng-click="$ionicGoBack()" class="button back-button buttons  button-clear header-item" style="transition-duration: 0ms;"><i class="icon ion-ios-arrow-back"></i> 
+      <span class="back-text" style="transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><span class="default-title hide">Back</span><span class="previous-title">个人中心</span></span></button><div class="buttons buttons-left header-item" style="transition-duration: 0ms;"><span class="left-buttons">
+        <button class="button button-icon button-clear ion-navicon" menu-toggle="left" ng-click="toggleLeft()">
+        </button>
+      </span></div><div class="title title-center header-item" style="transform: translate3d(0px, 0px, 0px); left: 129px; right: 129px; transition-duration: 0ms;">播种</div><div class="buttons buttons-right header-item" style="transition-duration: 0ms;"><span class="right-buttons">
+        <button class="button button-icon button-clear ion-share" menu-toggle="right" ng-click="toggleRight()">
+        </button>
+      </span></div></ion-header-bar></div><div class="nav-bar-block" nav-bar="cached"><ion-header-bar class="bar-dark bar-black bar bar-header" align-title="center"><button ng-click="$ionicGoBack()" class="button back-button buttons  button-clear header-item" style="transition-duration: 0ms; opacity: 0;"><i class="icon ion-ios-arrow-back"></i> 
+      <span class="back-text" style="transform: translate3d(0px, 0px, 0px); transition-duration: 0ms; opacity: 0;"><span class="default-title hide">Back</span><span class="previous-title">个人中心</span></span></button><div class="buttons buttons-left header-item" style="transition-duration: 0ms; opacity: 0;"><span class="left-buttons">
+        <button class="button button-icon button-clear ion-navicon" menu-toggle="left" ng-click="toggleLeft()">
+        </button>
+      </span></div><div class="title title-center header-item" style="transform: translate3d(-918px, 0px, 0px); left: 129px; right: 129px; transition-duration: 0ms; opacity: 0;">播种</div><div class="buttons buttons-right header-item" style="transition-duration: 0ms; opacity: 0;"><span class="right-buttons">
+        <button class="button button-icon button-clear ion-share" menu-toggle="right" ng-click="toggleRight()">
+        </button>
+      </span></div></ion-header-bar></div></ion-nav-bar>
+    <ion-nav-view name="menuContent" class="view-container" nav-view-transition="ios" nav-view-direction="none" nav-swipe=""><ion-view view-title="播种" class="pane" state="app.offerdetail" nav-view="active" style="opacity: 1; transform: translate3d(0%, 0px, 0px);">
+    <ion-content padding="true" class="scroll-content ionic-scroll  has-header"><div class="scroll padding" style="transform: translate3d(0px, 0px, 0px) scale(1);">
+
+        <h4 class="text-center">播种记录</h4>
+
+        <div class="table bg-dark-alpha">
+            <div class="row">
+                <div class="col-20">
+                     <span class="color-green ng-binding">正在播种</span>
+                </div>
+                <div class="col-80">
+                    <div style="width:100%;">
+                        <div style="display:block;width:100%;height:14px;border:1px solid #fff;background-color:#eee;"></div>
+                        <label class="" ng-style="{left : (progress + 1) + '%'}">20%</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label>金额：</label>
+                    <br>
+                    <span class="money ng-binding">
+                        ￥50,000.00
+                    </span>
+                </div>
+                <div class="col">
+                    <label>时间：</label>
+                    <br>
+                    <time class="ng-binding">
+                        2016-06-09 21:03:52
+                    </time>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label>利息：</label>
+                    <br>
+                    <span class="money ng-binding">
+                        ￥50,000.00
+                    </span>
+                </div>
+                <div class="col">
+                    <label>匹配人数：</label>
+                    <br>
+                    <span class="number ng-binding">
+                        1
+                    </span>
+                </div>
+                <div class="col">
+                    <label>状态：</label>
+                    <br>
+                    <span class="state state-2" style="">
+                        进行中...
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <ion-list class="disable-user-behavior"><div class="list">
+            <!-- ngRepeat: item in pairs --><ion-item ng-repeat="item in pairs" class="item">
+                <div class="box">
+                    <div class="sub-order">
+                        <label>匹配金额：</label><span class="money ng-binding">￥2,200.00</span>
+                        <br>
+                        <label>状态：</label><span class="state state-4">订单已完成</span>
+                        <br>
+                        <label>匹配时间：</label><time class="ng-binding">2016-07-12 21:12:35</time>
+                        <br>
+                        <label>打款时间：</label><time class="ng-binding">暂无</time>
+                        <br>
+                        <label>对方账号：</label><span class="ng-binding">18870391320</span>
+                        <br>
+                        <label>对方姓名：</label><span class="ng-binding">彭时爱</span>
+                        <br>
+                        <label>手机号：</label><span class="ng-binding">18870391320</span>
+                        <br>
+                        <label>支付宝：</label><span class="ng-binding"></span>
+                        <br>
+                        <label>微信号：</label><span class="ng-binding"></span>
+                        <br>
+                        <label>银行名称：</label><span class="ng-binding">中国农业银行</span>
+                        <br>
+                        <label>开户行：</label><span class="ng-binding">中国农业银行江西省景德镇市中北分理处</span>
+                        <br>
+                        <label>银行账号：</label><span class="ng-binding">6228-4815-6158-6201-519</span>
+                        <br>
+                        <label>打款倒计时：</label><time class="ng-binding">46 : 30 : 11</time>
+                    </div>
+                    <div class="sub-order-oper text-center">
+                        <!-- ngIf: item.state == 2 -->
+                        <!-- ngIf: item.state == 3 -->
+                        <!-- ngIf: item.state == 4 --><div ng-if="item.state == 4">
+                            <img class="snapshot" ng-src="http://www.tecmint.com/wp-content/uploads/2013/09/Kill-Comma" src="http://www.tecmint.com/wp-content/uploads/2013/09/Kill-Comma">
+                            <br>
+                            <label class="state state-4 fontsize-20"><i>✔</i>订单已完成</label>
+                        </div><!-- end ngIf: item.state == 4 -->
+                    </div>
+                </div>
+            </ion-item><!-- end ngRepeat: item in pairs -->
+        </div></ion-list>
+    </div><div class="scroll-bar scroll-bar-v"><div class="scroll-bar-indicator scroll-bar-fade-out" style="transform: translate3d(0px, 0px, 0px) scaleY(1); height: 186px;"></div></div></ion-content>
+</ion-view></ion-nav-view>
+  </ion-side-menu-content>
+
+  <ion-side-menu side="left" is-enabled="true" width="275" class="menu menu-left" style="width: 275px; z-index: 0;">
+    <ion-header-bar class="bar-stable bar bar-header">
+      <h1 class="title">选项</h1>
+    </ion-header-bar>
+    <ion-content style="background-color:#333" class="scroll-content ionic-scroll  has-header"><div class="scroll" style="transform: translate3d(0px, 0px, 0px) scale(1);">
+      <div class="menuC">
+        <ul class="text-center">
+          <a ng-click="toggleLeft()" href="#/app/me" class="m0"><b>个人中心</b></a>
+          <a ng-click="toggleLeft()" href="#/app/offer" class="m1" style="background-color: rgb(26, 45, 62);"><b>我要播种</b></a>
+          <a ng-click="toggleLeft()" href="#/app/apply" class="m2"><b>我要收获</b></a>
+          <a ng-click="toggleLeft()" href="#/app/money" class="m3" style="background-color: rgb(26, 45, 62);"><b>我的资产</b></a>
+          <a ng-click="toggleLeft()" href="#/app/records" class="m4"><b>交易记录</b></a>
+          <!--<a ng-click="toggleLeft()" href="#/app/leavemsg" class="m5" style="background-color: rgb(26, 45, 62);"><b>在线留言</b></a>-->
+          <a ng-click="toggleLeft()" href="#/app/settings" class="m6" style="background-color: rgb(26, 45, 62);"><b>设置</b></a>
+          <!--<a ng-click="toggleLeft()" href="#/app/test" class="m6"><b>测试</b></a>-->
+        </ul>
+      </div>
+    </div><div class="scroll-bar scroll-bar-v"><div class="scroll-bar-indicator scroll-bar-fade-out" style="transform: translate3d(0px, 0px, 0px) scaleY(1); height: 94px;"></div></div></ion-content>
+  </ion-side-menu>
+</ion-side-menus>
+
+<style>
+
+.menuC {
+    display: block;
+    background: #162635;
+    min-height: 1200px;
+  }
+  .menuC ul a.on {
+    background-color: #32D94B;
+  }
+  .menuC ul a.m0 {
+    background-image: url(images/menu/icon1.png);
+  }
+  .menuC ul a.m1 {
+    background-image: url(images/menu/icon2.png);
+  }
+  .menuC ul a.m2 {
+    background-image: url(images/menu/icon3.png);
+  }
+  .menuC ul a.m3 {
+    background-image: url(images/menu/icon6.png);
+  }
+  .menuC ul a.m4 {
+    background-image: url(images/menu/icon7.png);
+  }
+  .menuC ul a.m5 {
+    background-image: url(images/menu/icon10.png);
+  }
+  .menuC ul a.m6 {
+    background-image: url(images/menu/icon10.png);
+  }
+  .menuC ul a {
+    display: block;
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    background: url(images/icon01.png) no-repeat 15% center;
+    background-size: auto 50%;
+    text-decoration: none;
+    font-size: 16px;
+    zoom: 1;
+    color: #fff;
+    transition-duration: .4s;
+  }
+
+</style></div></ion-nav-view>
+  
+
+<div class="backdrop"></div><div class="loading-container"><div class="loading"></div></div><div class="click-block click-block-hide"></div></body></html>

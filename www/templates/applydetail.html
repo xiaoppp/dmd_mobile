@@ -68,27 +68,41 @@
                         <label>手机号：</label><span>{{item.offerMember.mobile}}</span>
                         <br>
                         <label>收款倒计时：</label><time>{{item.remainTime}}</time>
+                        <br>
+                        <label>打款倒计时：</label><time>{{item.remainTime2}}</time>
                     </div>
                     <div class="sub-order-oper text-center">
+                        <div ng-if="item.state == 0">
+                            <span>匹配已取消</span>
+                        </div>
+                        <div ng-if="item.state == 1">
+                            <span>等待匹配</span>
+                        </div>
                         <div ng-if="item.state == 2">
                             <span>等待对方打款</span>
                         </div>
                         <div ng-if="item.state == 3">
                             <img class="snapshot" ng-src="{{item.img}}">
-                            <a href="" class="">确认收款</a>
-                            <div ng-if="item.judge == 1">
-                                <span>平台仲裁中......</span>
+                            <br>
+                            <button class="button button-balanced" ng-click="payIn(item)">确认收款</button>
+                            <div ng-if="item.judge == 0" class="mt">
+                                <p class="pr">
+                                    对方打款凭证为假图，我未收到款，需要平台介入！
+                                </p>
+                                <a href="javascript:;" style="color:#f00;" ng-click="judge(item, 1)">申请仲裁</a>
                             </div>
-                            <div ng-if="item.judge == 2">
-                                <span>仲裁被驳回</span>
+                            <div ng-if="item.judge == 1" class="mt">
+                                <span style="color:lime;" class="pr">平台仲裁中......</span>
+                                <a href="javascript:;" style="color:#ddd;" ng-click="judge(item,0)">撤销</a>
                             </div>
-                            <div ng-if="item.judge == 3">
-                                <a href="" class="">仲裁</a>
+                            <div ng-if="item.judge == 2" class="mt">
+                                <span style="color:red;">仲裁被驳回</span>
                             </div>
                         </div>
                         <div ng-if="item.state == 4">
                             <img class="snapshot" ng-src="{{item.img}}">
-                            <label class="state state-4">订单已完成</label>
+                            <br>
+                            <label class="state state-4 fontsize-18"><i>✔</i>订单已完成</label>
                         </div>
                     </div>
                 </div>

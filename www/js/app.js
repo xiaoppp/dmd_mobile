@@ -42,6 +42,7 @@ angular.module('starter', ['ionic',
 
   .state('app.loading', {
     url: '/loading',
+    cache: false,
     views:{
         'menuContent':{
           templateUrl: 'templates/loading.html',
@@ -52,6 +53,7 @@ angular.module('starter', ['ionic',
 
   .state('app.me', {
     url: '/me',
+    cache: false,
     views: {
       'menuContent': {
         templateUrl: 'templates/me.html'
@@ -61,6 +63,7 @@ angular.module('starter', ['ionic',
 
   .state('app.error', {
     url: '/error?code',
+    cache: false,
     views: {
       'menuContent': {
         templateUrl: 'templates/error.html',
@@ -98,6 +101,7 @@ angular.module('starter', ['ionic',
 
   .state('app.applydetail', {
     url: '/apply/:id',
+    cache: false,
     views: {
       'menuContent': {
         templateUrl: 'templates/applydetail.html',
@@ -117,6 +121,7 @@ angular.module('starter', ['ionic',
 
   .state('app.info', {
     url: '/info',
+    cache: false,
     views: {
       'menuContent': {
         templateUrl: 'templates/info.html',
@@ -127,6 +132,7 @@ angular.module('starter', ['ionic',
 
   .state('app.leavemsg', {
     url: '/leavemsg',
+    cache: false,
     views: {
       'menuContent': {
         templateUrl: 'templates/leavemsg.html'
@@ -136,6 +142,7 @@ angular.module('starter', ['ionic',
 
   .state('app.message', {
     url: '/message',
+    cache: false,
     views: {
       'menuContent': {
         templateUrl: 'templates/message.html',
@@ -146,6 +153,7 @@ angular.module('starter', ['ionic',
 
   .state('app.messagedetail', {
     url: '/message/:id',
+    cache: false,
     views: {
       'menuContent': {
         templateUrl: 'templates/messagedetail.html',
@@ -156,6 +164,7 @@ angular.module('starter', ['ionic',
 
   .state('app.money', {
     url: '/money',
+    cache: false,
     views: {
       'menuContent': {
         templateUrl: 'templates/money.html',
@@ -166,6 +175,7 @@ angular.module('starter', ['ionic',
 
   .state('app.news', {
     url: '/news',
+    cache: false,
     views: {
       'menuContent': {
         templateUrl: 'templates/news.html',
@@ -176,6 +186,7 @@ angular.module('starter', ['ionic',
 
   .state('app.newsdetail', {
     url: '/news/:id',
+    cache: false,
     views: {
       'menuContent': {
         templateUrl: 'templates/newsdetail.html',
@@ -186,6 +197,7 @@ angular.module('starter', ['ionic',
 
   .state('app.offer', {
     url: '/offer',
+    cache: false,
     views: {
       'menuContent': {
         templateUrl: 'templates/offer.html',
@@ -196,6 +208,7 @@ angular.module('starter', ['ionic',
 
   .state('app.offerdetail', {
     url: '/offer/:id',
+    cache: false,
     views: {
       'menuContent': {
         templateUrl: 'templates/offerdetail.html',
@@ -206,6 +219,7 @@ angular.module('starter', ['ionic',
 
   .state('app.records', {
     url: '/records',
+    cache: false,
     views: {
       'menuContent': {
         templateUrl: 'templates/records.html',

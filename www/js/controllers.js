@@ -11,9 +11,15 @@ angular.module('starter.controllers', [])
 
 .controller('LoadingCtrl',function($scope,$state,config,DataService){
     console.log('////app loading.');
-    DataService.loadAppData().then(function(data){
+    if(config.appDataLoaded) {
+        console.log('app data is loaded.');
         $state.go('app.me');
-    });
+    } else {
+        DataService.loadAppData().then(function(data){
+            config.appDataLoaded = true;
+            $state.go('app.me');
+        });
+    }
 })
 
 .controller('ErrorCtrl',function($scope, $state, config, DataService){
@@ -125,24 +131,32 @@ angular.module('starter.controllers', [])
     $scope.mark = 0;
 
     var id = $stateParams.id;
+    
+    loadData();
 
-    DataService.ApplyDetail(id).then(function(data){
-        $scope.apply = data.data.apply;
-        $scope.pairs = data.data.pairs;
-        $scope.progress = (function(){
-            var state = $scope.apply.state;
-            if(state < 100) return state * 10;
-            else return 100;
-        })();
-        _.each($scope.pairs,function(item){
-            item.remainTime = remainTime(item.pay_time, 0);
+    function loadData(){
+        DataService.ApplyDetail(id).then(function(data){
+            $scope.apply = data.data.apply;
+            $scope.pairs = data.data.pairs;
+            $scope.progress = (function(){
+                var state = $scope.apply.state;
+                if(state < 100) return state * 10;
+                else return 100;
+            })();
+            _.each($scope.pairs,function(item){
+                item.remainTime = remainTime(item.pay_time, 0);//收款倒计时
+                item.remainTime2 = remainTime(item.the_time, 1);//打款倒计时
+            });
         });
-    });
+    }    
 
-    $scope.judage = function(item){
-        DataService.Judge(item.id, 1).then(function(x){
-            if(x.isSuccess) AlertService.Alert('仲裁成功，系统正在处理...')
-            else AlertService.Alert(x.error.message)
+    $scope.judge = function(item,judge){
+        DataService.Judge(item.id, judge).then(function(x){
+            if(x.isSuccess){
+                var msg = judge == 1 ? "仲裁成功，系统正在处理..." : '取消仲裁成功，系统正在处理...';
+                AlertService.Alert(msg);
+                item.judge = judge;
+            } else AlertService.Alert(x.error.message);
         })
     };
 
@@ -150,15 +164,11 @@ angular.module('starter.controllers', [])
         DataService.PayIn(item.id).then(function(x){
             if(x.isSuccess){
                 AlertService.Alert('确认收款成功，系统正在处理...');
-                item.state = 4;
+                item.state = 4;  //from 3
             }
             else AlertService.Alert(x.error.message)
         });
     };
-
-    $scope.cancelJudge = function(item){
-        AlertService.Alert('cancelJudge not implemented');
-	};
 
     $scope.remark = function(item){
         DataService.Remark(item.id, $scope.remark).then(function(data){
@@ -167,11 +177,9 @@ angular.module('starter.controllers', [])
     };
 
     function remainTime(start, flag){
-        console.log('///////////////',start,flag);
-        if(!$rootScope.config) return 0;
+        if(!$rootScope.config || !start) return Utils.duration(0);
         var cfg = flag  ? $rootScope.config.key12 : $rootScope.config.key13;
         var time =  cfg * 60 * 60  - moment().diff(moment.unix(start),'seconds');
-        console.log('////////////////////time//',time);
         return Utils.duration(time);
     }
 
@@ -319,9 +327,7 @@ angular.module('starter.controllers', [])
         }, function (err) {
             AlertService.Alert("拍照出错.");
         });
-    };
-
-    
+    };    
 
     $scope.denyPay = function(item){
         AlertService.Confirm('您确定要拒绝打款，拒绝后系统将冻结您的账号','',function(){
@@ -403,7 +409,7 @@ angular.module('starter.controllers', [])
 
     function saveInfo(){
         var data = angular.copy($scope.info);
-        if(_.isEmpty(data.paypwd)) return AlertService.Alert('请填写安全密码');
+        if(_.isEmpty(data.pay_pwd)) return AlertService.Alert('请填写安全密码');
         DataService.EditMemberInfo(data).then(function(data){
             if(data.isSuccess) AlertService.Alert('资料保存成功');
             else AlertService.Alert(data.error.message);

@@ -1,5 +1,5 @@
 <ion-view view-title="交易记录">
-<!--<ion-content>-->
+<ion-content>
     <ion-tabs class="tabs-striped tabs-bottom tabs-background-dark tabs-color-energized tabs-positive">
       <ion-tab title="播种记录" on-select="onTabSelected(0)">
         <ion-content padding="true">
@@ -8,19 +8,22 @@
               <ion-item ng-repeat="item in offers">
                 <ul>
                   <li>
-                    <label>编号：</label> <span class="yellow">{{item.offer.code}}</span>
+                    <label>编号：</label> <span class="yellow">{{item.code}}</span>
                   </li>
                   <li>
-                    <label>状态：</label> <span class="status2 status2-{{item.offer.state}}">{{item.offer.state | orderstate}}</span>
+                    <label>状态：</label> <span class="status2 status2-{{item.state}}">{{item.state | orderstate}}</span>
                   </li>
                   <li>
-                    <label>金额 ：</label> <span class="money">{{item.offer.money | currency : '￥'}}</span>
+                    <label>金额 ：</label> <span class="money">{{item.money | currency : '￥'}}</span>
                   </li>
                   <li>
-                    <label>时间 ：</label> <time>{{item.offer.the_time | datetime}}<time>
+                    <label>匹配人数 ：</label> <span class="money">{{item.pct}}</span>
+                  </li>
+                  <li>
+                    <label>时间 ：</label> <time>{{item.the_time | datetime}}<time>
                   </li>
                   <li class="text-center">
-                    <button class="button button-balanced" ui-sref="app.offerdetail({id:{{item.offer.id}}})">查看</button>
+                    <button class="button button-balanced" ui-sref="app.offerdetail({id:{{item.id}}})">查看</button>
                   </li>
                 </ul>
               </ion-item>
@@ -35,19 +38,22 @@
               <ion-item ng-repeat="item in applys">
                 <ul>
                   <li>
-                    <label>编号：</label> <span class="yellow">{{item.apply.code}}</span>
+                    <label>编号：</label> <span class="yellow">{{item.code}}</span>
                   </li>
                   <li>
-                    <label>状态：</label> <span class="status2 status2-{{item.apply.state}}">{{item.apply.state | orderstate}}</span>
+                    <label>状态：</label> <span class="status2 status2-{{item.state}}">{{item.state | orderstate}}</span>
                   </li>
                   <li>
-                    <label>金额 ：</label> <span class="money">{{item.apply.money | currency : '￥'}}</span>
+                    <label>金额 ：</label> <span class="money">{{item.money | currency : '￥'}}</span>
                   </li>
                   <li>
-                    <label>时间 ：</label> <time>{{item.apply.the_time | datetime}}<time>
+                    <label>匹配人数 ：</label> <span class="money">{{item.pct}}</span>
+                  </li>
+                  <li>
+                    <label>时间 ：</label> <time>{{item.the_time | datetime}}<time>
                   </li>
                   <li class="text-center">
-                    <button class="button button-balanced" ui-sref="app.applydetail({id:{{item.apply.id}}})">查看</button>
+                    <button class="button button-balanced" ui-sref="app.applydetail({id:{{item.id}}})">查看</button>
                   </li>
                 </ul>
               </ion-item>
@@ -76,5 +82,5 @@
         </ion-content>
       </ion-tab>
     </ion-tabs>
-    <!--</ion-content>-->
+    </ion-content>
 </ion-view>

@@ -43,6 +43,13 @@ img.bstar{margin:0 2px;}
 .dmd-tabs>.dmd-tab.last{border-right: none;}
 .dmd-tab-contents{color: #fff;}
 .dmd-tab-content{color: #fff;}
+img.snapshot{width:130px;height:70px;}
+.fontsize-12{font-size: 12px}
+.fontsize-15{font-size: 15px}
+.fontsize-16{font-size: 16px}
+.fontsize-18{font-size: 18px}
+.fontsize-20{font-size: 20px}
+.fontsize-24{font-size: 24px}
 
 /*override ionic css*/
 .scroll-content { background: url(../images/bg.jpg); background-size: 100% 100%; }
