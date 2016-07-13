@@ -9,7 +9,7 @@ angular.module('starter.controllers', [])
     }
 })
 
-.controller('LoadingCtrl',function($scope,$state,config,DataService){
+.controller('LoadingCtrl',function($scope,$state,config,DataService,$timeout){
     console.log('////app loading.');
     if(config.appDataLoaded) {
         console.log('app data is loaded.');
@@ -17,7 +17,9 @@ angular.module('starter.controllers', [])
     } else {
         DataService.loadAppData().then(function(data){
             config.appDataLoaded = true;
-            $state.go('app.me');
+            $timeout(function(){
+                $state.go('app.me');
+            },1000)
         });
     }
 })
@@ -72,12 +74,17 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('SigninCtrl', function($scope, $state, DataService, AlertService) {
+.controller('SigninCtrl', function($scope, $state, DataService, AlertService, config) {
 
     $scope.user = {
         username: "13803431018",
         pwd: "1234"
     };
+
+    var memberid = localStorage.getItem(config.loginkey); 
+    if(!_.isUndefined(memberid) && !_.isNull(memberid) && memberid !== 'undefined'){
+        $state.go('app.me');
+    }
 
     $scope.signin = function() {
         DataService.Login($scope.user)
@@ -119,13 +126,16 @@ angular.module('starter.controllers', [])
 		else if(money % time != 0) return AlertService.Alert('提现金额必须是' + time + '的倍数。');
         else DataService.Apply($scope.data.money).then(function(data){
             AlertService.Alert('收获成功，等待匹配、打款')
+            $rootScope.member.lastApply = data.data;
+            DataService.reloadAppData();
             $state.go('app.applydetail',{id: data.data.id})
         });
     };
 
 })
 
-.controller('ApplyDetailCtrl',function($scope,$state,$stateParams, $rootScope, AlertService, DataService,config,Utils){
+.controller('ApplyDetailCtrl',function($scope,$state,$stateParams, $rootScope, 
+                                        AlertService, DataService,config,Utils){
     $scope.apply = {};
     $scope.pairs = [];
     $scope.mark = 0;
@@ -148,7 +158,7 @@ angular.module('starter.controllers', [])
                 item.remainTime2 = remainTime(item.the_time, 1);//打款倒计时
             });
         });
-    }    
+    }
 
     $scope.judge = function(item,judge){
         DataService.Judge(item.id, judge).then(function(x){
@@ -163,6 +173,7 @@ angular.module('starter.controllers', [])
     $scope.payIn = function(item){
         DataService.PayIn(item.id).then(function(x){
             if(x.isSuccess){
+                DataService.reloadAppData();
                 AlertService.Alert('确认收款成功，系统正在处理...');
                 item.state = 4;  //from 3
             }
@@ -205,6 +216,8 @@ angular.module('starter.controllers', [])
         if ($scope.data.isChecked) {
             DataService.Offer($scope.data.money).then(function(data) {
                 console.log(data)
+                $rootScope.member.lastOffer = data.data;
+                DataService.reloadAppData();
                 $state.go('app.offerdetail',{id: data.data.id})
             });
         }
@@ -279,10 +292,11 @@ angular.module('starter.controllers', [])
     }
 
     $scope.payOut = function(item){
-        alert('payout')
+        //alert('payout')
         uploadImage(item, function(r, data) {
             if (r) {
                 DataService.PayOut(item.id, data).then(function(data) {
+                    DataService.reloadAppData();
                     AlertService.Alert('打款成功');
                     //update state
                     item.state = 3;
@@ -351,10 +365,14 @@ angular.module('starter.controllers', [])
     }
 })
 
-.controller('NewsCtrl',function($scope,$state,DataService,config){
+.controller('NewsCtrl',function($scope,$state,DataService,config,AlertService){
     $scope.model = [];
     DataService.News(0).then(function(data){
-        $scope.model = data.data;
+        if(data.isSuccess){
+            $scope.model = data.data.rows;
+        } else {
+            AlertService.Alert(data.error.message)
+        }
     }).catch(function(err){
         console.log(err)
     });
@@ -374,7 +392,7 @@ angular.module('starter.controllers', [])
 .controller('MessageCtrl',function($scope,$state,DataService,config){
     $scope.messages = [];
     DataService.Messages(0).then(function(data){
-        $scope.messages = data.data;
+        $scope.messages = data.data.rows;
     });
 })
 
@@ -386,7 +404,8 @@ angular.module('starter.controllers', [])
     });
 })
 
-.controller('InfoCtrl',function($scope,$rootScope,$state,$stateParams,DataService,config,banks,AlertService){
+.controller('InfoCtrl',function($scope,$rootScope,$state,$stateParams,
+                                DataService,config,banks,AlertService){
     var member = $rootScope.member;
     var id = member.id;
     $scope.info = {};

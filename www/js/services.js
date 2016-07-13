@@ -3,7 +3,9 @@ angular.module('starter.services',[])
     .service("LocalData", function ($rootScope) {
     })
 
-    .service('DataService', function ($http, $q, $rootScope, LoadingService, LocalData, AlertService, config) {
+    .service('DataService', function (
+        $http, $q, $rootScope, LoadingService, LocalData, 
+        AlertService, config) {
 
         var service  = this;
         var self = this;
@@ -32,7 +34,7 @@ angular.module('starter.services',[])
             $rootScope.member = (function(){
                 var m = data.member;
                 m.showNews = data.showNews;
-                m.teamScope = data.teamScope;
+                m.teamScope = data.teamScope || 0;
                 m.moneyApply = data.moneyApply || 0;
                 m.bonusFreeze = data.bonusFreeze || 0;
                 m.moneyFreeze = data.moneyFreeze || 0;
@@ -41,6 +43,10 @@ angular.module('starter.services',[])
                 return m;
             })();
 
+            _CalculateCapital();
+        }
+
+        function _CalculateCapital(){
             var o = {
                     sum       :  self.Capital.sum(),
                     bonus     :  self.Capital.bonus(),
@@ -49,7 +55,6 @@ angular.module('starter.services',[])
                     available :  self.Capital.available(),
                     about     :  self.Capital.about()
             };
-
             $rootScope.member.capital = o;
         }
 
@@ -153,6 +158,26 @@ angular.module('starter.services',[])
             }
 
             return deferred.promise;   
+        }
+
+        service.reloadAppData = function(){
+            //index/refresh/:memberid
+            HTTP_GET(_Combine('index/refresh/',MemberId())).then(function(data){
+                if(data.isSuccess){
+                    var d = data.data;
+                    $rootScope.member.moneyApply = d.moneyApply || 0;
+                    $rootScope.member.bonusFreeze = d.bonusFreeze || 0;
+                    $rootScope.member.moneyFreeze = d.moneyFreeze || 0;
+                    $rootScope.member.money = d.money;
+                    $rootScope.member.interest = d.interest;
+                    $rootScope.member.bonus = d.bonus;
+                    _CalculateCapital();
+                } else {
+                    AlertService.Alert(data.error.message);
+                }
+            }).catch(function(err){
+                AlertService.Alert(err)
+            });
         }
 
         //资产计算
@@ -345,7 +370,9 @@ angular.module('starter.services',[])
                 }
             });
         };
+
         service.Alert = function (title, content, fn) {
+
             $ionicPopup.alert({
                 title: title,
                 template: content,

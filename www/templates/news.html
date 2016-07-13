@@ -4,7 +4,7 @@
       <ion-item ng-repeat="item in model">
         <a ui-sref="app.newsdetail({id:{{item.id}}})">
           <h4>{{item.title}}</h4>
-          <time>{{item.the_time}}</time>
+          <time>{{item.the_time | datetime}}</time>
         </a>
       </ion-item>
     </ion-list>
