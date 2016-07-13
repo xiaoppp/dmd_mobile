@@ -36,6 +36,7 @@ angular.module('starter', ['ionic',
   .state('app', {
     url: '/app',
     abstract: true,
+    cache: false,
     templateUrl: 'templates/menu.html',
     controller: 'AppCtrl'
   })
@@ -91,6 +92,7 @@ angular.module('starter', ['ionic',
 
   .state('app.apply', {
     url: '/apply',
+    cache: false,
     views: {
       'menuContent': {
         templateUrl: 'templates/apply.html',
