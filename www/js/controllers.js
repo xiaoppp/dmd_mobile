@@ -131,7 +131,7 @@ angular.module('starter.controllers', [])
     $scope.mark = 0;
 
     var id = $stateParams.id;
-    
+
     loadData();
 
     function loadData(){
@@ -148,7 +148,7 @@ angular.module('starter.controllers', [])
                 item.remainTime2 = remainTime(item.the_time, 1);//打款倒计时
             });
         });
-    }    
+    }
 
     $scope.judge = function(item,judge){
         DataService.Judge(item.id, judge).then(function(x){
@@ -218,8 +218,8 @@ angular.module('starter.controllers', [])
     }
 })
 
-.controller('OfferDetailCtrl',function($scope, $state, $stateParams, $rootScope, 
-                                        $cordovaCamera, $cordovaFileTransfer, AlertService, 
+.controller('OfferDetailCtrl',function($scope, $state, $stateParams, $rootScope,
+                                        $cordovaCamera, $cordovaFileTransfer, AlertService,
                                         DataService, config,Utils){
     $scope.offer = {};
     $scope.pairs = [];
@@ -251,8 +251,12 @@ angular.module('starter.controllers', [])
         var server = config.host + "pair/payment/mobile/upload";
         var filePath = item.img;
 
-        var ext = item.img.substr(item.img.lastIndexOf('/'));
-        var filename = item.id + "_" + moment().format('YYYYMMDDhhmmss') + '.' + ext;
+        var filename = item.id + "_" + moment().format('YYYYMMDDhhmmss') + ".jpg";
+
+        alert(item.img)
+        alert(filename)
+        alert(filePath)
+        alert(server)
 
         var options = new FileUploadOptions();
 
@@ -270,7 +274,7 @@ angular.module('starter.controllers', [])
             }, function (progress) {
             });
     }
-    
+
     function remainTime(item){
         if(!$rootScope.config) return 0;
         var cfg12 = $rootScope.config.key12;
@@ -294,26 +298,31 @@ angular.module('starter.controllers', [])
     $scope.selectImage = function(item) {
         console.log(item)
         var options = {
+            quality: 30,
             destinationType: Camera.DestinationType.FILE_URI,
-            sourceType: Camera.PictureSourceType.PHOTOLIBRARY
+            sourceType: Camera.PictureSourceType.SAVEDPHOTOALBUM,
+            correctOrientation: true,
+            encodingType: Camera.EncodingType.JPEG
         }
 
         $cordovaCamera.getPicture(options).then(function (imageURI) {
             window.resolveLocalFileSystemURL(imageURI, function (fileEntry) {
                 item.img = fileEntry.toURL();
+                alert(item.img)
                 $scope.$apply();
             });
         }, function (err) {
-            AlertService.Alert("拍照出错.");
+            AlertService.Alert("选择图片出错.");
         });
     }
 
     $scope.takeImage = function (item) {
         var options = {
-            quality: 20,
+            quality: 30,
             destinationType: Camera.DestinationType.FILE_URI,
             sourceType: Camera.PictureSourceType.CAMERA,
             correctOrientation: true,
+            encodingType: Camera.EncodingType.JPEG,
             allowEdit: false,
             popoverOptions: CameraPopoverOptions,
             saveToPhotoAlbum: false
@@ -327,7 +336,7 @@ angular.module('starter.controllers', [])
         }, function (err) {
             AlertService.Alert("拍照出错.");
         });
-    };    
+    };
 
     $scope.denyPay = function(item){
         AlertService.Confirm('您确定要拒绝打款，拒绝后系统将冻结您的账号','',function(){
