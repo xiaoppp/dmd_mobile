@@ -4,7 +4,7 @@ angular.module('starter.services',[])
     })
 
     .service('DataService', function (
-        $http, $q, $rootScope, LoadingService, LocalData, 
+        $http, $q, $rootScope, LoadingService, LocalData,
         AlertService, config) {
 
         var service  = this;
@@ -157,7 +157,7 @@ angular.module('starter.services',[])
                         });
             }
 
-            return deferred.promise;   
+            return deferred.promise;
         }
 
         service.reloadAppData = function(){
