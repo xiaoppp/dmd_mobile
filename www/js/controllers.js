@@ -156,7 +156,7 @@ angular.module('starter.controllers', [])
             _.each($scope.pairs,function(item){
                 item.remainTime = remainTime(item.pay_time, 0);//收款倒计时
                 item.remainTime2 = remainTime(item.the_time, 1);//打款倒计时
-                item.img = 'images/payment/' + item.img;
+                if(item.img) item.img = 'images/payment/' + item.img;
             });
         });
     }
@@ -253,7 +253,7 @@ angular.module('starter.controllers', [])
             })();
             _.each($scope.pairs,function(item,i){
                 item.remainTime = remainTime(item);
-                item.img = 'images/payment/' + item.img;
+                if(item.img) item.img = 'images/payment/' + item.img;
                 //item.aboutIncome = DataService.Capital.about(item);
             });
         });
