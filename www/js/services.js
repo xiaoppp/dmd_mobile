@@ -372,7 +372,6 @@ angular.module('starter.services',[])
         };
 
         service.Alert = function (title, content, fn) {
-
             $ionicPopup.alert({
                 title: title,
                 template: content,

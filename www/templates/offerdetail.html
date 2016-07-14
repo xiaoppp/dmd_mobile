@@ -5,15 +5,19 @@
 
         <div class="table bg-dark-alpha">
             <div class="row">
-                <div class="col-20">
+                <div class="col">
                      <span class="color-green">{{offer.state < 100 ? '正在播种' : '播种完成'}}</span>
                 </div>
-                <div class="col-80">
-                    <div class="progress">
-                        <div class="progress-bar" style="position:absolute" ng-style="{width : progress + '%'}">
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div style="width:90%;">
+                        <div class="progress">
+                            <div class="progress-bar" style="position:absolute" ng-style="{width : progress + '%'}">
+                            </div>
+                            <label class="progress-text" ng-style="{left : (progress + 1) + '%'}">{{progress}}%</label>
+                            <i class="progress-btn" ng-style="{left : (progress - 1) + '%'}"></i>
                         </div>
-                        <label class="progress-text" ng-style="{left : (progress + 1) + '%'}">{{progress}}%</label>
-                        <i class="progress-btn" ng-style="{left : (progress - 1) + '%'}"></i>
                     </div>
                 </div>
             </div>

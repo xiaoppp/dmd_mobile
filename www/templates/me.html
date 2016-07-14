@@ -71,6 +71,11 @@
 					  <label>状态：</label><br><span class="state2 state2-{{member.lastOffer.state}}">{{member.lastOffer.state | orderstate}}</span>
 				  </div>
 			  </div>
+			  <div class="row">
+				  <div class="col text-center">
+					  <button class="button button-balanced" ui-sref="app.offerdetail({id:{{member.lastOffer.id}}})">查看</button>
+				  </div>
+			  </div>
 		  </div>
 	  </div>
 
@@ -80,7 +85,7 @@
 	  </div>
 
 	  <div class="box" ng-if="member.lastApply">
-		  <h4 class="color-orange">正在收获</h4>
+		  <h4 class="color-green">正在收获</h4>
 		  <div class="table bg-dark-alpha">
 			  <div class="row">
 				  <div class="col">
@@ -100,11 +105,16 @@
 					  <label>状态：</label><br><span class="state2 state2-{{member.lastApply.state}}">{{member.lastApply.state | orderstate}}</span>
 				  </div>
 			  </div>
+			  <div class="row">
+				  <div class="col text-center">
+					  <button class="button button-balanced" ui-sref="app.applydetail({id:{{member.lastApply.id}}})">查看</button>
+				  </div>
+			  </div>
 		  </div>
 	  </div>
 
 	 <div class="box" ng-if="!member.lastApply">
-		  <h4 class="color-orange">等待收获...</h4>
+		  <h4 class="color-green">等待收获...</h4>
 		  <div class="table bg-dark-alpha"></div>
 	  </div>
 
