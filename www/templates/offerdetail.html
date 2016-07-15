@@ -42,7 +42,7 @@
                     <label>利息：</label>
                     <br>
                     <span class="money">
-                        {{offer.money | currency : '￥'}}
+                        {{offer.interest | currency : '￥'}}
                     </span>
                 </div>
                 <div class="col">
@@ -96,6 +96,7 @@
                         <div ng-if="item.state == 2">
                             <div style="margin-bottom:10px;">
                                 <img style="width:150px;height:150px;" ng-src="{{item.img}}" ng-if="item.img">
+                                <br>
                                 <button class="button icon button-balanced ion-camera" ng-click="takeImage(item)"></button>
                                 <button class="button icon button-positive ion-ios-folder-outline" ng-click="selectImage(item)"></button>
                             </div>

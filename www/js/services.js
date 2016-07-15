@@ -5,10 +5,9 @@ angular.module('starter.services',[])
 
     .service('DataService', function (
         $http, $q, $rootScope, LoadingService, LocalData, 
-        AlertService, config) {
-
-        var service  = this;
+        AlertService, config, Auth) {
         var self = this;
+        var service = this;
 
         function _PrefixIndexData(data){
             $rootScope.config = (function(){
@@ -58,7 +57,7 @@ angular.module('starter.services',[])
             $rootScope.member.capital = o;
         }
 
-        function HTTP_GET(url,showLoading) {
+        function HTTP_GET(url, showLoading) {
             if (_.isUndefined(showLoading) || _.isNull(showLoading)) {
                 showLoading = true;
             }
@@ -68,12 +67,15 @@ angular.module('starter.services',[])
 
             var deferred = $q.defer();
 
-            console.log('---------------------->', url);
+            console.log('http get---------------------->', url);
 
             var req = {
                 method: 'GET',
                 url: url,
-                timeout: 1000 * 20
+                timeout: 1000 * 20,
+                headers: {
+                    'x-access-token': Auth.current()
+                },
             };
 
             $http(req)
@@ -105,6 +107,7 @@ angular.module('starter.services',[])
                 url: url,
                 headers: {
                     'Content-Type': 'application/json',
+                     'x-access-token': Auth.current()
                 },
                 data: params,
                 timeout: 1000 * 20
@@ -135,17 +138,11 @@ angular.module('starter.services',[])
             return raw;
         }
 
-        function MemberId(){
-            var id = localStorage.getItem(config.loginkey);
-            return parseInt(id);
-        }
-
+        //载入应用数据
         service.loadAppData = function(){
             var deferred = $q.defer();
-            var memberid = localStorage.getItem(config.loginkey);
-            console.log('//////memberid from localstorage//',memberid,config.loginkey);
-            if (!_.isUndefined(memberid) && !_.isNull(memberid) && memberid !== 'undefined') {
-                HTTP_GET(_Combine('index/info/', memberid)).then(function(data) {
+            if (Auth.has()) {
+                HTTP_GET(_Combine('index/info')).then(function(data) {
                             if(data.isSuccess){
                                 //初始化加载首页数据，如果没有登录，则login的时候加载，如果有数据，则服务自动加载
                                 _PrefixIndexData(data.data);
@@ -160,9 +157,10 @@ angular.module('starter.services',[])
             return deferred.promise;   
         }
 
+        //刷新应用数据
         service.reloadAppData = function(){
             //index/refresh/:memberid
-            HTTP_GET(_Combine('index/refresh/',MemberId())).then(function(data){
+            HTTP_GET(_Combine('index/refresh')).then(function(data){
                 if(data.isSuccess){
                     var d = data.data;
                     $rootScope.member.moneyApply = d.moneyApply || 0;
@@ -188,22 +186,22 @@ angular.module('starter.services',[])
             },
             bonus: function(){
                 var member = $rootScope.member;
-                return member.bonus + member.bonusFreeze
+                return member.bonus + member.bonusFreeze;
             },
             total: function(){
                 var member = $rootScope.member;
                 return 	member.money + member.interest +
                         member.bonus + member.moneyFreeze +
-                        member.bonusFreeze
+                        member.bonusFreeze;
             },
             frozen: function(){
                 var member = $rootScope.member;
-                return member.moneyFreeze + member.bonusFreeze
+                return member.moneyFreeze + member.bonusFreeze;
             },
             available: function(){
                 var member = $rootScope.member;
                 return 	member.money + member.interest +
-                        member.bonus - member.moneyApply
+                        member.bonus - member.moneyApply;
             },
             about: function(){
                 var member = $rootScope.member;
@@ -217,16 +215,15 @@ angular.module('starter.services',[])
         };
 
         service.Login = function(model){
-            console.log(model);
             var deferred = $q.defer();
-            HTTP_POST(_Combine('member/signin'), model,true).then(function(data){
+            console.log('///login data:',model);
+            HTTP_POST(_Combine('member/signin'), model, true).then(function(data){
                 if (data.isSuccess){
-                    localStorage.setItem("memberid", data.data.memberid)
-                    deferred.resolve(data)
-                    GetIndexData(data.data.memberid)
-                }
-                else {
-                    deferred.reject(data.error.message)
+                    Auth.set(data.data.token);
+                    deferred.resolve(data);
+                    self.loadAppData();
+                } else {
+                    deferred.reject(data.error.message);
                 }
             }).catch(function(err){
                 deferred.reject(err);
@@ -242,106 +239,132 @@ angular.module('starter.services',[])
             return HTTP_GET(_Combine('news/',id));
         };
 
+        //;;;
         service.Messages = function(page){
-            return HTTP_GET(_Combine('messages/page/',MemberId(),'/', page));
+            return HTTP_GET(_Combine('messages/page/', page));
         };
 
         service.MessageSingle = function(id){
             return HTTP_GET(_Combine('message/',id));
         };
 
+        //;;;
         service.MessageReplies = function(){
-            return HTTP_GET(_Combine('messages/reply/', MemberId()));
+            return HTTP_GET(_Combine('messages/reply'));
         };
 
         service.PostMsg = function(model){
-            model.member_id = MemberId();
             model.to_member_id = 0;
             model.state = 0;
             return HTTP_POST(_Combine('message/action/leavemsg'), model);
         };
+
         service.Member = function(username){
             return HTTP_GET(_Combine('member/',username));
         };
+
         service.MemberByID = function(id){
             return HTTP_GET(_Combine('member/info/',id));
         };
+
         service.EditMemberInfo = function(model){
             return HTTP_POST(_Combine('member/edit/info'), model);
         };
+
         service.EditPwd = function(model){
             return HTTP_POST(_Combine('member/reset'), model);
         };
+
         service.EditPayPwd = function(model,mode){
             //mode //  0 通过原始安全密码,  1 通过手机验证码
         };
+
         service.TeamTree = function(id){
             //member/children
             return HTTP_GET(_Combine('member/children/',id));
         };
+
         service.Offer = function(money){
-            var model = {money : money, memberid: MemberId()}
+            var model = {money : money}
             return HTTP_POST(_Combine('offer/member'), model)
         };
+
         service.Apply = function(money){
-            var model = { memberid: MemberId(), money:money }
+            var model = { money:money }
             return HTTP_POST(_Combine('apply/member'), model)
         };
+
         service.TeamScope = function(id){
             return HTTP_GET(_Combine('member/children/amount/',id));
         };
+
+        //;;;
         service.IncomeRecords = function(type, page){
             //type  =  money or  interest or bonus
-            return HTTP_GET(_Combine('income/',type,'/', MemberId(), '/', page))
+            return HTTP_GET(_Combine('income/',type,'/', page))
         };
+
+        //;;;
         service.DealRecords = function(type,page){
             // type = offers or applys or pairs/failed
-            return HTTP_GET(_Combine(type,'/', MemberId()))
+            return HTTP_GET(_Combine(type))
         };
+
+        ///;;;
         service.IsNewMember = function(){
-            return HTTP_GET(_Combine('member/check/new/', MemberId()))
+            return HTTP_GET(_Combine('member/check/new'))
         };
+
         service.OfferDetail = function(id){
-            var model = {offerid : id, memberid: MemberId()}
+            var model = {offerid : id}
             return HTTP_POST(_Combine('offer/detail'),model)
         };
+
         service.ApplyDetail = function(id){
-            var model = {applyid : id, memberid : MemberId()}
-            return HTTP_POST(_Combine('apply/detail'),model)
+            var model = {applyid : id}
+            return HTTP_POST(_Combine('apply/detail'), model)
         };
+
         service.Freeze = function(){
         };
+
+        ///;;;
         service.DenyPay = function(){
             //pair/payment/deny/:memberid
-            return HTTP_GET(_Combine('pair/payment/deny/', MemberId()))
+            return HTTP_GET(_Combine('pair/payment/deny/'))
         };
+
         service.PayOut = function(pairid, imgurl){
-            return HTTP_POST(_Combine('pair/payment/out'), {memberid: MemberId(), imgurl:imgurl, oaid: pairid})
+            var model = {
+                imgurl: imgurl, 
+                oaid:  pairid
+            };
+            return HTTP_POST(_Combine('pair/payment/out'), model)
         };
+
         service.PayIn = function(pairid){
             //pair/payment/in
             var model = {
-                memberid : MemberId(),
                 oaid : pairid
             };
             return HTTP_POST(_Combine('pair/payment/in'), model);
         };
+
         service.Judge = function(pairid,judge){
             //pairs/judge
             //0为正常，1为仲裁状态，2为被驳回
             var model = {
                 oaid  : pairid,
-                judge  :judge,
-                memberid : MemberId()
+                judge : judge
             };
             return HTTP_POST(_Combine('pairs/judge'), model);
         };
+
         service.Remark = function(pairid,remark){
             //pairs/remark
             var model = {
                 oaid : pairid,
-                remark : remark,
-                memberid : MemberId()
+                remark : remark
             };
             return HTTP_POST(_Combine('pairs/remark'), model);
         };
@@ -351,11 +374,10 @@ angular.module('starter.services',[])
     .service('AlertService', function ($ionicPopup) {
         var service = {};
 
-        service.Confirm = function (title, content, fnOK, fnCancel) {
+        service.Confirm = function (content, title, fnOK, fnCancel) {
             $ionicPopup.confirm({
-                title: title,
-                template: content,
-                cssClass : '',
+                title: title || "确认",
+                template: _pipe(content),
                 okType : 'button-balanced',
                 okText : '确定',
                 cancelType : 'button-light',
@@ -371,10 +393,10 @@ angular.module('starter.services',[])
             });
         };
 
-        service.Alert = function (title, content, fn) {
+        service.Alert = function (content,title, fn) {
             $ionicPopup.alert({
-                title: title,
-                template: content,
+                title: title || '提示',
+                template: _pipe(content),
                 okType : 'button-balanced',
                 okText : '确定'
             }).then(function (res) {
@@ -382,6 +404,14 @@ angular.module('starter.services',[])
                     fn(res);
             });
         };
+
+        function _pipe(msg){
+            if(typeof msg !=='string'){
+                console.log('alert message:',msg);
+                return '服务出错，请稍后再试';
+            }
+            return msg;
+        }
 
         return service;
     })
@@ -433,4 +463,33 @@ angular.module('starter.services',[])
                 return paddingLeft(h,'0',2) + ' : ' + paddingLeft(m,'0',2) + ' : ' + paddingLeft(s,'0',2);
             }
         }
+    })
+
+    .service('Auth', function(config){
+        var self = this;
+
+        self._value = '';
+        
+        self.current = function(){
+            var value = localStorage.getItem(config.loginkey);
+            if(!value) return false;
+            self._value = value;
+            return self._value;
+        };
+
+        self.empty = function(){
+            localStorage.removeItem(config.loginkey);
+            self._value = '';
+            return true;
+        };
+
+        self.has = function(){
+            var value  = localStorage.getItem(config.loginkey);
+            return !_.isUndefined(value) && !_.isNull(value) && value !== 'undefined';
+        };
+
+        self.set = function(value){
+            localStorage.setItem(config.loginkey, value);
+            return true;
+        };
     })

@@ -58,7 +58,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 ,strong,label,span,p,p.intr
 .list > .item {margin-top:3px;margin-bottom: 3px;}
 .input-label,input,textarea,select{color:#fff !important;}
 .item-input input, .item-input textarea,.item-select select{ width:80%;background: transparent;}
-.popup-title{color:#111;}
+.popup-title,.popup-body>span{color:#111;}
 .item.item-checkbox span{color: #000;}
 .bar.bar-dark,.tabs-striped.tabs-background-dark .tabs{background-color: #162635;}
 .card.item{background-color: rgba(255,255,255,.1)}
