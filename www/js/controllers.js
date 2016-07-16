@@ -433,3 +433,19 @@ angular.module('starter.controllers', [])
             }
         };
 })
+
+.controller('ShareCtrl', function($scope, $rootScope){
+    $scope.qrCodeUrl = '';
+    $scope.regUrl = '';
+
+    loadData();
+
+    function loadData(){
+        var base = "https://sp0.baidu.com/5aU_bSa9KgQFm2e88IuM_a/micxp1.duapp.com/qr.php";
+        var mobile = $rootScope.member.mobile;
+        var value = 'http://112.124.15.7/?act=reg&refer='+ mobile;
+        $scope.regUrl = value;
+        $scope.qrCodeUrl = base+"?value="+encodeURIComponent(value);
+    }
+
+})
