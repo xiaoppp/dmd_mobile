@@ -65,6 +65,8 @@ img.captcha{width:80px;height:40px;}
 .avator-dmd { background: url(../images/logo2.png) no-repeat}
 .line { border-bottom: 1px dashed #efefef;margin-bottom: 10px; }
 time, .money, .number,.code, .status,.state,.color-warning,.yellow{color:#FCC006}
+.number {color: #2EDB4D;font-size: 18px; font-style: italic;}
+.money {font-size: 18px;}
 .status.status-0,.state.state-0{color: #DDD}
 .status.status-1,.state.state-1{color: #F3AE39}
 .status.status-2,.state.state-2{color: #39A3D5}

@@ -69,7 +69,7 @@
                 <ul>
                   <li><label>类型：</label> <span class="yellow">{{member.id == item.om_id ? '播种' : '收获'}}</span></li>
                   <li><label>金额：</label><span class="money">{{item.money | currency : '￥'}}<span></li>
-                  <li><label>编号：</label><span class="yellow">{{item.code}}</span></li>
+                  <li><label>编号：</label><span class="code">{{item.code}}</span></li>
                   <li><label>匹配时间：</label><time>{{item.the_time | datetime}}</time></li>
                   <li><label>对方姓名：</label> <span class="yellow">{{member.id == item.om_id ? item.am.truename : item.om.truename}}</span></li>
                   <li><label>对方手机：</label><span class="yellow">{{member.id == item.om_id ? item.am.mobile : item.om.mobile}}</span></li>
