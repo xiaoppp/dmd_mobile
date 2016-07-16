@@ -399,7 +399,8 @@ angular.module('starter.services',[])
 
         function _pipe(msg){
             if(typeof msg !=='string'){
-                console.log('alert message:',msg);
+                if(msg && typeof msg.message === 'string') return msg.message;
+                console.log('alert message:', msg);
                 return '服务出错，请稍后再试';
             }
             return msg;
@@ -485,17 +486,25 @@ angular.module('starter.services',[])
             return true;
         };
     })
-    
-    .service('Photo', function($scope, $cordovaCamera, $cordovaFileTransfer, $q, AlertService, config){
+
+    .service('Photo', function($cordovaCamera, $cordovaFileTransfer, $q, AlertService, config){
         var self = this;
+
+        self.api = "";
+
+        self.setApi = function(api){
+            if(_.isEmpty(api)) self.api = 'pair/payment/mobile/upload';
+            else self.api = api;
+        };
         
-        self.takeImage = function(){
+        self.takeImage = function($scope){
             var deferred = $q.defer();
             var options = {
-                quality: 20,
+                quality: 40,
                 destinationType: Camera.DestinationType.FILE_URI,
                 sourceType: Camera.PictureSourceType.CAMERA,
                 correctOrientation: true,
+                encodingType: Camera.EncodingType.JPEG,
                 allowEdit: false,
                 popoverOptions: CameraPopoverOptions,
                 saveToPhotoAlbum: false
@@ -504,8 +513,8 @@ angular.module('starter.services',[])
             $cordovaCamera.getPicture(options).then(function (imageURI) {
                 window.resolveLocalFileSystemURL(imageURI, function (fileEntry) {
                     var url =  fileEntry.toURL();
+                    if($scope)$scope.$apply();
                     deferred.resolve(url);
-                    $scope.$apply();
                 });
             }, function (err) {
                 deferred.reject(err);
@@ -515,18 +524,20 @@ angular.module('starter.services',[])
             return deferred.promise;
         };
 
-        self.selectImage = function(){
+        self.selectImage = function($scope){
             var deferred = $q.defer();
 
             var options = {
+                quality: 40,
                 destinationType: Camera.DestinationType.FILE_URI,
-                sourceType: Camera.PictureSourceType.PHOTOLIBRARY
+                sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+                encodingType: Camera.EncodingType.JPEG
             };
 
             $cordovaCamera.getPicture(options).then(function (imageURI) {
                 window.resolveLocalFileSystemURL(imageURI, function (fileEntry) {
                     var url = fileEntry.toURL();
-                    $scope.$apply();
+                    if($scope)$scope.$apply();
                     deferred.resolve(url);
                 });
             }, function (err) {
@@ -545,22 +556,25 @@ angular.module('starter.services',[])
                 deferred.reject('no url provided');
             }
 
-            var server = config.host + "pair/payment/mobile/upload";
+            var server = config.host + self.api;
             var filePath = url;
 
             var ext = url.substr(url.lastIndexOf('/'));
             prefix = prefix || 'dmd';
-            var filename = prefix + "_" + moment().format('YYYYMMDDhhmmss') + '.' + ext;
+            var filename = prefix + "_" + moment().format('YYYYMMDDhhmmss') + ".jpg";
 
             var options = new FileUploadOptions();
             options.fileKey = "image_file";
             options.fileName = filename;
-            options.mimeType = "text/plain";
+            options.mimeType = "image/jpeg";
 
             $cordovaFileTransfer.upload(server, filePath, options)
                 .then(function (result) {
                     AlertService.Alert("上传图片成功.");
-                    deferred.resolve(result.response.data);
+                    deferred.resolve({
+                        result : result,  //response from server
+                        filename : filename //filename generated on local.
+                    });
                 }, function (err) {
                     AlertService.Alert("上传图片失败.");
                     deferred.reject(err);
@@ -569,5 +583,7 @@ angular.module('starter.services',[])
 
             return deferred.promise;
         };
+
+        self.setApi();
 
     })

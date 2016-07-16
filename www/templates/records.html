@@ -8,7 +8,7 @@
               <ion-item ng-repeat="item in offers">
                 <ul>
                   <li>
-                    <label>编号：</label> <span class="yellow">{{item.code}}</span>
+                    <label>编号：</label> <span class="code">{{item.code}}</span>
                   </li>
                   <li>
                     <label>状态：</label> <span class="status2 status2-{{item.state}}">{{item.state | orderstate}}</span>
@@ -17,7 +17,7 @@
                     <label>金额 ：</label> <span class="money">{{item.money | currency : '￥'}}</span>
                   </li>
                   <li>
-                    <label>匹配人数 ：</label> <span class="money">{{item.pct}}</span>
+                    <label>匹配人数 ：</label> <span class="number">{{item.pct}}</span>
                   </li>
                   <li>
                     <label>时间 ：</label> <time>{{item.the_time | datetime}}<time>
@@ -38,7 +38,7 @@
               <ion-item ng-repeat="item in applys">
                 <ul>
                   <li>
-                    <label>编号：</label> <span class="yellow">{{item.code}}</span>
+                    <label>编号：</label> <span class="code">{{item.code}}</span>
                   </li>
                   <li>
                     <label>状态：</label> <span class="status2 status2-{{item.state}}">{{item.state | orderstate}}</span>
@@ -47,7 +47,7 @@
                     <label>金额 ：</label> <span class="money">{{item.money | currency : '￥'}}</span>
                   </li>
                   <li>
-                    <label>匹配人数 ：</label> <span class="money">{{item.pct}}</span>
+                    <label>匹配人数 ：</label> <span class="number">{{item.pct}}</span>
                   </li>
                   <li>
                     <label>时间 ：</label> <time>{{item.the_time | datetime}}<time>

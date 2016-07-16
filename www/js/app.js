@@ -41,6 +41,23 @@ angular.module('starter', ['ionic',
     controller: 'AppCtrl'
   })
 
+  .state('signin', {
+    url: '/signin',
+    templateUrl: 'templates/signin.html',
+    controller: 'SigninCtrl'
+  })
+
+  .state('signup', {
+    url: '/signup',
+    templateUrl: 'templates/signup.html',
+    controller: 'SignupCtrl'
+  })
+
+  .state('resetpwd', {
+    url: '/resetpwd',
+    templateUrl: 'templates/resetpwd.html'
+  })
+
   .state('app.loading', {
     url: '/loading',
     cache: false,
@@ -71,23 +88,6 @@ angular.module('starter', ['ionic',
         controller: 'ErrorCtrl'
       }
     }
-  })
-
-  .state('signin', {
-    url: '/signin',
-    templateUrl: 'templates/signin.html',
-    controller: 'SigninCtrl'
-  })
-
-  .state('signup', {
-    url: '/signup',
-    templateUrl: 'templates/signup.html',
-    controller: 'SignupCtrl'
-  })
-
-  .state('resetpwd', {
-    url: '/resetpwd',
-    templateUrl: 'templates/resetpwd.html'
   })
 
   .state('app.apply', {
@@ -137,7 +137,8 @@ angular.module('starter', ['ionic',
     cache: false,
     views: {
       'menuContent': {
-        templateUrl: 'templates/leavemsg.html'
+        templateUrl: 'templates/leavemsg.html',
+        controller : 'LeaveMsgCtrl'
       }
     }
   })
@@ -257,8 +258,6 @@ angular.module('starter', ['ionic',
       }
     }
   })
-
-
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app/me');

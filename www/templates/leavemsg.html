@@ -6,54 +6,62 @@
             <div class="list padding-y">
               <label class="item item-input">
                 <span class="input-label">留言标题：</span>
-                <input type="text" value="">
+                <input type="text" ng-model="model.title">
               </label>
               <label class="item item-input item-select">
                 <span class="input-label">问题类型：</span>
-                <select>
-                  <option>建议或意见</option>
-                  <option selected>信息咨询</option>
-                  <option>申请账户解冻</option>
-                  <option>投诉举报</option>
+                <select ng-model="model.msgtype">
+                  <option ng-repeat="item in msgTypes" value="{{item.value}}">{{item.text}}</option>
                 </select>
               </label>
               <label class="item item-input">
                 <span class="input-label">上传图片：</span>
-                <div style="display:flex;">
-                  <button class="button icon button-balanced ion-camera" ng-click="takeImage(item)"></button>
-                  <button class="button icon button-positive ion-ios-folder-outline" ng-click="selectImage(item)"></button>
+                <div class="text-center">
+                  <img ng-src="{{localImg}}" style="width:120px;height:120px;">
+                  <br>
+                  <button class="button icon button-balanced ion-camera" ng-click="takeImage()"></button>
+                  <button class="button icon button-positive ion-ios-folder-outline" ng-click="selectImage()"></button>
                 </div>
               </label>
               <label class="item item-input">
                 <span class="input-label">留言内容：</span>
-                <textarea style="height:150px"></textarea>
+                <textarea style="height:150px" ng-model="model.content"></textarea>
               </label>
               <button ng-click="leaveMsg();" class="button button-balanced button-block">提交留言</button>
             </div>
           </ion-content>
         </ion-tab>
 
-        <ion-tab title="留言反馈">
+        <ion-tab title="留言反馈" on-select="loadReplies()">
           <ion-content padding="true">
             <div class="padding-y">
               <ion-list>
-              <ion-item>
-                <div class="line" style="line-height:45px;">
-                  <i class="avator-female"></i>
-                  <span>晓燕</span>
-                  <time>2016-06-22 14:36:35</time>
-                  <br>
-                  <span>您在干啥呢？</span>
-                </div>
-                <div style="line-height:45px;">
-                  <i class="avator-dmd"></i>
-                  <span>多米多客服</span>
-                  <time>2016-06-22 14:36:35</time>
-                  <br>
-                  <span>我在工作</span>
-                </div>
-              </ion-item>
-            </ion-list>
+                <ion-item ng-repeat="item in replies">
+                  <div class="line" style="line-height:50px;">
+                    <i  ng-if="item.old.sex == 1" class="avator-female"></i>
+                    <i  ng-if="item.old.sex == 2" class="avator-male"></i>
+                    <span class="ml">{{item.old.title}}</span>
+                    <span class="ml">@</span>
+                    <time>{{item.old.the_time | datetime}}</time>
+                    <br>
+                    <span>{{item.old.content}}</span>
+                  </div>
+                  <div ng-if="item.new" style="line-height:50px;">
+                    <i class="avator-dmd"></i>
+                    <span class="ml">多米多客服</span>
+                    <span class="ml">@</span>
+                    <time>{{item.the_time | datetime}}</time>
+                    <br>
+                    <span>{{item.new.content}}</span>
+                  </div>
+                  <div ng-if="!item.new" style="line-height:50px;">
+                    <i class="avator-dmd"></i>
+                    <span class="ml">多米多客服</span>
+                    <br>
+                    <span>没有回复哦~</span>
+                  </div>
+                </ion-item>
+              </ion-list>
             </div>
             
           </ion-content>
