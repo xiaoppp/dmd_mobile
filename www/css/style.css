@@ -103,7 +103,12 @@ img.snapshot{width:130px;height:70px;}
 
 /*override ionic css*/
 .scroll-content { background: url(../images/bg.jpg); background-size: 100% 100%; }
-h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 ,strong,label,span,p,p.intro{color:#fff;}
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 ,strong,label,span,p{color:#fff;}
+p.intro{
+  color:#fff;
+  text-overflow: inherit;
+  white-space: normal; 
+}
 .list > .item {margin-top:3px;margin-bottom: 3px;}
 .input-label,input,textarea,select{color:#fff !important;}
 .item-input input, .item-input textarea,.item-select select{ width:80%;background: transparent;}
