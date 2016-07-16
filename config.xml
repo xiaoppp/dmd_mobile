@@ -8,7 +8,11 @@
     Duomiduo
   </author>
   <content src="index.html"/>
+
   <access origin="*"/>
+  <allow-navigation href="*" />
+  <allow-intent href="*" />
+
   <preference name="webviewbounce" value="false"/>
   <preference name="UIWebViewBounce" value="false"/>
   <preference name="DisallowOverscroll" value="true"/>
@@ -17,6 +21,9 @@
   <preference name="SplashScreen" value="screen"/>
   <preference name="SplashScreenDelay" value="3000"/>
   <preference name="FadeSplashScreenDuration" value="3000"/>
+
+  <!-- <preference name="AndroidPersistentFileLocation" value="Compatibility" /> -->
+
   <feature name="StatusBar">
     <param name="ios-package" value="CDVStatusBar" onload="true"/>
   </feature>

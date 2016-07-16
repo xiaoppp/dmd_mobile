@@ -95,7 +95,7 @@
                     <div class="sub-order-oper text-center">
                         <div ng-if="item.state == 2">
                             <div style="margin-bottom:10px;">
-                                <img style="width:150px;height:150px;" ng-src="{{item.img}}" ng-if="item.img">
+                                <img style="width:150px;height:150px;" src="{{item.img}}" ng-if="item.img">
                                 <br>
                                 <button class="button icon button-balanced ion-camera" ng-click="takeImage(item)"></button>
                                 <button class="button icon button-positive ion-ios-folder-outline" ng-click="selectImage(item)"></button>
@@ -104,12 +104,12 @@
                             <button class="button icon button-small button-assertive" ng-click="denyPay(item)">拒绝打款</button>
                         </div>
                         <div ng-if="item.state == 3">
-                            <img class="snapshot" ng-src="{{item.img}}">
+                            <img class="snapshot" src="{{item.img}}">
                             <br>
                             <label class="state state-3 fontsize-20"><i>✔</i>已打款</label>
                         </div>
                         <div ng-if="item.state == 4">
-                            <img class="snapshot" ng-src="{{item.img}}">
+                            <img class="snapshot" src="{{item.img}}">
                             <br>
                             <label class="state state-4 fontsize-20"><i>✔</i>订单已完成</label>
                         </div>

@@ -3,9 +3,8 @@ angular.module('starter.services',[])
     .service("LocalData", function ($rootScope) {
     })
 
-    .service('DataService', function (
-        $http, $q, $rootScope, LoadingService, LocalData, 
-        AlertService, config, Auth) {
+    .service('DataService', function ($http, $q, $rootScope, LoadingService, LocalData, AlertService, config, Auth) {
+
         var self = this;
         var service = this;
 
@@ -154,7 +153,6 @@ angular.module('starter.services',[])
                             }
                         });
             }
-
             return deferred.promise;   
         };
 
@@ -330,7 +328,7 @@ angular.module('starter.services',[])
 
         service.PayOut = function(pairid, imgurl){
             var model = {
-                imgurl: imgurl, 
+                imgurl: imgurl,
                 oaid:  pairid
             };
             return HTTP_POST(_Combine('pair/payment/out'), model)
@@ -463,7 +461,7 @@ angular.module('starter.services',[])
         var self = this;
 
         self._value = '';
-        
+
         self.current = function(){
             var value = localStorage.getItem(config.loginkey);
             if(!value) return false;
@@ -487,7 +485,7 @@ angular.module('starter.services',[])
             return true;
         };
     })
-
+    
     .service('Photo', function($scope, $cordovaCamera, $cordovaFileTransfer, $q, AlertService, config){
         var self = this;
         
