@@ -4,6 +4,7 @@ angular.module('starter.controllers', [])
     if (!Auth.has()) {
         $state.go('signin');
     } else {
+        config.appDataLoaded = false;
         $state.go('app.loading');
     }
 })
@@ -87,8 +88,8 @@ angular.module('starter.controllers', [])
     $scope.signin = function() {
         DataService.Login($scope.user)
             .then(function(d) {
-                $state.go('app.me')
-                AlertService.Alert('登录成功')
+                $state.go('app.me');
+                AlertService.Alert('登录成功');
             })
             .catch(function(err) {
                 //AlertService.Alert(err)
@@ -346,7 +347,7 @@ angular.module('starter.controllers', [])
         }, function (err) {
             AlertService.Alert("拍照出错.");
         });
-    };    
+    };
 
     $scope.denyPay = function(item){
         AlertService.Confirm('您确定要拒绝打款，拒绝后系统将冻结您的账号','',function(){
@@ -363,11 +364,12 @@ angular.module('starter.controllers', [])
     };
 })
 
-.controller('SettingsCtrl', function($scope, $state, config) {
+.controller('SettingsCtrl', function($scope, $state, DataService, AlertService, config, Auth) {
     $scope.signout = function() {
-        localStorage.removeItem("memberid")
-        $state.go('signin')
-    }
+        Auth.empty();
+        config.appDataLoaded = false;        
+        $state.go('signin');
+    };
 })
 
 .controller('NewsCtrl',function($scope,$state,DataService,config,AlertService){
@@ -440,4 +442,16 @@ angular.module('starter.controllers', [])
         });
     }
 
+})
+
+.controller('LeaveMsgCtrl',function($scope,$rootScope,$state,$stateParams,
+                                DataService,config,banks,AlertService){
+        $scope.model = {};
+
+        $scope.leaveMsg = function(){
+            DataService.PostMsg($scope.model).then(function(data){
+                if(data.isSuccess) return AlertService.Alert("留言成功");
+                else return AlertService.Alert(data.data.message);
+            });
+        };
 })

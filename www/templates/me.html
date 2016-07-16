@@ -1,4 +1,5 @@
 <ion-view view-title="个人中心">
+	
   <ion-content padding="true">
       <div class="box text-center">
 		  <img class="circle" ng-if="member.sex == 1" src="images/female1.jpg">
@@ -16,6 +17,7 @@
 			  <img class="bstar" ng-repeat="n in 5 - member.believe | range" src="images/love-gray.png">
 		  </span>
 	  </div>
+
 	  <div class="box text-center">
 		  <div class="table bg-dark-alpha">
 			  <div class="row">
@@ -38,6 +40,7 @@
 				</div>
 		  </div>
 	  </div>
+
 	  <div class="box text-center">
 			<button class="button btn-offer m" ui-sref="app.offer" style="width:40%">
 				我要播种
@@ -65,7 +68,7 @@
 					  <label>利息：</label><br><span class="money">{{member.capital.about | currency : '￥'}}</span>
 				  </div>
 				  <div class="col">
-					  <label>匹配人数：</label><br><span class="number">{{member.lastOffer.pairs || 0}}人</span>
+					  <label>匹配人数：</label><br><span class="number">{{member.lastOffer.pairs.length}}人</span>
 				  </div>
 				  <div class="col">
 					  <label>状态：</label><br><span class="state2 state2-{{member.lastOffer.state}}">{{member.lastOffer.state | orderstate}}</span>
@@ -99,7 +102,7 @@
 			  </div>
 			  <div class="row">
 				  <div class="col">
-					  <label>匹配人数：</label><br><span class="number">{{member.lastApply.pairs || 0}}人</span>
+					  <label>匹配人数：</label><br><span class="number">{{member.lastApply.pairs.length}}人</span>
 				  </div>
 				  <div class="col">
 					  <label>状态：</label><br><span class="state2 state2-{{member.lastApply.state}}">{{member.lastApply.state | orderstate}}</span>

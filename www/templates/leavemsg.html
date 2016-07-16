@@ -19,13 +19,16 @@
               </label>
               <label class="item item-input">
                 <span class="input-label">上传图片：</span>
-                <input type="file" value="">
+                <div style="display:flex;">
+                  <button class="button icon button-balanced ion-camera" ng-click="takeImage(item)"></button>
+                  <button class="button icon button-positive ion-ios-folder-outline" ng-click="selectImage(item)"></button>
+                </div>
               </label>
               <label class="item item-input">
                 <span class="input-label">留言内容：</span>
                 <textarea style="height:150px"></textarea>
               </label>
-              <button class="button button-balanced button-block">提交留言</button>
+              <button ng-click="leaveMsg();" class="button button-balanced button-block">提交留言</button>
             </div>
           </ion-content>
         </ion-tab>

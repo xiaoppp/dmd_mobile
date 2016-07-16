@@ -29,9 +29,9 @@ angular.module('starter.filters', ['starter.constants','starter.services'])
             case 0:
                 return '已取消';                
             case 1:
-                return '等待配对';
+                return '等待匹配';
             case 2:
-                return '配对成功，待打款';
+                return '匹配成功，待打款';
             case 3:
                 return '打款成功，待收款';
             case 4:

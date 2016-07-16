@@ -10,6 +10,7 @@ angular.module('starter.services',[])
         var service = this;
 
         function _PrefixIndexData(data){
+            //config
             $rootScope.config = (function(){
                 var cfg = {};
                 _.each(data.config, function(item,i){
@@ -155,7 +156,7 @@ angular.module('starter.services',[])
             }
 
             return deferred.promise;   
-        }
+        };
 
         //刷新应用数据
         service.reloadAppData = function(){
@@ -166,9 +167,9 @@ angular.module('starter.services',[])
                     $rootScope.member.moneyApply = d.moneyApply || 0;
                     $rootScope.member.bonusFreeze = d.bonusFreeze || 0;
                     $rootScope.member.moneyFreeze = d.moneyFreeze || 0;
-                    $rootScope.member.money = d.money;
-                    $rootScope.member.interest = d.interest;
-                    $rootScope.member.bonus = d.bonus;
+                    $rootScope.member.money = d.member.money;
+                    $rootScope.member.interest = d.member.interest;
+                    $rootScope.member.bonus = d.member.bonus;
                     _CalculateCapital();
                 } else {
                     AlertService.Alert(data.error.message);
@@ -176,7 +177,7 @@ angular.module('starter.services',[])
             }).catch(function(err){
                 AlertService.Alert(err)
             });
-        }
+        };
 
         //资产计算
         service.Capital = {
@@ -221,7 +222,6 @@ angular.module('starter.services',[])
                 if (data.isSuccess){
                     Auth.set(data.data.token);
                     deferred.resolve(data);
-                    self.loadAppData();
                 } else {
                     deferred.reject(data.error.message);
                 }
@@ -239,7 +239,6 @@ angular.module('starter.services',[])
             return HTTP_GET(_Combine('news/',id));
         };
 
-        //;;;
         service.Messages = function(page){
             return HTTP_GET(_Combine('messages/page/', page));
         };
@@ -248,7 +247,6 @@ angular.module('starter.services',[])
             return HTTP_GET(_Combine('message/',id));
         };
 
-        //;;;
         service.MessageReplies = function(){
             return HTTP_GET(_Combine('messages/reply'));
         };
@@ -298,19 +296,16 @@ angular.module('starter.services',[])
             return HTTP_GET(_Combine('member/children/amount/',id));
         };
 
-        //;;;
         service.IncomeRecords = function(type, page){
             //type  =  money or  interest or bonus
             return HTTP_GET(_Combine('income/',type,'/', page))
         };
 
-        //;;;
         service.DealRecords = function(type,page){
             // type = offers or applys or pairs/failed
             return HTTP_GET(_Combine(type))
         };
 
-        ///;;;
         service.IsNewMember = function(){
             return HTTP_GET(_Combine('member/check/new'))
         };
@@ -328,7 +323,6 @@ angular.module('starter.services',[])
         service.Freeze = function(){
         };
 
-        ///;;;
         service.DenyPay = function(){
             //pair/payment/deny/:memberid
             return HTTP_GET(_Combine('pair/payment/deny/'))
@@ -492,4 +486,88 @@ angular.module('starter.services',[])
             localStorage.setItem(config.loginkey, value);
             return true;
         };
+    })
+
+    .service('Photo', function($scope, $cordovaCamera, $cordovaFileTransfer, $q, AlertService, config){
+        var self = this;
+        
+        self.takeImage = function(){
+            var deferred = $q.defer();
+            var options = {
+                quality: 20,
+                destinationType: Camera.DestinationType.FILE_URI,
+                sourceType: Camera.PictureSourceType.CAMERA,
+                correctOrientation: true,
+                allowEdit: false,
+                popoverOptions: CameraPopoverOptions,
+                saveToPhotoAlbum: false
+            };
+
+            $cordovaCamera.getPicture(options).then(function (imageURI) {
+                window.resolveLocalFileSystemURL(imageURI, function (fileEntry) {
+                    var url =  fileEntry.toURL();
+                    deferred.resolve(url);
+                    $scope.$apply();
+                });
+            }, function (err) {
+                deferred.reject(err);
+                AlertService.Alert("拍照出错.");
+            });
+
+            return deferred.promise;
+        };
+
+        self.selectImage = function(){
+            var deferred = $q.defer();
+
+            var options = {
+                destinationType: Camera.DestinationType.FILE_URI,
+                sourceType: Camera.PictureSourceType.PHOTOLIBRARY
+            };
+
+            $cordovaCamera.getPicture(options).then(function (imageURI) {
+                window.resolveLocalFileSystemURL(imageURI, function (fileEntry) {
+                    var url = fileEntry.toURL();
+                    $scope.$apply();
+                    deferred.resolve(url);
+                });
+            }, function (err) {
+                deferred.reject(err);
+                AlertService.Alert("选择图片出错.");
+            });
+            return deferred.promise;
+        };
+
+        self.upload = function(url, prefix){
+            var deferred = $q.defer();
+
+            if (!url){
+                AlertService.Alert("还没有提供打款凭证");
+                deferred.reject('no url provided');
+            }
+
+            var server = config.host + "pair/payment/mobile/upload";
+            var filePath = url;
+
+            var ext = url.substr(url.lastIndexOf('/'));
+            var filename = prefix + "_" + moment().format('YYYYMMDDhhmmss') + '.' + ext;
+
+            var options = new FileUploadOptions();
+            options.fileKey = "image_file";
+            options.fileName = filename;
+            options.mimeType = "text/plain";
+
+            $cordovaFileTransfer.upload(server, filePath, options)
+                .then(function (result) {
+                    AlertService.Alert("上传图片成功.");
+                    deferred.resolve(result.response.data);
+                }, function (err) {
+                    AlertService.Alert("上传图片失败.");
+                    deferred.reject(err);
+                }, function (progress) {
+                });
+
+            return deferred.promise;
+        };
+
     })

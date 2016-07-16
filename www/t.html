@@ -1,5 +1,5 @@
 <html><head><style type="text/css">@charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>
-    <title>播种</title>
+    <title>个人中心</title>
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
     <meta charset="utf-8">
@@ -17,132 +17,1187 @@
     <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
     <link href="css/ionic.app.css" rel="stylesheet">
     -->
+    <!-- ionic/angularjs js -->
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
   </head>
 
   <body ng-app="starter" class="grade-a platform-browser platform-win32 platform-ready">
     <ion-nav-view class="view-container" nav-view-transition="ios" nav-view-direction="none" nav-swipe="">
-    <div class="pane" nav-view="active" style="opacity: 1; transform: translate3d(0%, 0px, 0px);"><ion-side-menus enable-menu-with-back-views="true" ng-controller="MenuCtrl" class=" view">
+    <ion-side-menus enable-menu-with-back-views="true" ng-controller="MenuCtrl" class="pane view" abstract="true" nav-view="active" style="opacity: 1; transform: translate3d(0%, 0px, 0px);">
   <ion-side-menu-content class="menu-content pane menu-animated" style="transform: translate3d(0px, 0px, 0px);">
-    <ion-nav-bar class="bar-dark bar-black nav-bar-container" nav-bar-transition="ios" nav-bar-direction="none" nav-swipe="">
+    <ion-nav-bar class="bar-dark bar-black nav-bar-container" nav-bar-transition="ios" nav-bar-direction="forward" nav-swipe="">
       <ion-nav-back-button class="hide"></ion-nav-back-button>
       <ion-nav-buttons side="left" class="hide"></ion-nav-buttons>
       <ion-nav-buttons side="right" class="hide"></ion-nav-buttons>
-    <div class="nav-bar-block" nav-bar="active"><ion-header-bar class="bar-dark bar-black bar bar-header" align-title="center"><button ng-click="$ionicGoBack()" class="button back-button buttons  button-clear header-item" style="transition-duration: 0ms;"><i class="icon ion-ios-arrow-back"></i> 
-      <span class="back-text" style="transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><span class="default-title hide">Back</span><span class="previous-title">个人中心</span></span></button><div class="buttons buttons-left header-item" style="transition-duration: 0ms;"><span class="left-buttons">
+    <div class="nav-bar-block" nav-bar="cached"><ion-header-bar class="bar-dark bar-black bar bar-header" align-title="center"><button ng-click="$ionicGoBack()" class="button back-button buttons  button-clear header-item" style="opacity: 0;"><i class="icon ion-ios-arrow-back"></i> 
+      <span class="back-text" style="transform: translate3d(0px, 0px, 0px); opacity: 0;"><span class="default-title hide">Back</span><span class="previous-title">播种</span></span></button><div class="buttons buttons-left header-item" style="opacity: 0;"><span class="left-buttons">
         <button class="button button-icon button-clear ion-navicon" menu-toggle="left" ng-click="toggleLeft()">
         </button>
-      </span></div><div class="title title-center header-item" style="transform: translate3d(0px, 0px, 0px); left: 129px; right: 129px; transition-duration: 0ms;">播种</div><div class="buttons buttons-right header-item" style="transition-duration: 0ms;"><span class="right-buttons">
+      </span></div><div class="title title-center header-item" style="transform: translate3d(-901px, 0px, 0px); left: 95px; right: 95px; opacity: 0;">系统加载</div><div class="buttons buttons-right header-item" style="opacity: 0;"><span class="right-buttons">
         <button class="button button-icon button-clear ion-share" menu-toggle="right" ng-click="toggleRight()">
         </button>
-      </span></div></ion-header-bar></div><div class="nav-bar-block" nav-bar="cached"><ion-header-bar class="bar-dark bar-black bar bar-header" align-title="center"><button ng-click="$ionicGoBack()" class="button back-button buttons  button-clear header-item" style="transition-duration: 0ms; opacity: 0;"><i class="icon ion-ios-arrow-back"></i> 
-      <span class="back-text" style="transform: translate3d(0px, 0px, 0px); transition-duration: 0ms; opacity: 0;"><span class="default-title hide">Back</span><span class="previous-title">个人中心</span></span></button><div class="buttons buttons-left header-item" style="transition-duration: 0ms; opacity: 0;"><span class="left-buttons">
+      </span></div></ion-header-bar></div><div class="nav-bar-block" nav-bar="active"><ion-header-bar class="bar-dark bar-black bar bar-header" align-title="center"><button ng-click="$ionicGoBack()" class="button back-button buttons  button-clear header-item"><i class="icon ion-ios-arrow-back"></i> 
+      <span class="back-text" style="transform: translate3d(0px, 0px, 0px);"><span class="default-title hide">Back</span><span class="previous-title">系统加载</span></span></button><div class="buttons buttons-left header-item"><span class="left-buttons">
         <button class="button button-icon button-clear ion-navicon" menu-toggle="left" ng-click="toggleLeft()">
         </button>
-      </span></div><div class="title title-center header-item" style="transform: translate3d(-918px, 0px, 0px); left: 129px; right: 129px; transition-duration: 0ms; opacity: 0;">播种</div><div class="buttons buttons-right header-item" style="transition-duration: 0ms; opacity: 0;"><span class="right-buttons">
+      </span></div><div class="title title-center header-item" style="transform: translate3d(0px, 0px, 0px); left: 129px; right: 129px;">个人中心</div><div class="buttons buttons-right header-item"><span class="right-buttons">
         <button class="button button-icon button-clear ion-share" menu-toggle="right" ng-click="toggleRight()">
         </button>
       </span></div></ion-header-bar></div></ion-nav-bar>
-    <ion-nav-view name="menuContent" class="view-container" nav-view-transition="ios" nav-view-direction="none" nav-swipe=""><ion-view view-title="播种" class="pane" state="app.offerdetail" nav-view="active" style="opacity: 1; transform: translate3d(0%, 0px, 0px);">
-    <ion-content padding="true" class="scroll-content ionic-scroll  has-header"><div class="scroll padding" style="transform: translate3d(0px, 0px, 0px) scale(1);">
-
-        <h4 class="text-center">播种记录</h4>
-
-        <div class="table bg-dark-alpha">
-           <div class="row">
-                    <div style="width:90%;">
-                        <div class="progress">
-                            <div class="progress-bar" style="position:absolute;width:20%" ng-style="{width : progress + '%'}">
-                            </div>
-                            <label class="progress-text" style="left:21%" ng-style="{left : (progress + 1) + '%'}">{{progress}}%</label>
-                            <i class="progress-btn" style="left:19%;" ng-style="{left : (progress - 1) + '%'}"></i>
-                        </div>
-                    </div>
-                
-            </div>
-            <div class="row">
-                <div class="col">
-                    <label>金额：</label>
-                    <br>
-                    <span class="money ng-binding">
-                        ￥50,000.00
-                    </span>
-                </div>
-                <div class="col">
-                    <label>时间：</label>
-                    <br>
-                    <time class="ng-binding">
-                        2016-06-09 21:03:52
-                    </time>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <label>利息：</label>
-                    <br>
-                    <span class="money ng-binding">
-                        ￥50,000.00
-                    </span>
-                </div>
-                <div class="col">
-                    <label>匹配人数：</label>
-                    <br>
-                    <span class="number ng-binding">
-                        1
-                    </span>
-                </div>
-                <div class="col">
-                    <label>状态：</label>
-                    <br>
-                    <span class="state state-2" style="">
-                        进行中...
-                    </span>
-                </div>
-            </div>
-        </div>
-
-        <ion-list class="disable-user-behavior"><div class="list">
-            <!-- ngRepeat: item in pairs --><ion-item ng-repeat="item in pairs" class="item">
-                <div class="box">
-                    <div class="sub-order">
-                        <label>匹配金额：</label><span class="money ng-binding">￥2,200.00</span>
-                        <br>
-                        <label>状态：</label><span class="state state-4">订单已完成</span>
-                        <br>
-                        <label>匹配时间：</label><time class="ng-binding">2016-07-12 21:12:35</time>
-                        <br>
-                        <label>打款时间：</label><time class="ng-binding">暂无</time>
-                        <br>
-                        <label>对方账号：</label><span class="ng-binding">18870391320</span>
-                        <br>
-                        <label>对方姓名：</label><span class="ng-binding">彭时爱</span>
-                        <br>
-                        <label>手机号：</label><span class="ng-binding">18870391320</span>
-                        <br>
-                        <label>支付宝：</label><span class="ng-binding"></span>
-                        <br>
-                        <label>微信号：</label><span class="ng-binding"></span>
-                        <br>
-                        <label>银行名称：</label><span class="ng-binding">中国农业银行</span>
-                        <br>
-                        <label>开户行：</label><span class="ng-binding">中国农业银行江西省景德镇市中北分理处</span>
-                        <br>
-                        <label>银行账号：</label><span class="ng-binding">6228-4815-6158-6201-519</span>
-                        <br>
-                        <label>打款倒计时：</label><time class="ng-binding">46 : 30 : 11</time>
-                    </div>
-                    <div class="sub-order-oper text-center">
-                        <!-- ngIf: item.state == 2 -->
-                        <!-- ngIf: item.state == 3 -->
-                        <!-- ngIf: item.state == 4 --><div ng-if="item.state == 4">
-                            <img class="snapshot" ng-src="http://www.tecmint.com/wp-content/uploads/2013/09/Kill-Comma" src="http://www.tecmint.com/wp-content/uploads/2013/09/Kill-Comma">
-                            <br>
-                            <label class="state state-4 fontsize-20"><i>✔</i>订单已完成</label>
-                        </div><!-- end ngIf: item.state == 4 -->
-                    </div>
-                </div>
-            </ion-item><!-- end ngRepeat: item in pairs -->
-        </div></ion-list>
-    </div><div class="scroll-bar scroll-bar-v"><div class="scroll-bar-indicator scroll-bar-fade-out" style="transform: translate3d(0px, 0px, 0px) scaleY(1); height: 186px;"></div></div></ion-content>
+    <ion-nav-view name="menuContent" class="view-container" nav-view-transition="ios" nav-view-direction="none" nav-swipe=""><ion-view view-title="交易记录" class="pane" state="app.records" nav-view="active" style="opacity: 1; transform: translate3d(0%, 0px, 0px);">
+<!--<ion-content>-->
+    <ion-tabs class="tabs-striped tabs-bottom tabs-background-dark tabs-color-energized tabs-positive tabs-standard"><div class="tab-nav tabs">
+      <ion-tab on-select="onTabSelected(0)"></ion-tab>
+      <ion-tab on-select="onTabSelected(1)"></ion-tab>
+      <ion-tab on-select="onTabSelected(2)"></ion-tab>
+    <a ng-class="{'has-badge':badge, 'tab-hidden':isHidden(), 'tab-item-active': isTabActive()}" ng-disabled="disabled()" class="tab-item tab-item-active" style=""><!-- ngIf: badge --><!-- ngIf: getIcon() --><span class="tab-title ng-binding" ng-bind-html="title">播种记录</span></a><a ng-class="{'has-badge':badge, 'tab-hidden':isHidden(), 'tab-item-active': isTabActive()}" ng-disabled="disabled()" class="tab-item" style=""><!-- ngIf: badge --><!-- ngIf: getIcon() --><span class="tab-title ng-binding" ng-bind-html="title">收获记录</span></a><a ng-class="{'has-badge':badge, 'tab-hidden':isHidden(), 'tab-item-active': isTabActive()}" ng-disabled="disabled()" class="tab-item"><!-- ngIf: badge --><!-- ngIf: getIcon() --><span class="tab-title ng-binding" ng-bind-html="title">失败记录</span></a></div><ion-content padding="true" class="pane tab-content scroll-content ionic-scroll  has-header has-tabs" nav-view="active"><div class="scroll padding" style="transform: translate3d(0px, 0px, 0px) scale(1);">
+          <div class="padding-y">
+            <ion-list class="disable-user-behavior"><div class="list">
+              <!-- ngRepeat: item in offers --><ion-item ng-repeat="item in offers" class="item">
+                <ul>
+                  <li>
+                    <label>编号：</label> <span class="yellow ng-binding">O1081468109526</span>
+                  </li>
+                  <li>
+                    <label>状态：</label> <span class="status2 status2-2">进行中...</span>
+                  </li>
+                  <li>
+                    <label>金额 ：</label> <span class="money ng-binding">￥10,000.00</span>
+                  </li>
+                  <li>
+                    <label>匹配人数 ：</label> <span class="money ng-binding">1</span>
+                  </li>
+                  <li>
+                    <label>时间 ：</label> <time class="ng-binding">2016-07-10 08:12:06<time>
+                  </time></time></li>
+                  <li class="text-center">
+                    <button class="button button-balanced" ui-sref="app.offerdetail({id:41168})" href="#/app/offer/41168">查看</button>
+                  </li>
+                </ul>
+              </ion-item><!-- end ngRepeat: item in offers --><ion-item ng-repeat="item in offers" class="item">
+                <ul>
+                  <li>
+                    <label>编号：</label> <span class="yellow ng-binding">O1081467184463</span>
+                  </li>
+                  <li>
+                    <label>状态：</label> <span class="status2 status2-100">已完成</span>
+                  </li>
+                  <li>
+                    <label>金额 ：</label> <span class="money ng-binding">￥10,000.00</span>
+                  </li>
+                  <li>
+                    <label>匹配人数 ：</label> <span class="money ng-binding">12</span>
+                  </li>
+                  <li>
+                    <label>时间 ：</label> <time class="ng-binding">2016-06-29 15:14:23<time>
+                  </time></time></li>
+                  <li class="text-center">
+                    <button class="button button-balanced" ui-sref="app.offerdetail({id:31063})" href="#/app/offer/31063">查看</button>
+                  </li>
+                </ul>
+              </ion-item><!-- end ngRepeat: item in offers --><ion-item ng-repeat="item in offers" class="item">
+                <ul>
+                  <li>
+                    <label>编号：</label> <span class="yellow ng-binding">O1081466459228</span>
+                  </li>
+                  <li>
+                    <label>状态：</label> <span class="status2 status2-100">已完成</span>
+                  </li>
+                  <li>
+                    <label>金额 ：</label> <span class="money ng-binding">￥10,000.00</span>
+                  </li>
+                  <li>
+                    <label>匹配人数 ：</label> <span class="money ng-binding">2</span>
+                  </li>
+                  <li>
+                    <label>时间 ：</label> <time class="ng-binding">2016-06-21 05:47:08<time>
+                  </time></time></li>
+                  <li class="text-center">
+                    <button class="button button-balanced" ui-sref="app.offerdetail({id:22798})" href="#/app/offer/22798">查看</button>
+                  </li>
+                </ul>
+              </ion-item><!-- end ngRepeat: item in offers --><ion-item ng-repeat="item in offers" class="item">
+                <ul>
+                  <li>
+                    <label>编号：</label> <span class="yellow ng-binding">O1081465601919</span>
+                  </li>
+                  <li>
+                    <label>状态：</label> <span class="status2 status2-100">已完成</span>
+                  </li>
+                  <li>
+                    <label>金额 ：</label> <span class="money ng-binding">￥10,000.00</span>
+                  </li>
+                  <li>
+                    <label>匹配人数 ：</label> <span class="money ng-binding">7</span>
+                  </li>
+                  <li>
+                    <label>时间 ：</label> <time class="ng-binding">2016-06-11 07:38:39<time>
+                  </time></time></li>
+                  <li class="text-center">
+                    <button class="button button-balanced" ui-sref="app.offerdetail({id:15055})" href="#/app/offer/15055">查看</button>
+                  </li>
+                </ul>
+              </ion-item><!-- end ngRepeat: item in offers --><ion-item ng-repeat="item in offers" class="item">
+                <ul>
+                  <li>
+                    <label>编号：</label> <span class="yellow ng-binding">O1081463917909</span>
+                  </li>
+                  <li>
+                    <label>状态：</label> <span class="status2 status2-100">已完成</span>
+                  </li>
+                  <li>
+                    <label>金额 ：</label> <span class="money ng-binding">￥10,000.00</span>
+                  </li>
+                  <li>
+                    <label>匹配人数 ：</label> <span class="money ng-binding">4</span>
+                  </li>
+                  <li>
+                    <label>时间 ：</label> <time class="ng-binding">2016-05-22 19:51:49<time>
+                  </time></time></li>
+                  <li class="text-center">
+                    <button class="button button-balanced" ui-sref="app.offerdetail({id:2961})" href="#/app/offer/2961">查看</button>
+                  </li>
+                </ul>
+              </ion-item><!-- end ngRepeat: item in offers --><ion-item ng-repeat="item in offers" class="item">
+                <ul>
+                  <li>
+                    <label>编号：</label> <span class="yellow ng-binding">O1081463847847</span>
+                  </li>
+                  <li>
+                    <label>状态：</label> <span class="status2 status2-100">已完成</span>
+                  </li>
+                  <li>
+                    <label>金额 ：</label> <span class="money ng-binding">￥1,000.00</span>
+                  </li>
+                  <li>
+                    <label>匹配人数 ：</label> <span class="money ng-binding">1</span>
+                  </li>
+                  <li>
+                    <label>时间 ：</label> <time class="ng-binding">2016-05-22 00:24:07<time>
+                  </time></time></li>
+                  <li class="text-center">
+                    <button class="button button-balanced" ui-sref="app.offerdetail({id:1761})" href="#/app/offer/1761">查看</button>
+                  </li>
+                </ul>
+              </ion-item><!-- end ngRepeat: item in offers -->
+            </div></ion-list>
+          </div>
+        </div><div class="scroll-bar scroll-bar-v"><div class="scroll-bar-indicator scroll-bar-fade-out" style="transform: translate3d(0px, 0px, 0px) scaleY(1); height: 94px;"></div></div></ion-content><ion-content padding="true" class="pane tab-content scroll-content ionic-scroll  has-header has-tabs" nav-view="cached"><div class="scroll padding" style="transform: translate3d(0px, 0px, 0px) scale(1);">
+          <div class="padding-y">
+            <ion-list class="disable-user-behavior"><div class="list">
+              <!-- ngRepeat: item in applys --><ion-item ng-repeat="item in applys" class="item">
+                <ul>
+                  <li>
+                    <label>编号：</label> <span class="yellow ng-binding">A1081468459299</span>
+                  </li>
+                  <li>
+                    <label>状态：</label> <span class="status2 status2-100">已完成</span>
+                  </li>
+                  <li>
+                    <label>金额 ：</label> <span class="money ng-binding">￥6,500.00</span>
+                  </li>
+                  <li>
+                    <label>匹配人数 ：</label> <span class="money ng-binding">1</span>
+                  </li>
+                  <li>
+                    <label>时间 ：</label> <time class="ng-binding">2016-07-14 09:21:39<time>
+                  </time></time></li>
+                  <li class="text-center">
+                    <button class="button button-balanced" ui-sref="app.applydetail({id:69533})" href="#/app/apply/69533">查看</button>
+                  </li>
+                </ul>
+              </ion-item><!-- end ngRepeat: item in applys --><ion-item ng-repeat="item in applys" class="item">
+                <ul>
+                  <li>
+                    <label>编号：</label> <span class="yellow ng-binding">A1081468202893</span>
+                  </li>
+                  <li>
+                    <label>状态：</label> <span class="status2 status2-100">已完成</span>
+                  </li>
+                  <li>
+                    <label>金额 ：</label> <span class="money ng-binding">￥1,700.00</span>
+                  </li>
+                  <li>
+                    <label>匹配人数 ：</label> <span class="money ng-binding">1</span>
+                  </li>
+                  <li>
+                    <label>时间 ：</label> <time class="ng-binding">2016-07-11 10:08:13<time>
+                  </time></time></li>
+                  <li class="text-center">
+                    <button class="button button-balanced" ui-sref="app.applydetail({id:65112})" href="#/app/apply/65112">查看</button>
+                  </li>
+                </ul>
+              </ion-item><!-- end ngRepeat: item in applys --><ion-item ng-repeat="item in applys" class="item">
+                <ul>
+                  <li>
+                    <label>编号：</label> <span class="yellow ng-binding">A1081467957056</span>
+                  </li>
+                  <li>
+                    <label>状态：</label> <span class="status2 status2-100">已完成</span>
+                  </li>
+                  <li>
+                    <label>金额 ：</label> <span class="money ng-binding">￥2,100.00</span>
+                  </li>
+                  <li>
+                    <label>匹配人数 ：</label> <span class="money ng-binding">2</span>
+                  </li>
+                  <li>
+                    <label>时间 ：</label> <time class="ng-binding">2016-07-08 13:50:56<time>
+                  </time></time></li>
+                  <li class="text-center">
+                    <button class="button button-balanced" ui-sref="app.applydetail({id:59385})" href="#/app/apply/59385">查看</button>
+                  </li>
+                </ul>
+              </ion-item><!-- end ngRepeat: item in applys --><ion-item ng-repeat="item in applys" class="item">
+                <ul>
+                  <li>
+                    <label>编号：</label> <span class="yellow ng-binding">A1081467881350</span>
+                  </li>
+                  <li>
+                    <label>状态：</label> <span class="status2 status2-100">已完成</span>
+                  </li>
+                  <li>
+                    <label>金额 ：</label> <span class="money ng-binding">￥1,500.00</span>
+                  </li>
+                  <li>
+                    <label>匹配人数 ：</label> <span class="money ng-binding">1</span>
+                  </li>
+                  <li>
+                    <label>时间 ：</label> <time class="ng-binding">2016-07-07 16:49:10<time>
+                  </time></time></li>
+                  <li class="text-center">
+                    <button class="button button-balanced" ui-sref="app.applydetail({id:57678})" href="#/app/apply/57678">查看</button>
+                  </li>
+                </ul>
+              </ion-item><!-- end ngRepeat: item in applys --><ion-item ng-repeat="item in applys" class="item">
+                <ul>
+                  <li>
+                    <label>编号：</label> <span class="yellow ng-binding">A1081467808505</span>
+                  </li>
+                  <li>
+                    <label>状态：</label> <span class="status2 status2-100">已完成</span>
+                  </li>
+                  <li>
+                    <label>金额 ：</label> <span class="money ng-binding">￥1,200.00</span>
+                  </li>
+                  <li>
+                    <label>匹配人数 ：</label> <span class="money ng-binding">1</span>
+                  </li>
+                  <li>
+                    <label>时间 ：</label> <time class="ng-binding">2016-07-06 20:35:05<time>
+                  </time></time></li>
+                  <li class="text-center">
+                    <button class="button button-balanced" ui-sref="app.applydetail({id:55363})" href="#/app/apply/55363">查看</button>
+                  </li>
+                </ul>
+              </ion-item><!-- end ngRepeat: item in applys --><ion-item ng-repeat="item in applys" class="item">
+                <ul>
+                  <li>
+                    <label>编号：</label> <span class="yellow ng-binding">A1081467800271</span>
+                  </li>
+                  <li>
+                    <label>状态：</label> <span class="status2 status2-100">已完成</span>
+                  </li>
+                  <li>
+                    <label>金额 ：</label> <span class="money ng-binding">￥10,800.00</span>
+                  </li>
+                  <li>
+                    <label>匹配人数 ：</label> <span class="money ng-binding">2</span>
+                  </li>
+                  <li>
+                    <label>时间 ：</label> <time class="ng-binding">2016-07-06 18:17:51<time>
+                  </time></time></li>
+                  <li class="text-center">
+                    <button class="button button-balanced" ui-sref="app.applydetail({id:55057})" href="#/app/apply/55057">查看</button>
+                  </li>
+                </ul>
+              </ion-item><!-- end ngRepeat: item in applys --><ion-item ng-repeat="item in applys" class="item">
+                <ul>
+                  <li>
+                    <label>编号：</label> <span class="yellow ng-binding">A1081467724806</span>
+                  </li>
+                  <li>
+                    <label>状态：</label> <span class="status2 status2-100">已完成</span>
+                  </li>
+                  <li>
+                    <label>金额 ：</label> <span class="money ng-binding">￥1,600.00</span>
+                  </li>
+                  <li>
+                    <label>匹配人数 ：</label> <span class="money ng-binding">1</span>
+                  </li>
+                  <li>
+                    <label>时间 ：</label> <time class="ng-binding">2016-07-05 21:20:06<time>
+                  </time></time></li>
+                  <li class="text-center">
+                    <button class="button button-balanced" ui-sref="app.applydetail({id:52632})" href="#/app/apply/52632">查看</button>
+                  </li>
+                </ul>
+              </ion-item><!-- end ngRepeat: item in applys --><ion-item ng-repeat="item in applys" class="item">
+                <ul>
+                  <li>
+                    <label>编号：</label> <span class="yellow ng-binding">A1081467699002</span>
+                  </li>
+                  <li>
+                    <label>状态：</label> <span class="status2 status2-100">已完成</span>
+                  </li>
+                  <li>
+                    <label>金额 ：</label> <span class="money ng-binding">￥1,200.00</span>
+                  </li>
+                  <li>
+                    <label>匹配人数 ：</label> <span class="money ng-binding">1</span>
+                  </li>
+                  <li>
+                    <label>时间 ：</label> <time class="ng-binding">2016-07-05 14:10:02<time>
+                  </time></time></li>
+                  <li class="text-center">
+                    <button class="button button-balanced" ui-sref="app.applydetail({id:51731})" href="#/app/apply/51731">查看</button>
+                  </li>
+                </ul>
+              </ion-item><!-- end ngRepeat: item in applys --><ion-item ng-repeat="item in applys" class="item">
+                <ul>
+                  <li>
+                    <label>编号：</label> <span class="yellow ng-binding">A1081467686790</span>
+                  </li>
+                  <li>
+                    <label>状态：</label> <span class="status2 status2-100">已完成</span>
+                  </li>
+                  <li>
+                    <label>金额 ：</label> <span class="money ng-binding">￥1,900.00</span>
+                  </li>
+                  <li>
+                    <label>匹配人数 ：</label> <span class="money ng-binding">1</span>
+                  </li>
+                  <li>
+                    <label>时间 ：</label> <time class="ng-binding">2016-07-05 10:46:30<time>
+                  </time></time></li>
+                  <li class="text-center">
+                    <button class="button button-balanced" ui-sref="app.applydetail({id:51243})" href="#/app/apply/51243">查看</button>
+                  </li>
+                </ul>
+              </ion-item><!-- end ngRepeat: item in applys --><ion-item ng-repeat="item in applys" class="item">
+                <ul>
+                  <li>
+                    <label>编号：</label> <span class="yellow ng-binding">A1081467599669</span>
+                  </li>
+                  <li>
+                    <label>状态：</label> <span class="status2 status2-100">已完成</span>
+                  </li>
+                  <li>
+                    <label>金额 ：</label> <span class="money ng-binding">￥1,100.00</span>
+                  </li>
+                  <li>
+                    <label>匹配人数 ：</label> <span class="money ng-binding">1</span>
+                  </li>
+                  <li>
+                    <label>时间 ：</label> <time class="ng-binding">2016-07-04 10:34:29<time>
+                  </time></time></li>
+                  <li class="text-center">
+                    <button class="button button-balanced" ui-sref="app.applydetail({id:48866})" href="#/app/apply/48866">查看</button>
+                  </li>
+                </ul>
+              </ion-item><!-- end ngRepeat: item in applys --><ion-item ng-repeat="item in applys" class="item">
+                <ul>
+                  <li>
+                    <label>编号：</label> <span class="yellow ng-binding">A1081467552201</span>
+                  </li>
+                  <li>
+                    <label>状态：</label> <span class="status2 status2-100">已完成</span>
+                  </li>
+                  <li>
+                    <label>金额 ：</label> <span class="money ng-binding">￥1,400.00</span>
+                  </li>
+                  <li>
+                    <label>匹配人数 ：</label> <span class="money ng-binding">1</span>
+                  </li>
+                  <li>
+                    <label>时间 ：</label> <time class="ng-binding">2016-07-03 21:23:21<time>
+                  </time></time></li>
+                  <li class="text-center">
+                    <button class="button button-balanced" ui-sref="app.applydetail({id:47914})" href="#/app/apply/47914">查看</button>
+                  </li>
+                </ul>
+              </ion-item><!-- end ngRepeat: item in applys --><ion-item ng-repeat="item in applys" class="item">
+                <ul>
+                  <li>
+                    <label>编号：</label> <span class="yellow ng-binding">A1081467530103</span>
+                  </li>
+                  <li>
+                    <label>状态：</label> <span class="status2 status2-100">已完成</span>
+                  </li>
+                  <li>
+                    <label>金额 ：</label> <span class="money ng-binding">￥1,900.00</span>
+                  </li>
+                  <li>
+                    <label>匹配人数 ：</label> <span class="money ng-binding">1</span>
+                  </li>
+                  <li>
+                    <label>时间 ：</label> <time class="ng-binding">2016-07-03 15:15:03<time>
+                  </time></time></li>
+                  <li class="text-center">
+                    <button class="button button-balanced" ui-sref="app.applydetail({id:47275})" href="#/app/apply/47275">查看</button>
+                  </li>
+                </ul>
+              </ion-item><!-- end ngRepeat: item in applys --><ion-item ng-repeat="item in applys" class="item">
+                <ul>
+                  <li>
+                    <label>编号：</label> <span class="yellow ng-binding">A1081467507427</span>
+                  </li>
+                  <li>
+                    <label>状态：</label> <span class="status2 status2-100">已完成</span>
+                  </li>
+                  <li>
+                    <label>金额 ：</label> <span class="money ng-binding">￥1,300.00</span>
+                  </li>
+                  <li>
+                    <label>匹配人数 ：</label> <span class="money ng-binding">1</span>
+                  </li>
+                  <li>
+                    <label>时间 ：</label> <time class="ng-binding">2016-07-03 08:57:07<time>
+                  </time></time></li>
+                  <li class="text-center">
+                    <button class="button button-balanced" ui-sref="app.applydetail({id:46339})" href="#/app/apply/46339">查看</button>
+                  </li>
+                </ul>
+              </ion-item><!-- end ngRepeat: item in applys --><ion-item ng-repeat="item in applys" class="item">
+                <ul>
+                  <li>
+                    <label>编号：</label> <span class="yellow ng-binding">A1081467207258</span>
+                  </li>
+                  <li>
+                    <label>状态：</label> <span class="status2 status2-100">已完成</span>
+                  </li>
+                  <li>
+                    <label>金额 ：</label> <span class="money ng-binding">￥1,000.00</span>
+                  </li>
+                  <li>
+                    <label>匹配人数 ：</label> <span class="money ng-binding">1</span>
+                  </li>
+                  <li>
+                    <label>时间 ：</label> <time class="ng-binding">2016-06-29 21:34:18<time>
+                  </time></time></li>
+                  <li class="text-center">
+                    <button class="button button-balanced" ui-sref="app.applydetail({id:39454})" href="#/app/apply/39454">查看</button>
+                  </li>
+                </ul>
+              </ion-item><!-- end ngRepeat: item in applys --><ion-item ng-repeat="item in applys" class="item">
+                <ul>
+                  <li>
+                    <label>编号：</label> <span class="yellow ng-binding">A1081467195402</span>
+                  </li>
+                  <li>
+                    <label>状态：</label> <span class="status2 status2-100">已完成</span>
+                  </li>
+                  <li>
+                    <label>金额 ：</label> <span class="money ng-binding">￥1,200.00</span>
+                  </li>
+                  <li>
+                    <label>匹配人数 ：</label> <span class="money ng-binding">1</span>
+                  </li>
+                  <li>
+                    <label>时间 ：</label> <time class="ng-binding">2016-06-29 18:16:42<time>
+                  </time></time></li>
+                  <li class="text-center">
+                    <button class="button button-balanced" ui-sref="app.applydetail({id:39178})" href="#/app/apply/39178">查看</button>
+                  </li>
+                </ul>
+              </ion-item><!-- end ngRepeat: item in applys --><ion-item ng-repeat="item in applys" class="item">
+                <ul>
+                  <li>
+                    <label>编号：</label> <span class="yellow ng-binding">A1081467110910</span>
+                  </li>
+                  <li>
+                    <label>状态：</label> <span class="status2 status2-100">已完成</span>
+                  </li>
+                  <li>
+                    <label>金额 ：</label> <span class="money ng-binding">￥1,200.00</span>
+                  </li>
+                  <li>
+                    <label>匹配人数 ：</label> <span class="money ng-binding">1</span>
+                  </li>
+                  <li>
+                    <label>时间 ：</label> <time class="ng-binding">2016-06-28 18:48:30<time>
+                  </time></time></li>
+                  <li class="text-center">
+                    <button class="button button-balanced" ui-sref="app.applydetail({id:37263})" href="#/app/apply/37263">查看</button>
+                  </li>
+                </ul>
+              </ion-item><!-- end ngRepeat: item in applys --><ion-item ng-repeat="item in applys" class="item">
+                <ul>
+                  <li>
+                    <label>编号：</label> <span class="yellow ng-binding">A1081467072035</span>
+                  </li>
+                  <li>
+                    <label>状态：</label> <span class="status2 status2-100">已完成</span>
+                  </li>
+                  <li>
+                    <label>金额 ：</label> <span class="money ng-binding">￥500.00</span>
+                  </li>
+                  <li>
+                    <label>匹配人数 ：</label> <span class="money ng-binding">1</span>
+                  </li>
+                  <li>
+                    <label>时间 ：</label> <time class="ng-binding">2016-06-28 08:00:35<time>
+                  </time></time></li>
+                  <li class="text-center">
+                    <button class="button button-balanced" ui-sref="app.applydetail({id:35481})" href="#/app/apply/35481">查看</button>
+                  </li>
+                </ul>
+              </ion-item><!-- end ngRepeat: item in applys --><ion-item ng-repeat="item in applys" class="item">
+                <ul>
+                  <li>
+                    <label>编号：</label> <span class="yellow ng-binding">A1081467016977</span>
+                  </li>
+                  <li>
+                    <label>状态：</label> <span class="status2 status2-100">已完成</span>
+                  </li>
+                  <li>
+                    <label>金额 ：</label> <span class="money ng-binding">￥700.00</span>
+                  </li>
+                  <li>
+                    <label>匹配人数 ：</label> <span class="money ng-binding">1</span>
+                  </li>
+                  <li>
+                    <label>时间 ：</label> <time class="ng-binding">2016-06-27 16:42:57<time>
+                  </time></time></li>
+                  <li class="text-center">
+                    <button class="button button-balanced" ui-sref="app.applydetail({id:34971})" href="#/app/apply/34971">查看</button>
+                  </li>
+                </ul>
+              </ion-item><!-- end ngRepeat: item in applys --><ion-item ng-repeat="item in applys" class="item">
+                <ul>
+                  <li>
+                    <label>编号：</label> <span class="yellow ng-binding">A1081466920306</span>
+                  </li>
+                  <li>
+                    <label>状态：</label> <span class="status2 status2-100">已完成</span>
+                  </li>
+                  <li>
+                    <label>金额 ：</label> <span class="money ng-binding">￥10,000.00</span>
+                  </li>
+                  <li>
+                    <label>匹配人数 ：</label> <span class="money ng-binding">2</span>
+                  </li>
+                  <li>
+                    <label>时间 ：</label> <time class="ng-binding">2016-06-26 13:51:46<time>
+                  </time></time></li>
+                  <li class="text-center">
+                    <button class="button button-balanced" ui-sref="app.applydetail({id:32818})" href="#/app/apply/32818">查看</button>
+                  </li>
+                </ul>
+              </ion-item><!-- end ngRepeat: item in applys --><ion-item ng-repeat="item in applys" class="item">
+                <ul>
+                  <li>
+                    <label>编号：</label> <span class="yellow ng-binding">A1081466910828</span>
+                  </li>
+                  <li>
+                    <label>状态：</label> <span class="status2 status2-100">已完成</span>
+                  </li>
+                  <li>
+                    <label>金额 ：</label> <span class="money ng-binding">￥1,200.00</span>
+                  </li>
+                  <li>
+                    <label>匹配人数 ：</label> <span class="money ng-binding">1</span>
+                  </li>
+                  <li>
+                    <label>时间 ：</label> <time class="ng-binding">2016-06-26 11:13:48<time>
+                  </time></time></li>
+                  <li class="text-center">
+                    <button class="button button-balanced" ui-sref="app.applydetail({id:32480})" href="#/app/apply/32480">查看</button>
+                  </li>
+                </ul>
+              </ion-item><!-- end ngRepeat: item in applys --><ion-item ng-repeat="item in applys" class="item">
+                <ul>
+                  <li>
+                    <label>编号：</label> <span class="yellow ng-binding">A1081466769148</span>
+                  </li>
+                  <li>
+                    <label>状态：</label> <span class="status2 status2-100">已完成</span>
+                  </li>
+                  <li>
+                    <label>金额 ：</label> <span class="money ng-binding">￥1,000.00</span>
+                  </li>
+                  <li>
+                    <label>匹配人数 ：</label> <span class="money ng-binding">2</span>
+                  </li>
+                  <li>
+                    <label>时间 ：</label> <time class="ng-binding">2016-06-24 19:52:28<time>
+                  </time></time></li>
+                  <li class="text-center">
+                    <button class="button button-balanced" ui-sref="app.applydetail({id:29971})" href="#/app/apply/29971">查看</button>
+                  </li>
+                </ul>
+              </ion-item><!-- end ngRepeat: item in applys --><ion-item ng-repeat="item in applys" class="item">
+                <ul>
+                  <li>
+                    <label>编号：</label> <span class="yellow ng-binding">A1081466754130</span>
+                  </li>
+                  <li>
+                    <label>状态：</label> <span class="status2 status2-100">已完成</span>
+                  </li>
+                  <li>
+                    <label>金额 ：</label> <span class="money ng-binding">￥1,300.00</span>
+                  </li>
+                  <li>
+                    <label>匹配人数 ：</label> <span class="money ng-binding">1</span>
+                  </li>
+                  <li>
+                    <label>时间 ：</label> <time class="ng-binding">2016-06-24 15:42:10<time>
+                  </time></time></li>
+                  <li class="text-center">
+                    <button class="button button-balanced" ui-sref="app.applydetail({id:29643})" href="#/app/apply/29643">查看</button>
+                  </li>
+                </ul>
+              </ion-item><!-- end ngRepeat: item in applys --><ion-item ng-repeat="item in applys" class="item">
+                <ul>
+                  <li>
+                    <label>编号：</label> <span class="yellow ng-binding">A1081466655538</span>
+                  </li>
+                  <li>
+                    <label>状态：</label> <span class="status2 status2-100">已完成</span>
+                  </li>
+                  <li>
+                    <label>金额 ：</label> <span class="money ng-binding">￥1,000.00</span>
+                  </li>
+                  <li>
+                    <label>匹配人数 ：</label> <span class="money ng-binding">1</span>
+                  </li>
+                  <li>
+                    <label>时间 ：</label> <time class="ng-binding">2016-06-23 12:18:58<time>
+                  </time></time></li>
+                  <li class="text-center">
+                    <button class="button button-balanced" ui-sref="app.applydetail({id:27775})" href="#/app/apply/27775">查看</button>
+                  </li>
+                </ul>
+              </ion-item><!-- end ngRepeat: item in applys --><ion-item ng-repeat="item in applys" class="item">
+                <ul>
+                  <li>
+                    <label>编号：</label> <span class="yellow ng-binding">A1081466642114</span>
+                  </li>
+                  <li>
+                    <label>状态：</label> <span class="status2 status2-100">已完成</span>
+                  </li>
+                  <li>
+                    <label>金额 ：</label> <span class="money ng-binding">￥600.00</span>
+                  </li>
+                  <li>
+                    <label>匹配人数 ：</label> <span class="money ng-binding">1</span>
+                  </li>
+                  <li>
+                    <label>时间 ：</label> <time class="ng-binding">2016-06-23 08:35:14<time>
+                  </time></time></li>
+                  <li class="text-center">
+                    <button class="button button-balanced" ui-sref="app.applydetail({id:27221})" href="#/app/apply/27221">查看</button>
+                  </li>
+                </ul>
+              </ion-item><!-- end ngRepeat: item in applys --><ion-item ng-repeat="item in applys" class="item">
+                <ul>
+                  <li>
+                    <label>编号：</label> <span class="yellow ng-binding">A1081466554252</span>
+                  </li>
+                  <li>
+                    <label>状态：</label> <span class="status2 status2-100">已完成</span>
+                  </li>
+                  <li>
+                    <label>金额 ：</label> <span class="money ng-binding">￥2,200.00</span>
+                  </li>
+                  <li>
+                    <label>匹配人数 ：</label> <span class="money ng-binding">1</span>
+                  </li>
+                  <li>
+                    <label>时间 ：</label> <time class="ng-binding">2016-06-22 08:10:52<time>
+                  </time></time></li>
+                  <li class="text-center">
+                    <button class="button button-balanced" ui-sref="app.applydetail({id:25484})" href="#/app/apply/25484">查看</button>
+                  </li>
+                </ul>
+              </ion-item><!-- end ngRepeat: item in applys --><ion-item ng-repeat="item in applys" class="item">
+                <ul>
+                  <li>
+                    <label>编号：</label> <span class="yellow ng-binding">A1081466467839</span>
+                  </li>
+                  <li>
+                    <label>状态：</label> <span class="status2 status2-100">已完成</span>
+                  </li>
+                  <li>
+                    <label>金额 ：</label> <span class="money ng-binding">￥1,400.00</span>
+                  </li>
+                  <li>
+                    <label>匹配人数 ：</label> <span class="money ng-binding">2</span>
+                  </li>
+                  <li>
+                    <label>时间 ：</label> <time class="ng-binding">2016-06-21 08:10:39<time>
+                  </time></time></li>
+                  <li class="text-center">
+                    <button class="button button-balanced" ui-sref="app.applydetail({id:23741})" href="#/app/apply/23741">查看</button>
+                  </li>
+                </ul>
+              </ion-item><!-- end ngRepeat: item in applys --><ion-item ng-repeat="item in applys" class="item">
+                <ul>
+                  <li>
+                    <label>编号：</label> <span class="yellow ng-binding">A1081466387066</span>
+                  </li>
+                  <li>
+                    <label>状态：</label> <span class="status2 status2-100">已完成</span>
+                  </li>
+                  <li>
+                    <label>金额 ：</label> <span class="money ng-binding">￥900.00</span>
+                  </li>
+                  <li>
+                    <label>匹配人数 ：</label> <span class="money ng-binding">1</span>
+                  </li>
+                  <li>
+                    <label>时间 ：</label> <time class="ng-binding">2016-06-20 09:44:26<time>
+                  </time></time></li>
+                  <li class="text-center">
+                    <button class="button button-balanced" ui-sref="app.applydetail({id:22243})" href="#/app/apply/22243">查看</button>
+                  </li>
+                </ul>
+              </ion-item><!-- end ngRepeat: item in applys --><ion-item ng-repeat="item in applys" class="item">
+                <ul>
+                  <li>
+                    <label>编号：</label> <span class="yellow ng-binding">A1081466295973</span>
+                  </li>
+                  <li>
+                    <label>状态：</label> <span class="status2 status2-100">已完成</span>
+                  </li>
+                  <li>
+                    <label>金额 ：</label> <span class="money ng-binding">￥800.00</span>
+                  </li>
+                  <li>
+                    <label>匹配人数 ：</label> <span class="money ng-binding">1</span>
+                  </li>
+                  <li>
+                    <label>时间 ：</label> <time class="ng-binding">2016-06-19 08:26:13<time>
+                  </time></time></li>
+                  <li class="text-center">
+                    <button class="button button-balanced" ui-sref="app.applydetail({id:20447})" href="#/app/apply/20447">查看</button>
+                  </li>
+                </ul>
+              </ion-item><!-- end ngRepeat: item in applys --><ion-item ng-repeat="item in applys" class="item">
+                <ul>
+                  <li>
+                    <label>编号：</label> <span class="yellow ng-binding">A1081466037910</span>
+                  </li>
+                  <li>
+                    <label>状态：</label> <span class="status2 status2-100">已完成</span>
+                  </li>
+                  <li>
+                    <label>金额 ：</label> <span class="money ng-binding">￥1,200.00</span>
+                  </li>
+                  <li>
+                    <label>匹配人数 ：</label> <span class="money ng-binding">1</span>
+                  </li>
+                  <li>
+                    <label>时间 ：</label> <time class="ng-binding">2016-06-16 08:45:10<time>
+                  </time></time></li>
+                  <li class="text-center">
+                    <button class="button button-balanced" ui-sref="app.applydetail({id:17193})" href="#/app/apply/17193">查看</button>
+                  </li>
+                </ul>
+              </ion-item><!-- end ngRepeat: item in applys --><ion-item ng-repeat="item in applys" class="item">
+                <ul>
+                  <li>
+                    <label>编号：</label> <span class="yellow ng-binding">A1081465968979</span>
+                  </li>
+                  <li>
+                    <label>状态：</label> <span class="status2 status2-100">已完成</span>
+                  </li>
+                  <li>
+                    <label>金额 ：</label> <span class="money ng-binding">￥1,000.00</span>
+                  </li>
+                  <li>
+                    <label>匹配人数 ：</label> <span class="money ng-binding">1</span>
+                  </li>
+                  <li>
+                    <label>时间 ：</label> <time class="ng-binding">2016-06-15 13:36:19<time>
+                  </time></time></li>
+                  <li class="text-center">
+                    <button class="button button-balanced" ui-sref="app.applydetail({id:16520})" href="#/app/apply/16520">查看</button>
+                  </li>
+                </ul>
+              </ion-item><!-- end ngRepeat: item in applys --><ion-item ng-repeat="item in applys" class="item">
+                <ul>
+                  <li>
+                    <label>编号：</label> <span class="yellow ng-binding">A1081465902228</span>
+                  </li>
+                  <li>
+                    <label>状态：</label> <span class="status2 status2-100">已完成</span>
+                  </li>
+                  <li>
+                    <label>金额 ：</label> <span class="money ng-binding">￥1,100.00</span>
+                  </li>
+                  <li>
+                    <label>匹配人数 ：</label> <span class="money ng-binding">1</span>
+                  </li>
+                  <li>
+                    <label>时间 ：</label> <time class="ng-binding">2016-06-14 19:03:48<time>
+                  </time></time></li>
+                  <li class="text-center">
+                    <button class="button button-balanced" ui-sref="app.applydetail({id:15770})" href="#/app/apply/15770">查看</button>
+                  </li>
+                </ul>
+              </ion-item><!-- end ngRepeat: item in applys --><ion-item ng-repeat="item in applys" class="item">
+                <ul>
+                  <li>
+                    <label>编号：</label> <span class="yellow ng-binding">A1081465777536</span>
+                  </li>
+                  <li>
+                    <label>状态：</label> <span class="status2 status2-100">已完成</span>
+                  </li>
+                  <li>
+                    <label>金额 ：</label> <span class="money ng-binding">￥2,100.00</span>
+                  </li>
+                  <li>
+                    <label>匹配人数 ：</label> <span class="money ng-binding">1</span>
+                  </li>
+                  <li>
+                    <label>时间 ：</label> <time class="ng-binding">2016-06-13 08:25:36<time>
+                  </time></time></li>
+                  <li class="text-center">
+                    <button class="button button-balanced" ui-sref="app.applydetail({id:14083})" href="#/app/apply/14083">查看</button>
+                  </li>
+                </ul>
+              </ion-item><!-- end ngRepeat: item in applys --><ion-item ng-repeat="item in applys" class="item">
+                <ul>
+                  <li>
+                    <label>编号：</label> <span class="yellow ng-binding">A1081465625437</span>
+                  </li>
+                  <li>
+                    <label>状态：</label> <span class="status2 status2-100">已完成</span>
+                  </li>
+                  <li>
+                    <label>金额 ：</label> <span class="money ng-binding">￥600.00</span>
+                  </li>
+                  <li>
+                    <label>匹配人数 ：</label> <span class="money ng-binding">1</span>
+                  </li>
+                  <li>
+                    <label>时间 ：</label> <time class="ng-binding">2016-06-11 14:10:37<time>
+                  </time></time></li>
+                  <li class="text-center">
+                    <button class="button button-balanced" ui-sref="app.applydetail({id:12603})" href="#/app/apply/12603">查看</button>
+                  </li>
+                </ul>
+              </ion-item><!-- end ngRepeat: item in applys --><ion-item ng-repeat="item in applys" class="item">
+                <ul>
+                  <li>
+                    <label>编号：</label> <span class="yellow ng-binding">A1081465436797</span>
+                  </li>
+                  <li>
+                    <label>状态：</label> <span class="status2 status2-100">已完成</span>
+                  </li>
+                  <li>
+                    <label>金额 ：</label> <span class="money ng-binding">￥600.00</span>
+                  </li>
+                  <li>
+                    <label>匹配人数 ：</label> <span class="money ng-binding">1</span>
+                  </li>
+                  <li>
+                    <label>时间 ：</label> <time class="ng-binding">2016-06-09 09:46:37<time>
+                  </time></time></li>
+                  <li class="text-center">
+                    <button class="button button-balanced" ui-sref="app.applydetail({id:10156})" href="#/app/apply/10156">查看</button>
+                  </li>
+                </ul>
+              </ion-item><!-- end ngRepeat: item in applys --><ion-item ng-repeat="item in applys" class="item">
+                <ul>
+                  <li>
+                    <label>编号：</label> <span class="yellow ng-binding">A1081465299310</span>
+                  </li>
+                  <li>
+                    <label>状态：</label> <span class="status2 status2-100">已完成</span>
+                  </li>
+                  <li>
+                    <label>金额 ：</label> <span class="money ng-binding">￥1,000.00</span>
+                  </li>
+                  <li>
+                    <label>匹配人数 ：</label> <span class="money ng-binding">2</span>
+                  </li>
+                  <li>
+                    <label>时间 ：</label> <time class="ng-binding">2016-06-07 19:35:10<time>
+                  </time></time></li>
+                  <li class="text-center">
+                    <button class="button button-balanced" ui-sref="app.applydetail({id:7947})" href="#/app/apply/7947">查看</button>
+                  </li>
+                </ul>
+              </ion-item><!-- end ngRepeat: item in applys --><ion-item ng-repeat="item in applys" class="item">
+                <ul>
+                  <li>
+                    <label>编号：</label> <span class="yellow ng-binding">A1081465291649</span>
+                  </li>
+                  <li>
+                    <label>状态：</label> <span class="status2 status2-100">已完成</span>
+                  </li>
+                  <li>
+                    <label>金额 ：</label> <span class="money ng-binding">￥500.00</span>
+                  </li>
+                  <li>
+                    <label>匹配人数 ：</label> <span class="money ng-binding">1</span>
+                  </li>
+                  <li>
+                    <label>时间 ：</label> <time class="ng-binding">2016-06-07 17:27:29<time>
+                  </time></time></li>
+                  <li class="text-center">
+                    <button class="button button-balanced" ui-sref="app.applydetail({id:7782})" href="#/app/apply/7782">查看</button>
+                  </li>
+                </ul>
+              </ion-item><!-- end ngRepeat: item in applys --><ion-item ng-repeat="item in applys" class="item">
+                <ul>
+                  <li>
+                    <label>编号：</label> <span class="yellow ng-binding">A1081465268813</span>
+                  </li>
+                  <li>
+                    <label>状态：</label> <span class="status2 status2-100">已完成</span>
+                  </li>
+                  <li>
+                    <label>金额 ：</label> <span class="money ng-binding">￥1,000.00</span>
+                  </li>
+                  <li>
+                    <label>匹配人数 ：</label> <span class="money ng-binding">1</span>
+                  </li>
+                  <li>
+                    <label>时间 ：</label> <time class="ng-binding">2016-06-07 11:06:53<time>
+                  </time></time></li>
+                  <li class="text-center">
+                    <button class="button button-balanced" ui-sref="app.applydetail({id:7221})" href="#/app/apply/7221">查看</button>
+                  </li>
+                </ul>
+              </ion-item><!-- end ngRepeat: item in applys --><ion-item ng-repeat="item in applys" class="item">
+                <ul>
+                  <li>
+                    <label>编号：</label> <span class="yellow ng-binding">A1081465247014</span>
+                  </li>
+                  <li>
+                    <label>状态：</label> <span class="status2 status2-100">已完成</span>
+                  </li>
+                  <li>
+                    <label>金额 ：</label> <span class="money ng-binding">￥400.00</span>
+                  </li>
+                  <li>
+                    <label>匹配人数 ：</label> <span class="money ng-binding">1</span>
+                  </li>
+                  <li>
+                    <label>时间 ：</label> <time class="ng-binding">2016-06-07 05:03:34<time>
+                  </time></time></li>
+                  <li class="text-center">
+                    <button class="button button-balanced" ui-sref="app.applydetail({id:6733})" href="#/app/apply/6733">查看</button>
+                  </li>
+                </ul>
+              </ion-item><!-- end ngRepeat: item in applys --><ion-item ng-repeat="item in applys" class="item">
+                <ul>
+                  <li>
+                    <label>编号：</label> <span class="yellow ng-binding">A1081465210367</span>
+                  </li>
+                  <li>
+                    <label>状态：</label> <span class="status2 status2-100">已完成</span>
+                  </li>
+                  <li>
+                    <label>金额 ：</label> <span class="money ng-binding">￥10,400.00</span>
+                  </li>
+                  <li>
+                    <label>匹配人数 ：</label> <span class="money ng-binding">1</span>
+                  </li>
+                  <li>
+                    <label>时间 ：</label> <time class="ng-binding">2016-06-06 18:52:47<time>
+                  </time></time></li>
+                  <li class="text-center">
+                    <button class="button button-balanced" ui-sref="app.applydetail({id:6332})" href="#/app/apply/6332">查看</button>
+                  </li>
+                </ul>
+              </ion-item><!-- end ngRepeat: item in applys --><ion-item ng-repeat="item in applys" class="item">
+                <ul>
+                  <li>
+                    <label>编号：</label> <span class="yellow ng-binding">A1081465129863</span>
+                  </li>
+                  <li>
+                    <label>状态：</label> <span class="status2 status2-100">已完成</span>
+                  </li>
+                  <li>
+                    <label>金额 ：</label> <span class="money ng-binding">￥1,000.00</span>
+                  </li>
+                  <li>
+                    <label>匹配人数 ：</label> <span class="money ng-binding">1</span>
+                  </li>
+                  <li>
+                    <label>时间 ：</label> <time class="ng-binding">2016-06-05 20:31:03<time>
+                  </time></time></li>
+                  <li class="text-center">
+                    <button class="button button-balanced" ui-sref="app.applydetail({id:5054})" href="#/app/apply/5054">查看</button>
+                  </li>
+                </ul>
+              </ion-item><!-- end ngRepeat: item in applys --><ion-item ng-repeat="item in applys" class="item">
+                <ul>
+                  <li>
+                    <label>编号：</label> <span class="yellow ng-binding">A1081465121527</span>
+                  </li>
+                  <li>
+                    <label>状态：</label> <span class="status2 status2-100">已完成</span>
+                  </li>
+                  <li>
+                    <label>金额 ：</label> <span class="money ng-binding">￥1,000.00</span>
+                  </li>
+                  <li>
+                    <label>匹配人数 ：</label> <span class="money ng-binding">1</span>
+                  </li>
+                  <li>
+                    <label>时间 ：</label> <time class="ng-binding">2016-06-05 18:12:07<time>
+                  </time></time></li>
+                  <li class="text-center">
+                    <button class="button button-balanced" ui-sref="app.applydetail({id:4902})" href="#/app/apply/4902">查看</button>
+                  </li>
+                </ul>
+              </ion-item><!-- end ngRepeat: item in applys --><ion-item ng-repeat="item in applys" class="item">
+                <ul>
+                  <li>
+                    <label>编号：</label> <span class="yellow ng-binding">A1081465109251</span>
+                  </li>
+                  <li>
+                    <label>状态：</label> <span class="status2 status2-100">已完成</span>
+                  </li>
+                  <li>
+                    <label>金额 ：</label> <span class="money ng-binding">￥1,500.00</span>
+                  </li>
+                  <li>
+                    <label>匹配人数 ：</label> <span class="money ng-binding">1</span>
+                  </li>
+                  <li>
+                    <label>时间 ：</label> <time class="ng-binding">2016-06-05 14:47:31<time>
+                  </time></time></li>
+                  <li class="text-center">
+                    <button class="button button-balanced" ui-sref="app.applydetail({id:4603})" href="#/app/apply/4603">查看</button>
+                  </li>
+                </ul>
+              </ion-item><!-- end ngRepeat: item in applys --><ion-item ng-repeat="item in applys" class="item">
+                <ul>
+                  <li>
+                    <label>编号：</label> <span class="yellow ng-binding">A1081465095313</span>
+                  </li>
+                  <li>
+                    <label>状态：</label> <span class="status2 status2-100">已完成</span>
+                  </li>
+                  <li>
+                    <label>金额 ：</label> <span class="money ng-binding">￥1,000.00</span>
+                  </li>
+                  <li>
+                    <label>匹配人数 ：</label> <span class="money ng-binding">1</span>
+                  </li>
+                  <li>
+                    <label>时间 ：</label> <time class="ng-binding">2016-06-05 10:55:13<time>
+                  </time></time></li>
+                  <li class="text-center">
+                    <button class="button button-balanced" ui-sref="app.applydetail({id:4265})" href="#/app/apply/4265">查看</button>
+                  </li>
+                </ul>
+              </ion-item><!-- end ngRepeat: item in applys --><ion-item ng-repeat="item in applys" class="item">
+                <ul>
+                  <li>
+                    <label>编号：</label> <span class="yellow ng-binding">A1081465077813</span>
+                  </li>
+                  <li>
+                    <label>状态：</label> <span class="status2 status2-100">已完成</span>
+                  </li>
+                  <li>
+                    <label>金额 ：</label> <span class="money ng-binding">￥500.00</span>
+                  </li>
+                  <li>
+                    <label>匹配人数 ：</label> <span class="money ng-binding">1</span>
+                  </li>
+                  <li>
+                    <label>时间 ：</label> <time class="ng-binding">2016-06-05 06:03:33<time>
+                  </time></time></li>
+                  <li class="text-center">
+                    <button class="button button-balanced" ui-sref="app.applydetail({id:4009})" href="#/app/apply/4009">查看</button>
+                  </li>
+                </ul>
+              </ion-item><!-- end ngRepeat: item in applys --><ion-item ng-repeat="item in applys" class="item">
+                <ul>
+                  <li>
+                    <label>编号：</label> <span class="yellow ng-binding">A1081464959932</span>
+                  </li>
+                  <li>
+                    <label>状态：</label> <span class="status2 status2-100">已完成</span>
+                  </li>
+                  <li>
+                    <label>金额 ：</label> <span class="money ng-binding">￥400.00</span>
+                  </li>
+                  <li>
+                    <label>匹配人数 ：</label> <span class="money ng-binding">1</span>
+                  </li>
+                  <li>
+                    <label>时间 ：</label> <time class="ng-binding">2016-06-03 21:18:52<time>
+                  </time></time></li>
+                  <li class="text-center">
+                    <button class="button button-balanced" ui-sref="app.applydetail({id:2981})" href="#/app/apply/2981">查看</button>
+                  </li>
+                </ul>
+              </ion-item><!-- end ngRepeat: item in applys --><ion-item ng-repeat="item in applys" class="item">
+                <ul>
+                  <li>
+                    <label>编号：</label> <span class="yellow ng-binding">A1081464870154</span>
+                  </li>
+                  <li>
+                    <label>状态：</label> <span class="status2 status2-100">已完成</span>
+                  </li>
+                  <li>
+                    <label>金额 ：</label> <span class="money ng-binding">￥7,000.00</span>
+                  </li>
+                  <li>
+                    <label>匹配人数 ：</label> <span class="money ng-binding">2</span>
+                  </li>
+                  <li>
+                    <label>时间 ：</label> <time class="ng-binding">2016-06-02 20:22:34<time>
+                  </time></time></li>
+                  <li class="text-center">
+                    <button class="button button-balanced" ui-sref="app.applydetail({id:2382})" href="#/app/apply/2382">查看</button>
+                  </li>
+                </ul>
+              </ion-item><!-- end ngRepeat: item in applys --><ion-item ng-repeat="item in applys" class="item">
+                <ul>
+                  <li>
+                    <label>编号：</label> <span class="yellow ng-binding">A1081464667998</span>
+                  </li>
+                  <li>
+                    <label>状态：</label> <span class="status2 status2-100">已完成</span>
+                  </li>
+                  <li>
+                    <label>金额 ：</label> <span class="money ng-binding">￥1,100.00</span>
+                  </li>
+                  <li>
+                    <label>匹配人数 ：</label> <span class="money ng-binding">1</span>
+                  </li>
+                  <li>
+                    <label>时间 ：</label> <time class="ng-binding">2016-05-31 12:13:18<time>
+                  </time></time></li>
+                  <li class="text-center">
+                    <button class="button button-balanced" ui-sref="app.applydetail({id:1304})" href="#/app/apply/1304">查看</button>
+                  </li>
+                </ul>
+              </ion-item><!-- end ngRepeat: item in applys --><ion-item ng-repeat="item in applys" class="item">
+                <ul>
+                  <li>
+                    <label>编号：</label> <span class="yellow ng-binding">A1081463994355</span>
+                  </li>
+                  <li>
+                    <label>状态：</label> <span class="status2 status2-100">已完成</span>
+                  </li>
+                  <li>
+                    <label>金额 ：</label> <span class="money ng-binding">￥10,000.00</span>
+                  </li>
+                  <li>
+                    <label>匹配人数 ：</label> <span class="money ng-binding">10</span>
+                  </li>
+                  <li>
+                    <label>时间 ：</label> <time class="ng-binding">2016-05-23 17:05:55<time>
+                  </time></time></li>
+                  <li class="text-center">
+                    <button class="button button-balanced" ui-sref="app.applydetail({id:222})" href="#/app/apply/222">查看</button>
+                  </li>
+                </ul>
+              </ion-item><!-- end ngRepeat: item in applys -->
+            </div></ion-list>
+          </div>
+        </div><div class="scroll-bar scroll-bar-v"><div class="scroll-bar-indicator scroll-bar-fade-out" style="transform: translate3d(0px, 0px, 0px) scaleY(1); height: 92px;"></div></div></ion-content></ion-tabs>
+    <!--</ion-content>-->
 </ion-view></ion-nav-view>
   </ion-side-menu-content>
 
@@ -163,56 +1218,9 @@
           <!--<a ng-click="toggleLeft()" href="#/app/test" class="m6"><b>测试</b></a>-->
         </ul>
       </div>
-    </div><div class="scroll-bar scroll-bar-v"><div class="scroll-bar-indicator scroll-bar-fade-out" style="transform: translate3d(0px, 0px, 0px) scaleY(1); height: 94px;"></div></div></ion-content>
+    </div><div class="scroll-bar scroll-bar-v"><div class="scroll-bar-indicator scroll-bar-fade-out" style="transform: translate3d(0px, 0px, 0px) scaleY(1); height: 98px;"></div></div></ion-content>
   </ion-side-menu>
-</ion-side-menus>
-
-<style>
-
-.menuC {
-    display: block;
-    background: #162635;
-    min-height: 1200px;
-  }
-  .menuC ul a.on {
-    background-color: #32D94B;
-  }
-  .menuC ul a.m0 {
-    background-image: url(images/menu/icon1.png);
-  }
-  .menuC ul a.m1 {
-    background-image: url(images/menu/icon2.png);
-  }
-  .menuC ul a.m2 {
-    background-image: url(images/menu/icon3.png);
-  }
-  .menuC ul a.m3 {
-    background-image: url(images/menu/icon6.png);
-  }
-  .menuC ul a.m4 {
-    background-image: url(images/menu/icon7.png);
-  }
-  .menuC ul a.m5 {
-    background-image: url(images/menu/icon10.png);
-  }
-  .menuC ul a.m6 {
-    background-image: url(images/menu/icon10.png);
-  }
-  .menuC ul a {
-    display: block;
-    width: 100%;
-    height: 50px;
-    line-height: 50px;
-    background: url(images/icon01.png) no-repeat 15% center;
-    background-size: auto 50%;
-    text-decoration: none;
-    font-size: 16px;
-    zoom: 1;
-    color: #fff;
-    transition-duration: .4s;
-  }
-
-</style></div></ion-nav-view>
+</ion-side-menus></ion-nav-view>
   
 
 <div class="backdrop"></div><div class="loading-container"><div class="loading"></div></div><div class="click-block click-block-hide"></div></body></html>
