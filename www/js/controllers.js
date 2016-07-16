@@ -1,11 +1,10 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope, $state, config) {
-    var memberid = localStorage.getItem(config.loginkey)
-    if (memberid === null || memberid === 'undefined') {
+.controller('AppCtrl', function($scope, $state, config,Auth) {
+    if (!Auth.has()) {
         $state.go('signin');
     } else {
-        $state.go('app.loading'); //加载应用基本数据
+        $state.go('app.loading');
     }
 })
 
@@ -74,15 +73,14 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('SigninCtrl', function($scope, $state, DataService, AlertService, config) {
+.controller('SigninCtrl', function($scope, $state, DataService, AlertService, config, Auth) {
 
     $scope.user = {
         username: "13803431018",
         pwd: "1234"
     };
 
-    var memberid = localStorage.getItem(config.loginkey);
-    if(!_.isUndefined(memberid) && !_.isNull(memberid) && memberid !== 'undefined'){
+    if(Auth.has()){
         $state.go('app.me');
     }
 
@@ -156,7 +154,7 @@ angular.module('starter.controllers', [])
             _.each($scope.pairs,function(item){
                 item.remainTime = remainTime(item.pay_time, 0);//收款倒计时
                 item.remainTime2 = remainTime(item.the_time, 1);//打款倒计时
-                item.img = 'images/payment/' + item.img;
+                if(item.img) item.img = config.domain +  'images/payment/' + item.img;
             });
         });
     }
@@ -252,9 +250,14 @@ angular.module('starter.controllers', [])
                 if(state < 100) return state * 10;
                 else return 100;
             })();
+            $scope.offer.interest =(function(){
+                var cfg = $rootScope.config;
+                if($scope.offer.fst == 0) return cfg.key6 *cfg.key24*$scope.offer.money;
+                else return 0;
+            })();
             _.each($scope.pairs,function(item,i){
                 item.remainTime = remainTime(item);
-                item.img = 'images/payment/' + item.img;
+                if(item.img) item.img =config.domain +  'images/payment/' + item.img;
                 //item.aboutIncome = DataService.Capital.about(item);
             });
         });
