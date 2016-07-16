@@ -539,6 +539,7 @@ angular.module('starter.services',[])
         };
 
         self.upload = function(url, prefix){
+            
             var deferred = $q.defer();
 
             if (!url){
@@ -550,6 +551,7 @@ angular.module('starter.services',[])
             var filePath = url;
 
             var ext = url.substr(url.lastIndexOf('/'));
+            prefix = prefix || 'dmd';
             var filename = prefix + "_" + moment().format('YYYYMMDDhhmmss') + '.' + ext;
 
             var options = new FileUploadOptions();
