@@ -478,7 +478,7 @@ angular.module('starter.controllers', [])
 
     function loadData(){
         var id = $rootScope.member.id;
-        if($scope.teamCount == 0) return AlertService.Alert('您没有下级');
+        if(id == $scope.current) return;
         history = [];
         DataService.TeamTree(id).then(function(data){
             if(data.isSuccess){ 
@@ -490,7 +490,6 @@ angular.module('starter.controllers', [])
     }
 
     function loadParent(){
-        console.log(JSON.stringify(history));
         var id = history.pop();
         DataService.TeamTree(id).then(function(data){
             if(data.isSuccess) {
@@ -501,7 +500,7 @@ angular.module('starter.controllers', [])
     }
 
     function loadChildren(id, n){
-        if(n == 0 ) return AlertService.Alert('您没有下级');
+        if(n == 0 ) return AlertService.Alert('此下属没有下级');
         DataService.TeamTree(id).then(function(data){
             if(data.isSuccess) {
                 $scope.team = data.data;
