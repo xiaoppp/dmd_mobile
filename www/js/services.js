@@ -604,6 +604,7 @@ angular.module('starter.services',[])
                         filename : filename //filename generated on local.
                     });
                 }, function (err) {
+                    alert(JSON.stringify(err));//test
                     AlertService.Alert("上传图片失败.");
                     LoadingService.Hide();
                     deferred.reject(err);

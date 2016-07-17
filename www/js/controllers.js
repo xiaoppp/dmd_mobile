@@ -401,6 +401,7 @@ angular.module('starter.controllers', [])
         $scope.model = {
             msgtype : 'complaint',
         };
+        
         $scope.replies = [];
         $scope.msgTypes = msgTypes;
         $scope.localImg = '';
@@ -416,8 +417,13 @@ angular.module('starter.controllers', [])
 
         function postMsg() {
             DataService.PostMsg($scope.model).then(function(data){
-                if(data.isSuccess) return AlertService.Alert("留言成功");
-                else return AlertService.Alert(data.data.message);
+                if(data.isSuccess){
+                    $scope.model.content = '';
+                    $scope.model.title = '';
+                    $scope.model.img = '';
+                    $scope.localImg = '';
+                    return AlertService.Alert("留言成功");
+                } else return AlertService.Alert(data.data.message);
             });
         }
 
