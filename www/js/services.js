@@ -82,11 +82,11 @@ angular.module('starter.services',[])
                 .success(function (data, status, headers, config) {
                     console.log(data);
                     deferred.resolve(data);
-                    LoadingService.Hide();
+                    if(showLoading) LoadingService.Hide();
                 })
                 .error(function (data, status, headers, config) {
                     deferred.reject(data);
-                    LoadingService.Hide();
+                    if(showLoading) LoadingService.Hide();
                     AlertService.Alert("网络不稳定，请稍后在试。");
                 });
 
@@ -94,8 +94,11 @@ angular.module('starter.services',[])
         }
 
         function HTTP_POST (url, params, showLoading) {
-            var _show_loading = (typeof(showLoading) == "undefined") ? true : showLoading;
-            if (_show_loading)
+            if (_.isUndefined(showLoading) || _.isNull(showLoading)) {
+                showLoading = true;
+            }
+
+            if(showLoading)
                 LoadingService.Show();
 
             var deferred = $q.defer();
@@ -120,11 +123,11 @@ angular.module('starter.services',[])
                     else {
                         AlertService.Alert(data.error.message)
                     }
-                    if (_show_loading) LoadingService.Hide();
+                    if (showLoading) LoadingService.Hide();
                 }).
                 error(function (data, status, headers, config) {
                     deferred.reject(data);
-                    if (_show_loading) LoadingService.Hide();
+                    if (showLoading) LoadingService.Hide();
                     AlertService.Alert("网络不稳定，请稍后在试。");
                 });
             return deferred.promise;
@@ -173,7 +176,7 @@ angular.module('starter.services',[])
                     AlertService.Alert(data.error.message);
                 }
             }).catch(function(err){
-                AlertService.Alert(err)
+                AlertService.Alert(err);
             });
         };
 
@@ -323,7 +326,7 @@ angular.module('starter.services',[])
 
         service.DenyPay = function(){
             //pair/payment/deny/:memberid
-            return HTTP_GET(_Combine('pair/payment/deny/'))
+            return HTTP_GET(_Combine('pair/payment/deny'))
         };
 
         service.PayOut = function(pairid, imgurl){
@@ -363,7 +366,7 @@ angular.module('starter.services',[])
 
     })
 
-    .service('AlertService', function ($ionicPopup) {
+    .service('AlertService', function ($ionicPopup,$ionicModal, $q, $rootScope) {
         var service = {};
 
         service.Confirm = function (content, title, fnOK, fnCancel) {
@@ -397,6 +400,22 @@ angular.module('starter.services',[])
             });
         };
 
+        service.ShowBigImage = function(url,scope){
+            var modal = $ionicModal.fromTemplate(
+                '<ion-modal-view ng-click="close();"><ion-content><div style="width:98%;margin:100px auto;"><img style="width:100%;" src="' + url + '"></div></ion-content></ion-modal-view>', 
+                {
+                    scope: scope || $rootScope, 
+                    animation: 'slide-in-up',
+                    backdropClickToClose : true
+                }
+            );
+            modal.scope.close = function(){
+                modal.remove();
+            };
+            modal.show();
+            return modal;
+        }
+
         function _pipe(msg){
             if(typeof msg !=='string'){
                 if(msg && typeof msg.message === 'string') return msg.message;
@@ -410,11 +429,9 @@ angular.module('starter.services',[])
     })
 
     .service('LoadingService', function ($rootScope, $ionicLoading) {
-
         var service = {
             Show: function (content) {
                 content = content || '数据加载中';
-
                 // Show the loading overlay and text
                 $ionicLoading.show({
                     template: '<ion-spinner icon="bubbles" class="spinner-balanced"></ion-spinner>' + content
@@ -487,7 +504,7 @@ angular.module('starter.services',[])
         };
     })
 
-    .service('Photo', function($cordovaCamera, $cordovaFileTransfer, $q, AlertService, config){
+    .service('Photo', function($cordovaCamera, $cordovaFileTransfer, $q, AlertService, config, Auth, LoadingService){
         var self = this;
 
         self.api = "";
@@ -552,14 +569,13 @@ angular.module('starter.services',[])
             var deferred = $q.defer();
 
             if (!url){
-                AlertService.Alert("还没有提供打款凭证");
                 deferred.reject('no url provided');
             }
 
             var server = config.host + self.api;
             var filePath = url;
-
-            var ext = url.substr(url.lastIndexOf('/'));
+            
+            //var ext = url.substr(url.lastIndexOf('/'));
             prefix = prefix || 'dmd';
             var filename = prefix + "_" + moment().format('YYYYMMDDhhmmss') + ".jpg";
 
@@ -567,16 +583,23 @@ angular.module('starter.services',[])
             options.fileKey = "image_file";
             options.fileName = filename;
             options.mimeType = "image/jpeg";
-
+            var headers = {};
+            headers['x-access-token'] =  Auth.current()
+            options.headers = headers;
+            
+            LoadingService.Show('图片上传中...');
+            
             $cordovaFileTransfer.upload(server, filePath, options)
                 .then(function (result) {
                     AlertService.Alert("上传图片成功.");
+                    LoadingService.Hide();
                     deferred.resolve({
                         result : result,  //response from server
                         filename : filename //filename generated on local.
                     });
                 }, function (err) {
                     AlertService.Alert("上传图片失败.");
+                    LoadingService.Hide();
                     deferred.reject(err);
                 }, function (progress) {
                 });

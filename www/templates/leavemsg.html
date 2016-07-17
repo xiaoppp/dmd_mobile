@@ -17,7 +17,7 @@
               <label class="item item-input">
                 <span class="input-label">上传图片：</span>
                 <div class="text-center">
-                  <img ng-if="localImg" ng-src="{{localImg}}" style="width:120px;height:120px;">
+                  <img ng-if="localImg" bigger-once-click ng-src="{{localImg}}" style="width:120px;height:120px;">
                   <br>
                   <button class="button icon button-balanced ion-camera" ng-click="takeImage()"></button>
                   <button class="button icon button-positive ion-ios-folder-outline" ng-click="selectImage()"></button>

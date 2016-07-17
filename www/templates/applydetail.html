@@ -85,7 +85,7 @@
                             <span>等待对方打款</span>
                         </div>
                         <div ng-if="item.state == 3">
-                            <img class="snapshot" ng-src="{{item.img}}">
+                            <img class="snapshot" bigger-once-click ng-src="{{item.img}}">
                             <br>
                             <button class="button button-balanced" ng-click="payIn(item)">确认收款</button>
                             <div ng-if="item.judge == 0" class="mt">
@@ -103,7 +103,7 @@
                             </div>
                         </div>
                         <div ng-if="item.state == 4">
-                            <img class="snapshot" ng-src="{{item.img}}">
+                            <img class="snapshot" bigger-once-click ng-src="{{item.img}}">
                             <br>
                             <label class="state state-4 fontsize-18"><i>✔</i>订单已完成</label>
                         </div>

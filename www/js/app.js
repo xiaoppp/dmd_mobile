@@ -41,6 +41,12 @@ angular.module('starter', ['ionic',
     controller: 'AppCtrl'
   })
 
+  .state('test', {
+    url: '/test',
+    templateUrl: 'templates/test.html',
+    controller : 'TestCtrl'
+  })
+
   .state('signin', {
     url: '/signin',
     templateUrl: 'templates/signin.html',
@@ -116,7 +122,8 @@ angular.module('starter', ['ionic',
     url: '/group',
     views: {
       'menuContent': {
-        templateUrl: 'templates/group.html'
+        templateUrl: 'templates/group.html',
+        controller : 'GroupCtrl'
       }
     }
   })
@@ -247,15 +254,6 @@ angular.module('starter', ['ionic',
       'menuContent': {
         templateUrl: 'templates/settings.html',
         controller: 'SettingsCtrl'
-      }
-    }
-  })
-
-  .state('app.test', {
-    url: '/test',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/test.html'
       }
     }
   })
