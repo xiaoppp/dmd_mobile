@@ -9,6 +9,13 @@ angular.module('starter.controllers', [])
     }
 })
 
+.controller('TestCtrl', function($scope, AlertService){
+    var modal = AlertService.ShowBigImage(
+        'http://img2.imgtn.bdimg.com/it/u=2073948144,1884927656&fm=21&gp=0.jpg'
+        , $scope
+        );
+})
+
 .controller('LoadingCtrl',function($scope,$state,config,DataService,$timeout){
     console.log('////app loading.');
     if(config.appDataLoaded) {
@@ -39,21 +46,24 @@ angular.module('starter.controllers', [])
 })
 
 .controller('MoneyCtrl', function($scope, $rootScope, $ionicTabsDelegate, DataService) {
-    $scope.incomes = []
+    $scope.moneys = [];
+    $scope.interests = [];
+    $scope.bonuss = [];
+    
     $scope.onTabSelected = function(index) {
         if (index == 0) {
             DataService.IncomeRecords('money', 0).then(function(data) {
-                $scope.incomes = data.data.rows;
+                $scope.moneys = data.data.rows;
             });
         }
         if (index == 1) {
             DataService.IncomeRecords('interest', 0).then(function(data) {
-                $scope.incomes = data.data.rows;
+                $scope.interests = data.data.rows;
             });
         }
         if (index == 2) {
             DataService.IncomeRecords('bonus', 0).then(function(data) {
-                $scope.incomes = data.data.rows;
+                $scope.bonuss = data.data.rows;
             });
         }
     }
@@ -269,6 +279,9 @@ angular.module('starter.controllers', [])
     }
 
     $scope.payOut = function(item){
+        if(!item.img) {
+            return AlertService.Alert('请先提供打款凭证');
+        }
         Photo.upload(item.img, item.id).then(function(res){
             DataService.PayOut(item.id, res.filename).then(function(data) {
                     DataService.reloadAppData();
@@ -368,7 +381,7 @@ angular.module('starter.controllers', [])
         DataService.MemberByID(member.parent_id).then(function(data){
             if(data.isSuccess){
                 var d = data.data;
-                 _.extend($scope.info,{referName : d.truename,referMobile:d.mobile});
+                 _.extend($scope.info, {referName : d.truename,referMobile:d.mobile});
             }
         });
     }
@@ -446,6 +459,56 @@ angular.module('starter.controllers', [])
         var value = 'http://112.124.15.7/?act=reg&refer='+ mobile;
         $scope.regUrl = value;
         $scope.qrCodeUrl = base+"?value="+encodeURIComponent(value);
+    }
+
+})
+
+.controller('GroupCtrl', function($scope, $rootScope, DataService, AlertService){
+
+    $scope.team = [];
+    $scope.current = 0;
+    $scope.teamCount = -1;
+    var history = [];
+
+    loadData();
+
+    $scope.loadChildren = loadChildren;
+    $scope.loadData = loadData;
+    $scope.loadParent = loadParent;
+
+    function loadData(){
+        var id = $rootScope.member.id;
+        if($scope.teamCount == 0) return AlertService.Alert('您没有下级');
+        history = [];
+        DataService.TeamTree(id).then(function(data){
+            if(data.isSuccess){ 
+                $scope.team = data.data; 
+                $scope.teamCount = data.data.length;
+                $scope.current = id;
+            }
+        });
+    }
+
+    function loadParent(){
+        console.log(JSON.stringify(history));
+        var id = history.pop();
+        DataService.TeamTree(id).then(function(data){
+            if(data.isSuccess) {
+                $scope.team = data.data;
+                $scope.current = id;
+            }
+        });
+    }
+
+    function loadChildren(id, n){
+        if(n == 0 ) return AlertService.Alert('您没有下级');
+        DataService.TeamTree(id).then(function(data){
+            if(data.isSuccess) {
+                $scope.team = data.data;
+                history.push($scope.current);
+                $scope.current = id;
+            }
+        });
     }
 
 })
