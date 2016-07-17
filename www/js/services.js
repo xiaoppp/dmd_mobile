@@ -182,29 +182,35 @@ angular.module('starter.services',[])
 
         //资产计算
         service.Capital = {
+            //本金总额
             sum: function(){
                 var member = $rootScope.member;
                 return member.money + member.moneyFreeze;
             },
+            //奖励总额
             bonus: function(){
                 var member = $rootScope.member;
                 return member.bonus + member.bonusFreeze;
             },
+            //总资产
             total: function(){
                 var member = $rootScope.member;
                 return 	member.money + member.interest +
                         member.bonus + member.moneyFreeze +
                         member.bonusFreeze;
             },
+            //全部冻结资产
             frozen: function(){
                 var member = $rootScope.member;
                 return member.moneyFreeze + member.bonusFreeze;
             },
+            //可提现资产
             available: function(){
                 var member = $rootScope.member;
                 return 	member.money + member.interest +
                         member.bonus - member.moneyApply;
             },
+            //预计收益
             about: function(){
                 var member = $rootScope.member;
                 var config = $rootScope.config;
