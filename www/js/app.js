@@ -15,7 +15,7 @@ angular.module('starter', ['ionic',
   'starter.directives'
 ])
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform,$rootScope,$location) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -27,6 +27,22 @@ angular.module('starter', ['ionic',
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
+
+    $rootScope.$on('$locationChangeStart', function(event, newUrl, oldUrl){
+      if($rootScope.member){
+        var m = $rootScope.member;
+        if(m.state == 0){
+           $location.search('code', 404);
+           $location.path('/app/error');
+          //alert('你已冻结');
+        } else {
+          if(m.showNews && !$rootScope.newsReaded) {
+            $location.path('/app/news');
+            $rootScope.newsReaded = true;
+          }
+        }
+      }
+    });
   });
 })
 
