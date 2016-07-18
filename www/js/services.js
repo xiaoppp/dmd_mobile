@@ -516,7 +516,7 @@ angular.module('starter.services',[])
         self.api = "";
 
         self.setApi = function(api){
-            if(_.isEmpty(api)) self.api = 'pair/payment/mobile/upload';
+            if(_.isEmpty(api)) self.api = 'common/mobile/upload';
             else self.api = api;
         };
         
