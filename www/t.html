@@ -1,14 +1,32 @@
 <html>
   <head>
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <script src="jquery.js"></script>
     <title>Test</title>
   </head>
   <body>
     <button id="btn">Click</button>
+    <form enctype="multipart/form-data">
+      <input type="file" name="file">
+      <input type="button" value="Upload" onclick="upload(event)">
+    </form>
   </body>
   <script>
-    document.getElementById('btn').addEventListener('click', function(){
-      alert('come on.');
-    });
+    function upload(e){
+        e.preventDefault()
+        var data = new FormData($('form')[0]);
+        $.ajax({
+            type: 'post',
+            data: data,
+            headers : {'x-access-token':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOjE2NzQyLCJpYXQiOjE0Njg4NDc3MDQsImV4cCI6MTQ3MTQzOTcwNH0.3ludxg1B96smpsv0G071wxxUacEFfzZy5S7Q5eaIURg'},
+            url: 'http://192.168.1.107:3000/api/common/mobile/upload',
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function(data){
+                console.log
+            }
+        });
+    }
   </script>
 </html>
